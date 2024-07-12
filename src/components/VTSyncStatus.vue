@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import IconDoubleCheck from '../icons/IconDoubleCheck.vue';
 import IconTime from '../icons/IconTime.vue';
+import VTToolTip from './VTToolTip.vue';
 
 
 const props = defineProps({
