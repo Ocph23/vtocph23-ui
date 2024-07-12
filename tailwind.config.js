@@ -1,0 +1,22 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  purge: [
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+    'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}',
+    'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
+  ],
+  content: [
+
+  ],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    // eslint-disable-next-line no-undef
+    require('flowbite/plugin'),
+    // eslint-disable-next-line no-undef
+    // new MiniCssExtractPlugin()
+  ],
+}
+

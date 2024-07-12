@@ -1,0 +1,92 @@
+{
+  "name": "@ocph23/vtocph23",
+  "version": "0.1.6",
+  "main": "./dist/vtocph23.umd.js",
+  "module": "./dist/vtocph23.umd.cjs",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "Victore And ocph23",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/vtocph23.js",
+      "require": "./dist/vtocph23.umd.cjs"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    },
+    "./*": "./dist/*"
+  },
+  "scripts": {
+    "build:package": "vite build",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly && tsc-alias -p tsconfig.json",
+    "build:production": "npm run build:package && npm run build:types",
+    "lint": "eslint . --ext .js,.ts,.vue --ignore-path .gitignore",
+    "lint-fix": "eslint . --fix --ext .js,.ts,.vue --ignore-path .gitignore",
+    "clear": "rm -fr ./dist && rm -fr ./dist_types",
+    "format": "prettier .  --write",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "typecheck": "vue-tsc --noEmit",
+    "prepublishOnly": "npm run build:production"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3",
+    "vue": "^3.4.x"
+  },
+  "dependencies": {
+    "@vueuse/core": "10.10.0",
+    "classnames": "2.5.1",
+    "floating-vue": "^5.2.2",
+    "flowbite": "^2.3.0",
+    "flowbite-vue": "^0.1.5",
+    "lodash-es": "4.17.21",
+    "nanoid": "5.0.7",
+    "tailwind-merge": "2.3.0",
+    "tailwindcss": "^3",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "pinia": "^2.1.7",
+    "@lottiefiles/dotlottie-vue": "^0.4.1",
+    "aos": "^2.3.4"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.8.0",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.14.5",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "@vue/cli-service": "^5.0.8",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.5.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "jsdom": "^24.1.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "npm-run-all2": "^6.2.0",
+    "postcss": "^8.4.39",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.4",
+    "typescript": "~5.4.0",
+    "vite": "^5.3.1",
+    "vite-plugin-vue-devtools": "^7.3.1",
+    "vitest": "^1.6.0",
+    "vue-tsc": "^2.0.21",
+    "@types/lodash-es": "4.17.12",
+    "@vitest/coverage-v8": "1.6.0",
+    "eslint-config-standard": "17.1.0",
+    "eslint-plugin-vue-scoped-css": "2.8.0",
+    "postcss-prefix-selector": "1.16.1",
+    "tsc-alias": "1.8.10",
+    "vitepress": "1.2.2"
+  }
+}
