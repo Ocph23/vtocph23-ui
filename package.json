@@ -23,7 +23,7 @@
     "./*": "./dist/*"
   },
   "scripts": {
-    "build:package": "vite build",
+    "build": "vite build",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly && tsc-alias -p tsconfig.json",
     "build:production": "npm run build:package && npm run build:types",
     "lint": "eslint . --ext .js,.ts,.vue --ignore-path .gitignore",
@@ -48,7 +48,6 @@
     "lodash-es": "4.17.21",
     "nanoid": "5.0.7",
     "tailwind-merge": "2.3.0",
-    "tailwindcss": "^3",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "pinia": "^2.1.7",
