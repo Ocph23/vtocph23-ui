@@ -1,3 +1,4 @@
+import './assets/main.css';
 
 //commond
 export { default as VTSelect } from "./components/VTSelect/VTSelect.vue";

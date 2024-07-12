@@ -1,6 +1,5 @@
 /* ./src/index.css */
-@import '../../node_modules/flowbite-vue/dist/index.css';
-@import './base.css';
+@import '/node_modules/flowbite-vue/dist/index.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
