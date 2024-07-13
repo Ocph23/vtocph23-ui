@@ -16,7 +16,7 @@ export { default as VTSidebarItem } from "./components/VTSidebarItem.vue";
 export { default as VTSyncStatus } from "./components/VTSyncStatus.vue";
 export { default as VTToolTip } from "./components/VTToolTip.vue";
 export { default as VTWrapText } from "./components/VTWrapText.vue";
-
+export { default as VTTable } from "./components/VTTable/VTTable.vue";
 
 //utlis
 export { default as VTBusyProgressView } from "./components/VTBusyProgress/VTBusyProgressView.vue";

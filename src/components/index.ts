@@ -64,3 +64,32 @@ export type TanggalFormat = 'Ymd' | 'dmY';
 export const DateWithFormat = { DateDMY: getDateDMY, DateYMD: getDateYMD };
 
 
+
+export interface ResponseRequest {
+    status: any,
+    message: string | undefined,
+    messages: any,
+    error: number | undefined,
+    data: any,
+}
+
+export interface PaginateResponse extends ResponseRequest {
+    data: any,
+    pager: Pager
+}
+
+export interface Pager {
+    currentUri: any
+    uri: any
+    hasMore: boolean
+    total: number
+    perPage: number
+    pageCount: number
+    pageSelector: string
+    currentPage: number
+    next: string
+    previous: any
+    segment: number
+}
+
+
