@@ -1,4 +1,4 @@
-import { useDialogStore } from "@/stores/dialogStore";
+import { reactive } from "vue"
 
 export interface Dialog {
     data?: any,
@@ -13,44 +13,45 @@ export interface Dialog {
 
 export type DialogType = 'success' | 'info' | 'warning' | 'error'
 
+class VTDialogProvider {
+    dialog: Dialog = reactive({
+        type: 'info', isShow: false, message: 'Are You Sure?', title: 'Delete',
+        buttonCloseText: 'Close', buttonOkeyText: 'Ok'
+    } as Dialog)
 
-const showDialog = (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string, type: DialogType = 'info') => {
-    const dialogStore = useDialogStore()
-    const dialog = dialogStore.dialog;
-    dialog.message = message;
-    dialog.title = title;
-    dialog.data = data;
-    dialog.type = type;
-    if (buttonCloseText != null) {
-        dialog.buttonCloseText = buttonCloseText;
+    private showDialog(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string, type: DialogType = 'info') {
+        this.dialog.message = message;
+        this.dialog.title = title;
+        this.dialog.data = data;
+        this.dialog.type = type;
+        if (buttonCloseText != null) {
+            this.dialog.buttonCloseText = buttonCloseText;
+        }
+        if (buttonOkeyText != null) {
+            this.dialog.buttonOkeyText = buttonOkeyText;
+        }
+        this.dialog.isShow = true
     }
-    if (buttonOkeyText != null) {
-        dialog.buttonOkeyText = buttonOkeyText;
+
+    show(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
+        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'info');
+    };
+
+    info(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
+        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'info');
+    };
+    success(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
+        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'success');
+    };
+    delete(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
+        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'error');
+    };
+    warning(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
+        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'warning');
+    };
+    onHandler(handler: Function) {
+        this.dialog.onOkeyClick = handler;
     }
-    dialog.isShow = true
 }
 
-export const VTDialogService = {
-    show: (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) => {
-        showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'info');
-    },
-
-    info: (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) => {
-        showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'info');
-    },
-    success: (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) => {
-        showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'success');
-    },
-    delete: (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) => {
-        showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'error');
-    },
-    warning: (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) => {
-        showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'warning');
-    },
-
-    onHandler: (handler: Function) => {
-        const dialogStore = useDialogStore()
-        const dialog = dialogStore.dialog;
-        dialog.onOkeyClick = handler;
-    }
-}
+export const VTDialogService = new VTDialogProvider();

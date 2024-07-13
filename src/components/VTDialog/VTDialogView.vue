@@ -1,18 +1,18 @@
 <template>
-    <VTModal size="lg" v-if="dialog.isShow" @close="closeModal" persistent>
+    <VTModal size="lg" v-if="VTDialogService.dialog.isShow" @close="closeModal" persistent>
         <template #header>
-            {{ dialog.title }}
+            {{ VTDialogService.dialog.title }}
         </template>
         <template #body>
-            {{ dialog.message }}
+            {{ VTDialogService.dialog.message }}
         </template>
         <template #footer>
             <div class="flex justify-end gap-2">
                 <fwb-button class="w-28" @click="closeModal" color="alternative">
-                    {{ dialog.buttonCloseText }}
+                    {{ VTDialogService.dialog.buttonCloseText }}
                 </fwb-button>
                 <fwb-button class="w-28" @click="okey" :color="getColor">
-                    {{ dialog.buttonOkeyText }}
+                    {{ VTDialogService.dialog.buttonOkeyText }}
                 </fwb-button>
             </div>
         </template>
@@ -23,28 +23,25 @@
 import { FwbButton } from 'flowbite-vue'
 import VTModal from '../VTModal.vue';
 import { computed } from 'vue';
-import { useDialogStore } from '@/stores/dialogStore';
-import type Dialog from '.';
+import { VTDialogService } from '.';
 
-const dialogStore = useDialogStore();
-const dialog: Dialog = dialogStore.dialog;
 
 function okey() {
-    dialog.isShow = false;
-    dialog.onOkeyClick(dialog.data);
+    VTDialogService.dialog.isShow = false;
+    VTDialogService.dialog.onOkeyClick(VTDialogService.dialog.data);
 };
 
 function closeModal() {
-    dialog.isShow = false;
+    VTDialogService.dialog.isShow = false;
 };
 
 const getColor = computed(() => {
-    if (dialog.type === 'success') {
+    if (VTDialogService.dialog.type === 'success') {
         return 'green';
-    } else if (dialog.type === 'warning') {
+    } else if (VTDialogService.dialog.type === 'warning') {
         return 'yellow';
     }
-    else if (dialog.type === 'error') {
+    else if (VTDialogService.dialog.type === 'error') {
         return 'red';
     } else {
         return 'blue';

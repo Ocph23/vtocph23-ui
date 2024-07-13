@@ -20,12 +20,12 @@ export { default as VTWrapText } from "./components/VTWrapText.vue";
 
 //utlis
 export { default as VTBusyProgressView } from "./components/VTBusyProgress/VTBusyProgressView.vue";
-export { default as VTDialog } from "./components/VTDialog/VTDialogView.vue";
+export { default as VTDialogView } from "./components/VTDialog/VTDialogView.vue";
 export { default as VTToastView } from "./components/VTToast/VTToastView.vue";
 
 //service
 export { VTBusyProgressService } from "./components/VTBusyProgress/index";
-export type { VTDialogService, Dialog, DialogType } from "./components/VTDialog/index";
+export { VTDialogService } from "./components/VTDialog/index";
 export { VTToastService } from "./components/VTToast/index";
 
 ///Icon
