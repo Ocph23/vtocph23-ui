@@ -3,6 +3,7 @@ import './components/index.ts'
 
 //commond
 export { default as VTInput, default as VTInputCurrency } from "./components/VTInput/VTInput.vue";
+export { default as VTTextArea } from "./components/VTTextArea/VTTextArea.vue";
 export { default as VTSelect } from "./components/VTSelect/VTSelect.vue";
 export { default as VTAutocomplete } from "./components/VTAutocomplete.vue";
 export { default as VTButtonAction } from "./components/VTButtonAction.vue";
