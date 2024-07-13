@@ -1,32 +1,31 @@
-import { useBusyProgressStore } from "@/stores/busyStore";
 import type { Ref } from "vue";
 
-export default interface BusyProgress {
+export interface BusyProgress {
     name?: string,
     start: Function,
     continue: Function,
     stop: Function,
 }
 
-export const BusyProgressService = {
-    start: async (isBusy?: Ref<boolean>) => {
-        const progressStore = useBusyProgressStore();
-        await progressStore.start();
+class VTBusyProgress {
+    progressStore: BusyProgress = {} as BusyProgress;
+    async start(isBusy?: Ref<boolean>) {
+        await this.progressStore.start();
         if (isBusy) {
             isBusy.value = true;
         }
-    },
-    continue: async () => {
-        const progressStore = useBusyProgressStore();
-        await progressStore.continue();
-    },
-    stop: async (isBusy?: Ref<boolean>) => {
-        const progressStore = useBusyProgressStore();
-        await progressStore.stop();
+    }
+    async continue() {
+        await this.progressStore.continue();
+    }
+    async stop(isBusy?: Ref<boolean>) {
+        await this.progressStore.stop();
         if (isBusy) {
             setTimeout(() => {
                 isBusy.value = false;
             }, 500);
         }
-    },
+    }
 }
+
+export const VTBusyProgressService = new VTBusyProgress();

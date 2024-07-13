@@ -5,23 +5,14 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { FwbProgress } from 'flowbite-vue';
-import type BusyProgress from '.';
-import { useBusyProgressStore } from '@/stores/busyStore';
+import { VTBusyProgressService } from '../VTBusyProgress/index';
 
 const isBusy = ref(false);
 const progress = ref(0);
-const busyProgressStore = useBusyProgressStore();
 const isPending = ref(false);
 const dontPending = ref(false);
 const bar = ref(1);
-
-const dataProgress = busyProgressStore.progress as BusyProgress;
-
-// watch(isBusy, (newValue) => {
-//     if (newValue) {
-//         startProgress();
-//     }
-// });
+const dataProgress = VTBusyProgressService.progressStore;
 
 watch(isPending, (newValue) => {
     if (!newValue && progress.value >= 80 && progress.value < 100) {

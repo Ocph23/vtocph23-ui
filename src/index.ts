@@ -19,14 +19,14 @@ export { default as VTWrapText } from "./components/VTWrapText.vue";
 
 
 //utlis
-export { default as VTBusyProgress } from "./components/VTBusyProgress/VTBusyProgress.vue";
-export { default as VTDialog } from "./components/VTDialog/VTDialogView.vue";
-export { default as VTToasView } from "./components/VTToast/VTToastView.vue";
+export { default as VTBusyProgressView } from "./components/VTBusyProgress/VTBusyProgressView.vue";
+export { default as VTDialogView } from "./components/VTDialog/VTDialogView.vue";
+export { default as VTToastView } from "./components/VTToast/VTToastView.vue";
 
 //service
-export type { default as BusyProgressService, default as BusyProgress } from "./components/VTBusyProgress/index";
-export type { default as DialogService, default as Dialog, default as DialogType } from "./components/VTDialog/index";
-export type { default as ToastItem, default as ToasService, } from "./components/VTToast/index";
+export { VTBusyProgressService } from "./components/VTBusyProgress/index";
+export { VTDialogService } from "./components/VTDialog/index";
+export { VTToastService } from "./components/VTToast/index";
 
 ///Icon
 export { default as VTIconCheck } from "./icons/IconCheck.vue"
