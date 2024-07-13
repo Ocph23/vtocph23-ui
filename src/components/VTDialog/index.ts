@@ -1,6 +1,6 @@
 import { useDialogStore } from "@/stores/dialogStore";
 
-export default interface Dialog {
+export interface Dialog {
     data?: any,
     title: string,
     message: string,
@@ -30,7 +30,7 @@ const showDialog = (title: string, message: string, data?: any, buttonCloseText?
     dialog.isShow = true
 }
 
-export const DialogService = {
+export const VTDialogService = {
     show: (title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) => {
         showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'info');
     },
