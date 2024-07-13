@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
+import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 
 const props = defineProps({
     busy: { type: Boolean },

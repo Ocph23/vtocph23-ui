@@ -6,7 +6,7 @@ export { default as VTInput, default as VTInputCurrency } from "./components/VTI
 export { default as VTSelect } from "./components/VTSelect/VTSelect.vue";
 export { default as VTAutocomplete } from "./components/VTAutocomplete.vue";
 export { default as VTButtonAction } from "./components/VTButtonAction.vue";
-export { default as VTButtonSave } from "./components/VTButtonSave.vue";
+export { default as VTButtonSave } from "./components/VTButtonSave/VTButtonSave.vue";
 export { default as VTCard } from "./components/VTCard.vue";
 export { default as VTInputErrorMessage } from "./components/VTInputErrorMessage.vue";
 export { default as VTModal } from "./components/VTModal.vue";
