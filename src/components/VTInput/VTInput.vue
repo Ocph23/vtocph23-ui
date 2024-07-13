@@ -14,7 +14,7 @@
             </div>
         </div>
         <p v-if="props.validation && props.validation.$error">
-            <FwbInputErrorMessage :messages="props.validation.$errors" />
+            <VTInputErrorMessage :messages="props.validation.$errors" />
         </p>
 
     </div>
@@ -31,6 +31,7 @@ import {
 } from './types'
 import type { Tanggal } from '../index'
 import { VTHelper } from '../../components'
+import VTInputErrorMessage from '../VTInputErrorMessage.vue'
 
 interface InputProps {
     disabled?: boolean
