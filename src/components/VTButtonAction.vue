@@ -1,5 +1,5 @@
 <template>
-    <div class="mr-1 p-0">
+    <div class="w-auto mr-1 p-0">
         <a :href="url" @click="click" class="flex items-center cursor-pointer" :class="styleClass">
             <slot />
         </a>
