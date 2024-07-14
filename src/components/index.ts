@@ -11,7 +11,7 @@ export interface SubMenuDetail {
     onClick?: any;
 }
 
-export default interface SelectOption {
+export interface SelectOption {
     value: any,
     name: string,
 }

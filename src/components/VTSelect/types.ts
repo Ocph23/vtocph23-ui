@@ -1,9 +1,5 @@
 export type InputSize = 'sm' | 'md' | 'lg'
 
-export type OptionsType = {
-    name: string,
-    value: string,
-}
 
 export const validationStatusMap = {
     Success: 'success',

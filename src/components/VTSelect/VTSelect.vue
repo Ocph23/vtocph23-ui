@@ -26,13 +26,14 @@ import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { twMerge } from 'tailwind-merge'
 import { useSelectClasses } from './useSelectClass'
-import { type InputSize, type OptionsType, type validationStatusMap } from './types'
+import { type InputSize, type validationStatusMap } from './types'
 import FwbInputErrorMessage from '../VTInputErrorMessage.vue'
+import type { SelectOption } from '..'
 
 interface InputProps {
     modelValue?: string;
     label?: string;
-    options?: OptionsType[];
+    options?: SelectOption[];
     placeholder?: string;
     disabled?: boolean;
     underline?: boolean;

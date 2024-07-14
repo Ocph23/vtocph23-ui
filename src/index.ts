@@ -22,10 +22,9 @@ export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView
 
 ///types
 export type { VTTableColumn } from "./components/VTTable/index";
-export type { OptionsType as SelectOption } from "./components/VTSelect/types";
 export type { SubMenuDetail as VTSubMenuDetail } from "./components/index";
-export { VTHelper } from "./components/index";
-export { DateWithFormat } from "./components/index";
+export { } from "./components/index";
+export { DateWithFormat, VTHelper, type SelectOption } from "./components/index";
 
 //utlis
 

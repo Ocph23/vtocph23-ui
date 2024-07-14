@@ -37,7 +37,7 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { twMerge } from 'tailwind-merge'
 import FwbInputErrorMessage from './VTInputErrorMessage.vue'
-import type SelectOption from '.';
+import type { SelectOption } from '.';
 
 const props = withDefaults(
   defineProps<{

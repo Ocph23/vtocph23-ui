@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, provide, ref } from 'vue';
 import IconGear from '../../icons/IconGear.vue';
-import type { VTTableColumn } from './VTTable.vue';
+import type { VTTableColumn } from '.';
 
 const emit = defineEmits(['hiddenColumn']);
 

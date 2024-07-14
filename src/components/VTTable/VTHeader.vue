@@ -25,8 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from 'vue';
-import type { VTTableColumn } from './VTTable.vue';
+import { computed, inject, ref, watch } from 'vue';
+import type { VTTableColumn } from '.';
 
 const props = withDefaults(defineProps<{
     title?: string
