@@ -1,6 +1,6 @@
 {
   "name": "@ocph23/vtocph23",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "./dist/vtocph23.umd.js",
   "module": "./dist/vtocph23.umd.cjs",
   "type": "module",
@@ -24,6 +24,7 @@
   },
   "scripts": {
     "build": "vite build",
+    "build:package": "vite build",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly && tsc-alias -p tsconfig.json",
     "build:production": "npm run build:package && npm run build:types",
     "lint": "eslint . --ext .js,.ts,.vue --ignore-path .gitignore",
