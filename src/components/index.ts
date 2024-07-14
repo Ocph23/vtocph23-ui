@@ -1,3 +1,16 @@
+
+export type SubMenuDetailType = 'Link' | 'Router' | 'Button';
+
+export interface SubMenuDetail {
+    link: string;
+    title: string;
+    routeName: string | undefined;
+    param?: any;
+    disabled?: boolean;
+    typeMenu: SubMenuDetailType;
+    onClick?: any;
+}
+
 export default interface SelectOption {
     value: any,
     name: string,

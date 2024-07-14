@@ -54,7 +54,8 @@
     "lodash-es": "4.17.21",
     "nanoid": "5.0.7",
     "pinia": "^2.1.7",
-    "tailwind-merge": "2.3.0"
+    "tailwind-merge": "2.3.0",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

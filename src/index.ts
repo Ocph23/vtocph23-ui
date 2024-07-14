@@ -18,8 +18,17 @@ export { default as VTSyncStatus } from "./components/VTSyncStatus.vue";
 export { default as VTToolTip } from "./components/VTToolTip.vue";
 export { default as VTWrapText } from "./components/VTWrapText.vue";
 export { default as VTTable } from "./components/VTTable/VTTable.vue";
+export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView.vue";
+
+///types
+export type { VTTableColumn } from "./components/VTTable/index";
+export type { OptionsType as SelectOption } from "./components/VTSelect/types";
+export type { SubMenuDetail as VTSubMenuDetail } from "./components/index";
+export { VTHelper } from "./components/index";
+export { DateWithFormat } from "./components/index";
 
 //utlis
+
 export { default as VTBusyProgressView } from "./components/VTBusyProgress/VTBusyProgressView.vue";
 export { default as VTDialogView } from "./components/VTDialog/VTDialogView.vue";
 export { default as VTToastView } from "./components/VTToast/VTToastView.vue";
