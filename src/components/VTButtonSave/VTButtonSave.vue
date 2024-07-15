@@ -41,7 +41,7 @@ onMounted(() => {
     <button
         :class="[props.disabled || props.busy ? 'bg-gray-500 cursor-no-drop' : 'bg-teal-500', 'rounded-lg p-2 flex flex-row items-center']"
         :disabled="props.disabled">
-        <div class="flex flex-row items-center justify-center text-white mx-2 px-2 min-w-20" v-if="showContent">
+        <div class="flex flex-row items-center justify-center text-white mx-2 min-w-20" v-if="showContent">
             <slot v-if="$slots.icon" name="icon" />
             <VTIconSave v-else class="mr-2" />
             <span v-if="props.title">{{ props.title }}</span>
