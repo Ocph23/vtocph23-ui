@@ -46,16 +46,10 @@ const clickButton = (item: SubMenuDetail) => {
 }
 </script>
 
-
 <template>
-  <fwb-accordion>
-    <fwb-accordion-panel v-for="item in props.items" :key="item.title">
-      <fwb-accordion-header>{{ title?.toUpperCase() }}</fwb-accordion-header>
-      <fwb-accordion-content>
-        <FwbButton @click="clickButton(item)" class="m-1" :outline="currentTab != item.title" color="default"
-          :disabled="item.disabled ? true : false">
-          {{ item.title }}</FwbButton>
-      </fwb-accordion-content>
-    </fwb-accordion-panel>
-  </fwb-accordion>
+  <div class="mb-5">
+    <FwbButton @click="clickButton(item)" v-for="item in props.items" :key="item.title" class="m-1"
+      :outline="currentTab != item.title" color="default" :disabled="item.disabled ? true : false">
+      {{ item.title }}</FwbButton>
+  </div>
 </template>

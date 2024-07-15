@@ -12,7 +12,6 @@ onMounted(() => {
     AOS.init();
 })
 
-
 </script>
 <template>
     <div class="fixed top-11 z-50 min-w-80 flex flex-col shadow-sm justify-end items-end m-3 -right-0">
