@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
+import { VTIconSave } from '@/index';
 
 const props = defineProps({
     busy: { type: Boolean },
@@ -42,7 +43,7 @@ onMounted(() => {
         :disabled="props.disabled">
         <div class="flex flex-row items-center justify-center text-white mx-2 px-2 min-w-20" v-if="showContent">
             <slot v-if="$slots.icon" name="icon" />
-            <VTSaveIcon v-else class="mr-2" />
+            <VTIconSave v-else class="mr-2" />
             <span v-if="props.title">{{ props.title }}</span>
             <span v-else>Simpan</span>
         </div>
