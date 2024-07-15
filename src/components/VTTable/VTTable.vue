@@ -249,11 +249,7 @@ export default {
           data.totalPages = result.pager.total;
           updateDisplayedData();
         } else if (method.value == "Get") {
-          if (result.data) {
-            data.source = result.data;
-          } else {
-            data.source = result;
-          }
+          data.source = result.data;
           data.totalPages = result.data ? Math.ceil(result.data.length / data.paginate.count) : 0;
           updateDisplayedData();
         }
