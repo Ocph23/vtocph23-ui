@@ -66,3 +66,4 @@ export { default as VTIconSave } from "./icons/IconSave.vue";
 export { default as VTIconGear } from "./icons/IconGear.vue";
 export { default as VTIconDoubleCheck } from "./icons/IconDoubleCheck.vue";
 export { default as VTIconTime } from "./icons/IconTime.vue";
+export { default as VTIconCalendar } from "./icons/IconCalendar.vue";

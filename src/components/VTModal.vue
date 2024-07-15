@@ -3,12 +3,12 @@
     <div class="bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40" />
     <div
       ref="modalRef"
-      class="fixed inset-0 z-50 flex items-center justify-center"
+      class="fixed inset-0 z-50 "
       tabindex="0"
       @click.self="clickOutside"
       @keyup.esc="closeWithEsc"
     >
-      <div :class="modalSizeClasses[size]" class="relative p-4 w-full">
+      <div :class="[modalSizeClasses[size], modalPositionClasses[position]]" class="absolute p-4 w-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <!-- Modal header -->
