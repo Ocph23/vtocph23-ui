@@ -14,7 +14,7 @@ export interface ToastItem {
 
 class ToastProvider {
     toasts = reactive<ToastItem[]>([]);
-    showToast(message: string, type: string, duration: number = 3000, closable: boolean, divide: boolean) {
+    showToast(message: string, type: string, duration: number = 3000, closable: boolean = true, divide: boolean) {
         const toas = { closable, divide, message, type } as ToastItem;
         this.toasts.push(toas);
         setTimeout(() => {
