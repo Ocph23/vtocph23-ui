@@ -5,9 +5,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     aria-hidden="true"
     role="img"
-    class="iconify iconify--mdi"
-    width="24"
-    height="24"
+    :class="iconClass"
     preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 24 24"
   >
@@ -17,3 +15,17 @@
     ></path>
   </svg>
 </template>
+<script setup lang="ts">
+import { toRefs } from 'vue';
+import { setIconClasses } from './iconClass';
+import type { IconProps } from './types';
+
+const props = withDefaults(defineProps<IconProps>(), {
+  size: 'xs',
+  color: 'default',
+  type: 'default',
+});
+
+const { iconClass } = setIconClasses(toRefs(props));
+
+</script>

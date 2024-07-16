@@ -1,16 +1,22 @@
 <template>
     <div class="w-auto mr-1 p-0">
         <a :href="url" @click="click" class="flex items-center cursor-pointer" :class="styleClass">
-            <slot />
+            <slot v-if="$slots.default" />
+            <VTIconDetail v-else-if="props.type === 'detail'"/>
+            <VTIconEdit v-else-if="props.type === 'edit'"/>
+            <VTIconDelete v-else-if="props.type === 'delete'"/>
         </a>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
+import { VTIconDelete, VTIconDetail, VTIconEdit } from '..';
 
-const props = defineProps<{ url?: string, data?: any, style?: ButtonActionType }>();
+const props = defineProps<{ url?: string, data?: any, style?: ButtonActionType, type?: ButtonIconType }>();
 const emit = defineEmits(['click'])
+
+// const slots = useSlots()
 
 function click() {
     emit('click', props.data)
@@ -45,6 +51,7 @@ const styleClass = computed(() => {
 
 
 export type ButtonActionType = 'success' | 'danger' | 'warning' | 'default' | 'info'
+export type ButtonIconType = 'delete' | 'edit' | 'default' | 'detail'
 
 
 </script>

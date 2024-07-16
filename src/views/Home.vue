@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <VTCard class="h-screen" title="Title" subtitle="subtitle" description="description">
         <VTAutocomplete v-model="selected" :sources="data"></VTAutocomplete>

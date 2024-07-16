@@ -7,5 +7,16 @@
 </template>
 
 <script setup lang="ts">
-import iconClass from './iconClass';
+import { toRefs } from 'vue';
+import { setIconClasses } from './iconClass';
+import type { IconProps } from './types';
+
+const props = withDefaults(defineProps<IconProps>(), {
+  size: 'xs',
+  color: 'default',
+  type: 'default',
+});
+
+const { iconClass } = setIconClasses(toRefs(props));
+
 </script>
