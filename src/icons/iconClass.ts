@@ -19,18 +19,17 @@ const iconSizeClasses: Record<IconSize, string> = {
 };
 
 const iconColorClasses: Record<IconColor, string> = {
-    warning: "text-orange-500 group-hover:text-orange-600 dark:text-orange-300 dark:group-hover:text-orange-400",
-    danger: "text-red-500 group-hover:text-red-600 dark:text-red-300 dark:group-hover:text-red-400",
-    success: "text-green-500 group-hover:text-green-600 dark:text-green-300 dark:group-hover:text-green-400",
-    info: "text-sky-500 group-hover:text-sky-600 dark:text-sky-300 dark:group-hover:text-sky-400",
-    primary: "text-indigo-500 group-hover:text-indigo-600 dark:text-indigo-300 dark:group-hover:text-indigo-400",
+    warning: "text-orange-500 group-hover:text-orange-600 dark:group-hover:text-orange-400",
+    danger: "text-red-600 group-hover:text-red-700 dark:group-hover:text-red-500",
+    success: "text-green-600 group-hover:text-green-700 dark:group-hover:text-green-500",
+    info: "text-sky-500 group-hover:text-sky-600 dark:group-hover:text-sky-400",
+    primary: "text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400",
     default: "text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white"
 }
 
 const iconUsageClasses: Record<IconUsage, string> = {
     button: "text-gray-200 group-hover:text-white mr-2",
     sidebar: "text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white",
-    menu: '',
     default: iconColorClasses.default
 };
 
