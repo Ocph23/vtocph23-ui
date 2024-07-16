@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import VTAutocomplete from '@/components/VTAutocomplete.vue';
 import VTCard from '@/components/VTCard.vue';
 import VTSelect from '@/components/VTSelect/VTSelect.vue';
 import { VTIconCheck, VTIconDelete } from '..';
