@@ -23,6 +23,7 @@
     "./*": "./dist/*"
   },
   "scripts": {
+    "dev": "vite dev",
     "build": "vite build",
     "build:package": "vite build",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly && tsc-alias -p tsconfig.json",
@@ -55,6 +56,7 @@
     "nanoid": "5.0.7",
     "pinia": "^2.1.7",
     "tailwind-merge": "2.3.0",
+    "vue": "^3.4.31",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
