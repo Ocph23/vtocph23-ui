@@ -23,12 +23,13 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div :class="$slots.header ? '' : 'pt-0'" class="p-6">
-                        <IconDetail />
-                        <Iconwa />
-                        <IconDetail />
-
-
+                    <div :class="$slots.header ? '' : 'pt-0'" class="flex items-center p-6">
+                        <div class="rounded-full shadow-2xl p-3 m-3 w-auto"
+                            :class="VTDialogService.dialog.type == 'warning' ? ' bg-amber-500' : VTDialogService.dialog.type == 'info' ? ' bg-blue-500' : VTDialogService.dialog.type == 'success' ? 'bg-teal-500' : 'bg-rose-500'">
+                            <IconDetail size="xl" v-if="VTDialogService.dialog.type == 'info'" />
+                            <IconCheck size="xl" v-else-if="VTDialogService.dialog.type == 'success'" />
+                            <IconExclamationTriangle size="xl" v-else />
+                        </div>
                         {{ VTDialogService.dialog.message }}
                     </div>
                     <!-- Modal footer -->
@@ -54,6 +55,8 @@ import { computed } from 'vue';
 import { VTDialogService } from '.';
 import { onMounted, ref, type Ref } from 'vue'
 import IconDetail from '@/icons/IconDetail.vue';
+import IconExclamationTriangle from '@/icons/IconExclamationTriangle.vue';
+import IconCheck from '@/icons/IconCheck.vue';
 
 interface ModalProps {
     notEscapable?: boolean
@@ -64,7 +67,7 @@ interface ModalProps {
 
 const props = withDefaults(defineProps<ModalProps>(), {
     notEscapable: false,
-    persistent: false,
+    persistent: true,
     size: 'md',
     position: 'center'
 })
@@ -145,7 +148,7 @@ const getColor = computed(() => {
     } else if (VTDialogService.dialog.type === 'warning') {
         return 'yellow';
     }
-    else if (VTDialogService.dialog.type === 'error') {
+    else if (VTDialogService.dialog.type === 'danger') {
         return 'red';
     } else {
         return 'blue';

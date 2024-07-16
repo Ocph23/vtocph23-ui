@@ -12,7 +12,7 @@ export interface Dialog {
     type: DialogType
 }
 
-export type DialogType = 'success' | 'info' | 'warning' | 'error'
+export type DialogType = 'success' | 'info' | 'warning' | 'danger'
 
 class VTDialogProvider {
     dialog: Dialog = reactive({
@@ -35,7 +35,7 @@ class VTDialogProvider {
     }
 
 
-    asyncShowDialog(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string, type: DialogType = 'info'): Promise<any> {
+    asyncShowDialog(title: string, message: string, data?: any, type: DialogType = 'info', buttonCloseText?: string, buttonOkeyText?: string): Promise<any> {
         this.dialog.isShow = true
         return new Promise((resolve, reject) => {
             this.dialog.message = message;
@@ -71,8 +71,8 @@ class VTDialogProvider {
     success(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
         this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'success');
     };
-    delete(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
-        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'error');
+    danger(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
+        this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'danger');
     };
     warning(title: string, message: string, data?: any, buttonCloseText?: string, buttonOkeyText?: string) {
         this.showDialog(title, message, data, buttonCloseText, buttonOkeyText, 'warning');

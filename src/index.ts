@@ -67,3 +67,4 @@ export { default as VTIconGear } from "./icons/IconGear.vue";
 export { default as VTIconDoubleCheck } from "./icons/IconDoubleCheck.vue";
 export { default as VTIconTime } from "./icons/IconTime.vue";
 export { default as VTIconCalendar } from "./icons/IconCalendar.vue";
+export { default as VTIconExclamationTriangle } from "./icons/IconExclamationTriangle.vue";
