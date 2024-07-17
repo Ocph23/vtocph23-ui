@@ -19,9 +19,10 @@ const selected = ref(null)
 const data = [{ name: "Yoseph Kungkung", value: 1 }, { name: "Yoseph X", value: 2 }]
 
 const showDialog = () => {
-    VTDialogService.asyncShowDialog("Dialog", "ini Pesan ini Pesanini Pesanini Pesanini Pesanini Pesanini Pesanini Pesanini Pesan", { name: 'budi' }, 'danger').then(result => {
-        VTDialogService.show("Dialog", "ini Pesan" + result)
-    })
+    VTDialogService.asyncShowDialog("Dialog", "ini Pesan ini Pesanini Pesanini Pesanini Pesanini Pesanini Pesanini Pesanini Pesan", { name: 'budi' }, 'warning')
+        .then(result => {
+            VTDialogService.show("Dialog", "ini Pesan" + result)
+        })
 }
 
 </script>

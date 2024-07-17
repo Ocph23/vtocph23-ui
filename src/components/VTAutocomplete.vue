@@ -20,7 +20,7 @@
     <p v-if="props.validation && props.validation.$error">
       <FwbInputErrorMessage :messages="props.validation.$errors" />
     </p>
-    <ul v-if="showOptions && filteredList.length"
+    <ul v-if="showOptions && filteredList.length" @keyup.esc="closeFocus"
       class=" absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]">
       <li v-for="(item, index) in filteredList.slice(0, 10)" :key="index" @click="selectItem(item)"
         class="p-2 block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:text-gray-200 cursor-pointer font-medium timbul">
@@ -103,7 +103,7 @@ const onFocus = () => {
     filteredList = props.sources;
   }
 }
-const closeFocus = () => showOptions.value = true
+const closeFocus = () => showOptions.value = false
 
 const selectItem = (item: SelectOption) => {
   if (item) {
