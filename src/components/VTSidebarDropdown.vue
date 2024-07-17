@@ -23,7 +23,7 @@
       </slot>
     </button>
 
-    <div class="py-2 space-y-2 z-0 overflow-hidden">
+    <div class="z-0 overflow-hidden">
       <transition :duration="150" enter-from-class="-translate-y-full" enter-to-class="translate-y-0"
         enter-active-class="transition duration-400 ease-out" leave-active-class="transition duration-400 ease-in"
         leave-from-class="translate-y-0" leave-to-class="-translate-y-full">
