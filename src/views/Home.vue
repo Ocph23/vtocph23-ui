@@ -2,7 +2,12 @@
 <template>
     <VTCard class="h-screen" title="Title" subtitle="subtitle" description="description">
         <VTAutocomplete v-model="selected" :sources="data"></VTAutocomplete>
-
+        <VTIconSubmenu />
+        <div class="p-2 bg-rose-100">
+            <!-- <VTIconAddUser color="primary"/> -->
+            <VTIconResetPassword color="info"/>
+            <slot name="cth"/>
+        </div>
         <button @click="showDialog">test</button>
     </VTCard>
 
@@ -17,6 +22,7 @@ import { VTBusyProgressService } from '@/components/VTBusyProgress';
 import VTCard from '@/components/VTCard.vue';
 import { VTDialogService } from '@/components/VTDialog';
 import { onMounted, ref } from 'vue';
+import { VTIconAddUser, VTIconResetPassword, VTIconSubmenu } from '..';
 
 
 const selected = ref(null)

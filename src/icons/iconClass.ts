@@ -38,7 +38,6 @@ export function setIconClasses(data: IconPropsClass): {
 } {
 
     const iconClass = computed(() => {
-        // const btnClass = data.type.value === 'button' ? iconUsageClasses.button
         return twMerge(
             "flex-shrink-0 transition duration-75",
             data.type.value === 'button' ? iconUsageClasses[data.type.value] : 
