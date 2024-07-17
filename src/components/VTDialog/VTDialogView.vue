@@ -66,7 +66,7 @@ interface ModalProps {
 }
 
 const props = withDefaults(defineProps<ModalProps>(), {
-    notEscapable: false,
+    notEscapable: true,
     persistent: true,
     size: 'md',
     position: 'center'
