@@ -5,10 +5,6 @@
 
         <button @click="showDialog">test</button>
     </VTCard>
-
-
-
-
 </template>
 
 <script setup lang="ts">

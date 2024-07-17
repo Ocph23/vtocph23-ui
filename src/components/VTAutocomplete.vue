@@ -4,7 +4,7 @@
   <div class="relative mb-2">
     <div class="relative">
       <input :class="[inputClasses]" type="text" v-model="internalQuery" @blur="closeFocus" @input="filterList"
-        :placeholder="props.placeholder" @keyup="onFocus" />
+        :placeholder="props.placeholder" @keyup="onFocus" @keyup.esc="closeFocus" />
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" @click="onClickDropdown" fill="currentColor"
         class="w-3 h-3 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
         <path
