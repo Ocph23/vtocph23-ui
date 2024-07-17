@@ -127,7 +127,7 @@ const clearSelection = () => {
   showOptions.value = true
 }
 
-// Detect click outside
+// Close option when click outside VTAutocomplete component area 
 const handleClickOutside = (event: MouseEvent) => {
   if (dropdown.value && !dropdown.value.contains(event.target as Node)) {
     closeFocus();
