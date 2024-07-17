@@ -4,7 +4,7 @@
   <div class="relative mb-2">
     <div class="relative">
       <input :class="[inputClasses]" type="text" v-model="internalQuery" @blur="closeFocus" @input="filterList"
-        :placeholder="props.placeholder" @keyup="onFocus" />
+        :placeholder="props.placeholder" @keyup="onFocus" @keyup.esc="closeFocus" />
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" @click="onClickDropdown" fill="currentColor"
         class="w-3 h-3 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
         <path
@@ -20,7 +20,7 @@
     <p v-if="props.validation && props.validation.$error">
       <FwbInputErrorMessage :messages="props.validation.$errors" />
     </p>
-    <ul v-if="showOptions && filteredList.length"
+    <ul v-if="showOptions && filteredList.length" @keyup.esc="closeFocus"
       class=" absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]">
       <li v-for="(item, index) in filteredList.slice(0, 10)" :key="index" @click="selectItem(item)"
         class="p-2 block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:text-gray-200 cursor-pointer font-medium timbul">
@@ -103,7 +103,7 @@ const onFocus = () => {
     filteredList = props.sources;
   }
 }
-const closeFocus = () => showOptions.value = true
+const closeFocus = () => showOptions.value = false
 
 const selectItem = (item: SelectOption) => {
   if (item) {

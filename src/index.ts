@@ -18,6 +18,7 @@ export { default as VTSyncStatus } from "./components/VTSyncStatus.vue";
 export { default as VTToolTip } from "./components/VTToolTip.vue";
 export { default as VTWrapText } from "./components/VTWrapText.vue";
 export { default as VTTable } from "./components/VTTable/VTTable.vue";
+export { default as Th } from "./components/VTTable/VTHeader.vue";
 export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView.vue";
 
 ///types
