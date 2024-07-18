@@ -28,7 +28,7 @@ const iconColorClasses: Record<IconColor, string> = {
 }
 
 const iconUsageClasses: Record<IconUsage, string> = {
-    button: "text-gray-200 group-hover:text-white mr-2",
+    button: "text-gray-200 group-hover:text-white mr-2 w-4 h-4",
     sidebar: "text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white",
     default: iconColorClasses.default
 };
@@ -38,12 +38,12 @@ export function setIconClasses(data: IconPropsClass): {
 } {
 
     const iconClass = computed(() => {
+
         return twMerge(
             "flex-shrink-0 transition duration-75",
-            data.type.value === 'button' ? iconUsageClasses[data.type.value] : 
-            data.type.value === 'sidebar' ? iconUsageClasses[data.type.value] : 
-            iconColorClasses[data.color.value],
-            iconSizeClasses[data.size.value],
+            data.type.value === 'button' ? iconUsageClasses[data.type.value] :
+                data.type.value === 'sidebar' ? iconUsageClasses[data.type.value] :
+                    iconColorClasses[data.color.value], iconSizeClasses[data.size.value]
         )
     });
     return { iconClass }
