@@ -32,7 +32,7 @@
             rowIndex % 2 === 0 ? 'dark:bg-gray-500 bg-gray-100' : 'bg-gray-200 dark:bg-gray-600', 'hover:bg-gray-300 dark:hover:bg-gray-700'
           ]">
             <td v-for="column in headerColumns.filter((x) => !x.hiddenColumn)" :key="column.name"
-              :class="[props.bordered ? ' border-[1px]' : '', column.rowClass, 'px-4 py-2 border-r-0 border-b-[1px] border-gray-300']">
+              :class="[props.bordered ? ' border-[1px]' : '', column.rowClass, 'px-4 py-2 border-r-0 border-b-[1px] border-gray-300 text-nowrap']">
               <div v-if="column.name && column.type == 'Custome'">
                 <slot :name="column.name" v-bind="{ data: row, index: rowIndex }" />
               </div>
