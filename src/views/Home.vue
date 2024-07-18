@@ -1,14 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <VTCard class="h-screen" title="Title" subtitle="subtitle" description="description">
-        <VTAutocomplete v-model="options.listing" :sources="data"></VTAutocomplete>
+        <VTAutocomplete v-model="tableData.sources" :sources="data"></VTAutocomplete>
         <VTIconSubmenu />
         <div class="p-2 bg-rose-100">
             <VTIconResetPassword color="info"/>
         </div>
         <div class="p-2 bg-indigo-400">
-            <VTAutocomplete :sources="listJenis" v-model="options.listing"/>
-            {{ options.listing }}
+            <VTCard title="ini test table">
+                <VTTable :columns="tableData.columns" :source="tableData.sources" />
+            </VTCard>
         </div>
         
         <button @click="showDialog">test</button>
@@ -21,25 +22,23 @@ import { VTBusyProgressService } from '@/components/VTBusyProgress';
 import VTCard from '@/components/VTCard.vue';
 import { VTDialogService } from '@/components/VTDialog';
 import { onMounted, reactive, ref } from 'vue';
-import { VTIconAddUser, VTIconMahasiswa, VTIconResetPassword, VTIconSubmenu, VTSidebarDropdown } from '..';
+import { VTIconAddUser, VTIconMahasiswa, VTIconResetPassword, VTIconSubmenu, VTSidebarDropdown, type VTTableColumn } from '..';
 import VTSidebarItem from '@/components/VTSidebarItem.vue';
+import VTTable from '@/components/VTTable/VTTable.vue';
 
-interface select {
-    name: string
-    value: string
-}
-
-const options = reactive({
-    listing: [] as select[]
+const tableData = reactive({
+    columns: [] as VTTableColumn[],
+    sources: []
 })
 
-const listJenis = [
-    {name: 'victor', value: '1' },
-    {name: 'budi', value: '2' },
-    {name: 'jevon', value: '3' },
-]
+tableData.columns = [
+    { propName: 'no', title: 'No.', name: 'nomor', type: 'Custome', rowClass: 'text-center' },
+    { propName: 'kode_program_studi', title: 'Kode Program Studi', rowClass: 'text-center' },
+    { propName: 'nama_program_studi', title: 'Nama Program Studi' },
+    { propName: 'status', title: 'Status' },
+    { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
+];
 
-const selected = ref(null)
 const data = [{ name: "Yoseph Kungkung", value: 1 }, { name: "Yoseph X", value: 2 }]
 
 const showDialog = () => {
