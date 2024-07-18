@@ -10,7 +10,9 @@
             <VTCard title="ini test table">
                 <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest">
                     <template #nomor="row">{{ row.index + 1 }}</template>
-                    <template #sync="row"><VTSyncStatus :column="row.data.status"/></template>
+                    <template #sync="row">
+                        <VTSyncStatus :column="row.data.status" />
+                    </template>
                 </VTTable>
             </VTCard>
         </div>
@@ -21,12 +23,10 @@
 
 <script setup lang="ts">
 import VTAutocomplete from '@/components/VTAutocomplete.vue';
-import { VTBusyProgressService } from '@/components/VTBusyProgress';
 import VTCard from '@/components/VTCard.vue';
 import { VTDialogService } from '@/components/VTDialog';
 import { onMounted, reactive, ref } from 'vue';
-import { VTIconAddUser, VTIconMahasiswa, VTIconResetPassword, VTIconSubmenu, VTSidebarDropdown, type VTTableColumn } from '..';
-import VTSidebarItem from '@/components/VTSidebarItem.vue';
+import { VTIconResetPassword, VTIconSubmenu, type VTTableColumn } from '..';
 import VTTable from '@/components/VTTable/VTTable.vue';
 import VTSyncStatus from '@/components/VTSyncStatus.vue';
 

@@ -14,9 +14,9 @@
       </div>
     </div>
     <FwbProgress :progress="progress" size="sm" v-if="isBussy" class="mb-[.05rem]" />
-    <div class="border-[1.5px] border-gray-400 rounded-lg">
+    <div class="border-[1.5px] border-gray-400 rounded-lg overflow-x-auto custom-scrollbar">
       <table
-        :class="[props.class, 'min-w-full border-collapse bg-transparent text-gray-800 dark:text-gray-200 rounded-lg overflow-hidden']">
+        :class="[props.class, 'min-w-full border-collapse bg-transparent text-gray-800 dark:text-gray-200 rounded-t-lg overflow-hidden']">
         <thead v-if="$slots.header">
           <slot name="header"></slot>
         </thead>
@@ -385,3 +385,18 @@ export default {
 ///// use Reference 
 // //// const vTTable = ref<InstanceType<typeof VTTable> | null>(null);
 </script>
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px; /* Height of the horizontal scrollbar */
+  width: 8px; /* Width of the vertical scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3b82f6; /* Color of the scrollbar thumb */
+  border-radius: 0px 0px 8px 8px; /* Roundness of the scrollbar thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent /* Color of the scrollbar track */
+}
+</style>

@@ -24,7 +24,7 @@ if (syncStatus.value != 'sudah sync') {
                 :class="[syncStatus === 'sudah sync' ? 'bg-green-500 dark:bg-green-600' : 'bg-amber-500', 'p-1 rounded-2xl w-32 flex flex-row items-center justify-center']">
                 <IconDoubleCheck v-if="syncStatus === 'sudah sync'" type="button" size="md"/>
                 <IconTime v-else type="button" size="sm"/>
-                <span class="text-md pb-1 text-white capitalize">{{ syncStatus }}</span>
+                <span class="text-md pb-[.20rem] text-white capitalize">{{ syncStatus }}</span>
             </div>
         </template>
         <template #content>
