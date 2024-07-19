@@ -24,7 +24,8 @@ const iconColorClasses: Record<IconColor, string> = {
     success: "text-green-600 group-hover:text-green-700 dark:group-hover:text-green-500",
     info: "text-sky-500 group-hover:text-sky-600 dark:group-hover:text-sky-400",
     primary: "text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400",
-    default: "text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white"
+    default: "text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white",
+    white: "text-white group-hover:text-gray-300"
 }
 
 const iconUsageClasses: Record<IconUsage, string> = {

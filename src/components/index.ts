@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 
 export type SubMenuDetailType = 'Link' | 'Router' | 'Button';
 
@@ -105,4 +106,4 @@ export interface Pager {
     segment: number
 }
 
-
+export const useMergeClasses = (componentClasses: string | string[]): string => twMerge(componentClasses)

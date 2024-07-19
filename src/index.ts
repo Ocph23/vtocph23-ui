@@ -20,6 +20,7 @@ export { default as VTWrapText } from "./components/VTWrapText.vue";
 export { default as VTTable } from "./components/VTTable/VTTable.vue";
 export { default as Th } from "./components/VTTable/VTHeader.vue";
 export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView.vue";
+export { default as VTButton } from "./components/VTButton/VTButton.vue";
 
 ///types
 export type { VTTableColumn } from "./components/VTTable/index";
@@ -71,3 +72,4 @@ export { default as VTIconDoubleCheck } from "./icons/IconDoubleCheck.vue";
 export { default as VTIconTime } from "./icons/IconTime.vue";
 export { default as VTIconCalendar } from "./icons/IconCalendar.vue";
 export { default as VTIconExclamationTriangle } from "./icons/IconExclamationTriangle.vue";
+export { default as VTIconUser } from './icons/IconUser.vue';
