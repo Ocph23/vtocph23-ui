@@ -1,8 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <!-- <VTCard>
-    <VTLabelItem label-text="Nama" value="abraham victor patrick ohoiwutun" />
-  </VTCard> -->
   <VTCard title="Title" subtitle="subtitle" description="description">
     <div class="my-10 flex justify-center">
       <VTCardMobile />
