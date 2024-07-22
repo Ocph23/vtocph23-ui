@@ -6,6 +6,7 @@ import { VTIconSave } from '@/index';
 const loadingAnimation = new URL('./loading_animation.json', import.meta.url).href;
 const successAnimation = new URL('./check_animation.json', import.meta.url).href;
 
+
 const props = defineProps({
     busy: { type: Boolean },
     disabled: { type: Boolean },
