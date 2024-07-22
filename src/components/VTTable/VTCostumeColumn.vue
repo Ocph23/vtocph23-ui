@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, provide, ref } from 'vue';
-import IconGear from '../../icons/IconGear.vue';
 import type { VTTableColumn } from '.';
+import { VTIconGear } from '@/index';
 
 const emit = defineEmits(['hiddenColumn']);
 
@@ -12,11 +12,6 @@ const hiddens = inject('hiddenColumn') as {
         columns: VTTableColumn[];
     }
 }
-
-// const props = defineProps<{
-//     tableName?: string;
-//     columns: VTTableColumn[]
-// }>()
 const props = hiddens.tableProps
 
 const isShow = ref(false);
@@ -72,10 +67,10 @@ const toggleColumn = (index: number) => {
 <template>
     <div class="flex justify-end flex-col items-end">
         <button @click="showed" data-dropdown-toggle="dropmenu"
-            class="bg-blue-600 rounded-lg p-[.7rem] text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            class="flex justify-center items-center min-h-[2.7rem] min-w-[2.7rem] rounded-lg p-[.6rem] text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
             type="button" aria-expanded="true">
             <span class="sr-only">Costume Data Column</span>
-            <IconGear />
+            <VTIconGear size="sm" />
         </button>
         <div id="vtcolumn" class="absolute translate-y-2/4 translate-x-[-50px]" :class="isShow ? '' : 'hidden'">
             <div class="z-20 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">

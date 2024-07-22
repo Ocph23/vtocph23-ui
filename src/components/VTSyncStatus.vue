@@ -21,10 +21,10 @@ if (syncStatus.value != 'sudah sync') {
     <VTToolTip :data="props.date">
         <template #trigger>
             <div
-                :class="[syncStatus === 'sudah sync' ? 'bg-green-600' : 'bg-yellow-400', 'p-1 rounded-2xl w-[7rem] flex flex-row items-center justify-center']">
-                <IconDoubleCheck v-if="syncStatus === 'sudah sync'" class="mr-1" />
-                <IconTime v-else class="mr-2" />
-                <span class="text-md text-white">{{ syncStatus }}</span>
+                :class="[syncStatus === 'sudah sync' ? 'bg-green-500 dark:bg-green-600' : 'bg-amber-500', 'p-1 rounded-2xl w-32 flex flex-row items-center justify-center']">
+                <IconDoubleCheck v-if="syncStatus === 'sudah sync'" type="button" size="md"/>
+                <IconTime v-else type="button" size="sm"/>
+                <span class="text-md pb-[.20rem] text-white capitalize">{{ syncStatus }}</span>
             </div>
         </template>
         <template #content>

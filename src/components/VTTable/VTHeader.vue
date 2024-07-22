@@ -2,15 +2,15 @@
     <th :hidden="hiddenCol"
         :class="[$attrs.class, headerClass, { 'cursor-pointer': sortable }, bordered ? 'border-[1px]' : '']"
         @click="toggleSort"
-        class=" text-wrap px-4 py-2 dark:bg-gray-700 text-gray-600 font-semibold bg-gray-200 dark:text-gray-200 border-b-[1.5px] border-gray-400">
-        <div class="flex items-center justify-center">
+        class=" text-nowrap p-4 dark:bg-gray-700 text-gray-600 font-semibold bg-gray-200 dark:text-gray-200 border-b-[1.5px] border-gray-400">
+        <div class="flex flex-row items-center justify-center">
             <span v-if="props.title">
                 {{ title }}
             </span>
             <span v-else>
                 <slot></slot>
             </span>
-            <div v-if="props.sorted" class="ml-4">
+            <div v-if="props.sorted" class="pl-4 mt-2 text-end">
                 <span v-if="sortOrder === 'asc'"
                     class=" cursor-default ml-1 text-xs text-gray-500 dark:text-gray-400">&#9650;</span>
                 <span v-else-if="sortOrder === 'desc'"
