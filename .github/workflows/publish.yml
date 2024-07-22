@@ -20,6 +20,11 @@ jobs:
           cache: 'npm'
       - run: npm i
       - run: npm run build:package
+      - name: Publish
+        run: npm publish  --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN }}
+
   build-types:
     runs-on: ubuntu-latest
     strategy:
