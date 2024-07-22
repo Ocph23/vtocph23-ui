@@ -15,7 +15,7 @@ jobs:
         with:
             bun-version: latest # You can also use a specific version
       - run: bun install # Only needed if you have any dependencies
-      - run: bun run build  # Change to your entrypoint!
+      - run: bun run build:production  # Change to your entrypoint!
       - name: Publish to npm
         run: npm publish
         env:
