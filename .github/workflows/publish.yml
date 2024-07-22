@@ -1,19 +1,23 @@
 name: vtocph23
-
 on:
   push:
-    branches: main
-
+    branches:
+      - main
 jobs:
-  publish:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # Checkout repo
-      - uses: oven-sh/setup-bun@v1 # Setup bun
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          bun-version: latest # You can also use a specific version
-      - run: bun install # Only needed if you have any dependencies
-      - run: npm publish --access=public
-      - uses: JS-DevTools/npm-publish@v3
+          node-version: 18
+      - run: npm install
+      - name: Publish to npm
+        id: changesets
+        uses: changesets/action@v1
         with:
-          token: ${{ secrets.TOKEN }}
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.TOKEN }}
