@@ -8,10 +8,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4 # Checkout repo
+      - uses: oven-sh/setup-bun@v1 # Setup bun
         with:
-          node-version: '20'
+          bun-version: latest # You can also use a specific version
+      - run: bun install # Only needed if you have any dependencies
       - run: npm publish --access=public
       - uses: JS-DevTools/npm-publish@v3
         with:
