@@ -35,7 +35,8 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "typecheck": "vue-tsc --noEmit",
-    "prepublishOnly": "npm run build:production"
+    "prepublishOnly": "npm run build:production",
+    "release": "npm run build && changeset publish"
   },
   "peerDependencies": {
     "tailwindcss": "^3",
@@ -91,6 +92,7 @@
     "vite-plugin-vue-devtools": "^7.3.1",
     "vitepress": "1.2.2",
     "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.21"
+    "vue-tsc": "^2.0.21",
+    "@changesets/cli": "^2.27.7"
   }
 }
