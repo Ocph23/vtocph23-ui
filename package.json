@@ -27,7 +27,7 @@
     "build": "vite build",
     "build:package": "vite build",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly && tsc-alias -p tsconfig.json",
-    "build:production": "npm run build:package && npm publish --access=public",
+    "build:production": "vite build && npm publish --access=public",
     "lint": "eslint . --ext .js,.ts,.vue --ignore-path .gitignore",
     "lint-fix": "eslint . --fix --ext .js,.ts,.vue --ignore-path .gitignore",
     "clear": "rm -fr ./dist && rm -fr ./dist_types",
