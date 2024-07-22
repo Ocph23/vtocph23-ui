@@ -4,7 +4,8 @@ import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 import { VTIconSave } from '@/index';
 
 const loadingAnimation = new URL('./loading_animation.json', import.meta.url).href;
-const successAnimation = new URL('./check_animation.json', import.meta.url).href;
+const successAnimation = new URL('./checkanimation.json', import.meta.url).href;
+
 
 const props = defineProps({
     busy: { type: Boolean },

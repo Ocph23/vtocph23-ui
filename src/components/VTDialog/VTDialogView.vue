@@ -7,8 +7,8 @@
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <!-- Modal header -->
-                    <div class="p-4 rounded-t flex justify-between items-center text-black dark:text-white">
-                        <span class=" text-lg font-semibold"> {{ VTDialogService.dialog.title }}</span>
+                    <div class="p-4 rounded-t flex justify-between items-center ">
+                        <span class=" dark:text-white text-lg font-semibold"> {{ VTDialogService.dialog.title }}</span>
                         <button v-if="!persistent" aria-label="close"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                             type="button" @click="closeModal">
@@ -25,12 +25,12 @@
                     <!-- Modal body -->
                     <div :class="$slots.header ? '' : 'pt-0'" class="flex items-center p-6 text-black dark:text-white">
                         <div class="rounded-full shadow-2xl p-3 m-3 w-auto"
-                            :class="VTDialogService.dialog.type == 'warning' ? ' bg-amber-500' : VTDialogService.dialog.type == 'info' ? ' bg-blue-500' : VTDialogService.dialog.type == 'success' ? 'bg-teal-500' : 'bg-rose-500'">
+                            :class="VTDialogService.dialog.type == 'warning' ? ' bg-[#e3a008]' : VTDialogService.dialog.type == 'info' ? ' bg-[#1c64f2]' : VTDialogService.dialog.type == 'success' ? 'bg-[#057a55]' : 'bg-[#e02424]'">
                             <IconDetail size="xl" v-if="VTDialogService.dialog.type == 'info'" />
                             <IconCheck size="xl" v-else-if="VTDialogService.dialog.type == 'success'" />
                             <IconExclamationTriangle size="xl" v-else />
                         </div>
-                        {{ VTDialogService.dialog.message }}
+                        <span class="dark:text-white"> {{ VTDialogService.dialog.message }}</span>
                     </div>
                     <!-- Modal footer -->
                     <div class="py-3 px-6 rounded-b border-gray-200 border-t dark:border-gray-600">
