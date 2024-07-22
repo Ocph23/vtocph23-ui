@@ -14,7 +14,8 @@
       </div>
     </div>
     <FwbProgress :progress="progress" size="sm" v-if="isBussy" class="mb-[.05rem]" />
-    <div :class="['border-[1.5px] border-gray-400 overflow-x-auto custom-scrollbar', isLargeScreen ? 'rounded-lg' : 'rounded-[.80rem]']">
+    <div
+      :class="['border-[1.5px] border-gray-400 overflow-x-auto custom-scrollbar', isLargeScreen ? 'rounded-lg' : 'rounded-[.80rem]']">
       <table
         :class="[props.class, 'min-w-full border-collapse bg-transparent text-gray-800 dark:text-gray-200 rounded-t-lg overflow-hidden']">
         <thead v-if="$slots.header && isLargeScreen">
@@ -53,21 +54,20 @@
               <FwbAccordionPanel v-for="row in sortedData" :key="row.name">
                 <FwbAccordionHeader>{{ row[headerName] }}</FwbAccordionHeader>
                 <FwbAccordionContent class="relative">
-                  <div
-                    class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
+                  <div class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
                     <VTButton outline color="blue" class="group" @click="showAction = !showAction">
                       <IconEllipsis size="md" color="white" />
                     </VTButton>
                   </div>
                   <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
-                    <VTLabelItem v-if="col.type !== 'Custome'" :labelText="col.title" :value="row[col.propName]" />
+                    <VTLabelItem v-if="col.type !== 'Custome'" :labelText="col.title"
+                      :value="row[col.propName ? col.propName : '']" />
                   </div>
                   <div
                     :class="['p-3 w-auto rounded-lg text-white absolute pt-0 top-14 right-[.55rem] bg-gray-600', showAction ? 'block' : ' hidden']">
                     <div class="h-36 w-auto *:flex-col *:pt-6">
                       <template v-for="(custome, cusIndex) in headerColumns" :key="cusIndex">
-                        <slot 
-                          v-if="custome.name !== 'nomor' && custome.propName !== 'sync_status'" :name="custome.name" 
+                        <slot v-if="custome.name !== 'nomor' && custome.propName !== 'sync_status'" :name="custome.name"
                           v-bind="{ data: row, index: cusIndex }" />
                       </template>
                     </div>
