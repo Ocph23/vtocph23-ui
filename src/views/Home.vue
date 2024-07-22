@@ -27,16 +27,13 @@
 </template>
 
 <script setup lang="ts">
-import VTAutocomplete from '@/components/VTAutocomplete.vue'
 import VTCard from '@/components/VTCard.vue'
 import { VTDialogService } from '@/components/VTDialog'
 import { onMounted, reactive, ref } from 'vue'
-import { VTIconResetPassword, VTIconSubmenu, VTIconUser, type VTTableColumn } from '..'
+import { type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
-import VTButton from '@/components/VTButton/VTButton.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
-import VTLabelItem from '@/components/VTLabelItem.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
 
 interface DataTest {
