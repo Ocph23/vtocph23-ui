@@ -1,0 +1,30 @@
+name: Deploy to npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        registry-url: 'https://registry.npmjs.org/'
+
+    - name: Install Bun
+      run: curl https://bun.sh/install | bash
+
+    - name: Build project
+      run: bun build
+
+    - name: Publish to npm
+      run: npm publish
+      env:
+        NPM_TOKEN: ${{ secrets.TOKEN }}
