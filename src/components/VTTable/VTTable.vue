@@ -14,20 +14,20 @@
       </div>
     </div>
     <FwbProgress :progress="progress" size="sm" v-if="isBussy" class="mb-[.05rem]" />
-    <div class="border-[1.5px] border-gray-400 rounded-lg overflow-x-auto custom-scrollbar">
+    <div :class="['border-[1.5px] border-gray-400 overflow-x-auto custom-scrollbar', isLargeScreen ? 'rounded-lg' : 'rounded-[.80rem]']">
       <table
         :class="[props.class, 'min-w-full border-collapse bg-transparent text-gray-800 dark:text-gray-200 rounded-t-lg overflow-hidden']">
-        <thead v-if="$slots.header">
+        <thead v-if="$slots.header && isLargeScreen">
           <slot name="header"></slot>
         </thead>
-        <thead v-else>
+        <thead v-else-if="isLargeScreen">
           <tr>
             <Th v-for="column in props.columns.filter((x) => !x.hiddenColumn)" :key="column.name" :title="column.title"
               :column-key="column.propName || ''" :columns="props.columns" :header-class="column.headerClass"
               @sort="onSort" />
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="isLargeScreen">
           <tr v-for="(row, rowIndex) in sortedData" :key="rowIndex" :class="[
             rowIndex % 2 === 0 ? 'dark:bg-gray-500 bg-gray-100' : 'bg-gray-200 dark:bg-gray-600', 'hover:bg-gray-300 dark:hover:bg-gray-700'
           ]">
@@ -47,6 +47,37 @@
             </td>
           </tr>
         </tbody>
+        <tbody v-else>
+          <div class="">
+            <FwbAccordion>
+              <FwbAccordionPanel v-for="row in sortedData" :key="row.name">
+                <FwbAccordionHeader>{{ row[headerName] }}</FwbAccordionHeader>
+                <FwbAccordionContent class="relative">
+                  <div
+                    class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
+                    <VTButton outline color="blue" class="group" @click="showAction = !showAction">
+                      <IconEllipsis size="md" color="white" />
+                    </VTButton>
+                  </div>
+                  <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
+                    <VTLabelItem v-if="col.type !== 'Custome'" :labelText="col.title" :value="row[col.propName]" />
+                  </div>
+                  <div
+                    :class="['p-3 w-auto rounded-lg text-white absolute pt-0 top-14 right-[.55rem] bg-gray-600', showAction ? 'block' : ' hidden']">
+                    <div class="h-36 w-auto *:flex-col *:pt-6">
+                      <template v-for="(custome, cusIndex) in headerColumns" :key="cusIndex">
+                        <slot 
+                          v-if="custome.name !== 'nomor' && custome.propName !== 'sync_status'" :name="custome.name" 
+                          v-bind="{ data: row, index: cusIndex }" />
+                      </template>
+                    </div>
+                  </div>
+                </FwbAccordionContent>
+              </FwbAccordionPanel>
+            </FwbAccordion>
+          </div>
+
+        </tbody>
         <tfoot v-if="$slots.footer">
           <slot name="footer"></slot>
         </tfoot>
@@ -57,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { FwbProgress } from 'flowbite-vue'
+import { FwbAccordion, FwbAccordionContent, FwbAccordionHeader, FwbAccordionPanel, FwbProgress } from 'flowbite-vue'
 import { ref, reactive, watch, onMounted, computed, provide, toRefs } from 'vue'
 import Dropdown from './VTDropdown.vue'
 import Search from './VTSearch.vue'
@@ -67,14 +98,25 @@ import Th from './VTHeader.vue'
 import { VTHelper, type PaginateResponse } from '../../components'
 import axios from 'axios'
 import type { MethodType, VTTableColumn } from '.'
-
+import { useMediaQuery } from '@vueuse/core'
+import VTLabelItem from '../VTLabelItem.vue';
+import VTButton from '../VTButton/VTButton.vue'
+import IconEllipsis from '@/icons/IconEllipsis.vue'
 
 export default {
   name: 'TableComponent',
   components: {
     FwbProgress,
+    FwbAccordion,
+    VTLabelItem,
+    VTButton,
+    IconEllipsis,
     Dropdown,
     Search,
+    FwbAccordionContent,
+    FwbAccordionHeader,
+    FwbAccordionPanel,
+
     Pagination,
     Costume,
     // eslint-disable-next-line vue/no-reserved-component-names
@@ -150,12 +192,16 @@ export default {
     });
 
     const headerColumns = ref(columns.value);
+    const header = headerColumns.value.find(x => x.isMobileHeader)?.propName;
+    const headerName: string = header != null || header != undefined ? header : '';
     const dropdownOptions = [10, 25, 50];
     const selectedDropdownOption = ref(dropdownOptions[0]);
     const searchQuery = ref('');
     const progress = ref(0);
     const isBussy = ref(false);
     const isPending = ref(false);
+    const isLargeScreen = useMediaQuery('(min-width: 1024px)');
+    const showAction = ref(false);
 
     onMounted(() => {
       if (method.value == 'Default') {
@@ -377,26 +423,31 @@ export default {
       VTHelper,
       refresh,
       setDataSource,
+      isLargeScreen,
+      headerName,
+      showAction
     };
   }
 };
 
-///////////
-///// use Reference 
-// //// const vTTable = ref<InstanceType<typeof VTTable> | null>(null);
 </script>
 <style scoped>
 .custom-scrollbar::-webkit-scrollbar {
-  height: 8px; /* Height of the horizontal scrollbar */
-  width: 8px; /* Width of the vertical scrollbar */
+  height: 8px;
+  /* Height of the horizontal scrollbar */
+  width: 8px;
+  /* Width of the vertical scrollbar */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #3b82f6; /* Color of the scrollbar thumb */
-  border-radius: 0px 0px 8px 8px; /* Roundness of the scrollbar thumb */
+  background-color: #3b82f6;
+  /* Color of the scrollbar thumb */
+  border-radius: 0px 0px 8px 8px;
+  /* Roundness of the scrollbar thumb */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background-color: transparent /* Color of the scrollbar track */
+  background-color: transparent
+    /* Color of the scrollbar track */
 }
 </style>

@@ -21,6 +21,9 @@ export { default as VTTable } from "./components/VTTable/VTTable.vue";
 export { default as Th } from "./components/VTTable/VTHeader.vue";
 export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView.vue";
 export { default as VTButton } from "./components/VTButton/VTButton.vue";
+export { default as VTCardMobile } from './components/VTCardMobile.vue'
+export { default as VTLabelItem } from './components/VTLabelItem.vue';
+
 
 ///types
 export type { VTTableColumn } from "./components/VTTable/index";
@@ -73,3 +76,4 @@ export { default as VTIconTime } from "./icons/IconTime.vue";
 export { default as VTIconCalendar } from "./icons/IconCalendar.vue";
 export { default as VTIconExclamationTriangle } from "./icons/IconExclamationTriangle.vue";
 export { default as VTIconUser } from './icons/IconUser.vue';
+export { default as VTIconEllipsis } from './icons/IconEllipsis.vue';

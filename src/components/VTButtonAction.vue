@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto mr-1 p-0">
+    <div class="w-auto mr-0 md:mr-1 mb-4 md:mb-0  ">
         <a :href="url" @click="click" class="flex items-center cursor-pointer" :class="styleClass">
             <slot v-if="$slots.default" />
             <VTIconDetail v-else-if="props.type === 'detail'"/>

@@ -7,7 +7,8 @@ export interface VTTableColumn {
     headerClass?: string,
     rowClass?: string,
     hiddenColumn?: Boolean,
-    checked?: Boolean
+    checked?: Boolean,
+    isMobileHeader?: Boolean
 }
 
 export type ColumnType = "Text" | "Number" | "Boolean" | "Tanggal" | "Custome";

@@ -184,7 +184,7 @@ const labelClasses = computed(() => {
 })
 </script>
 
-<style>
+<style scoped>
 :root {
   --box-shadow-light: 6px 6px 12px #e9eaec, -6px -6px 12px #fdfeff;
   --box-shadow-dark: 6px 6px 12px #47505d, -6px -6px 12px #505a69;
