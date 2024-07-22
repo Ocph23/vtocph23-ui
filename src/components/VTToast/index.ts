@@ -14,13 +14,16 @@ export interface ToastItem {
 
 class ToastProvider {
     toasts = reactive<ToastItem[]>([]);
-    showToast(message: string, type: string, duration: number = 3000, closable: boolean = true, divide: boolean) {
+    showToast(message: string, type: string, duration: number = 0, closable: boolean = true, divide: boolean) {
         const toas = { closable, divide, message, type } as ToastItem;
         this.toasts.push(toas);
-        setTimeout(() => {
-            const index = this.toasts.indexOf(toas);
-            this.toasts.splice(index, 1);
-        }, duration);
+
+        if (!closable) {
+            setTimeout(() => {
+                const index = this.toasts.indexOf(toas);
+                this.toasts.splice(index, 1);
+            }, duration);
+        }
     }
 
     error(message: string, duration: number = 3000, closable: boolean = true, divide: boolean = true) {
