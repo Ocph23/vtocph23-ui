@@ -1,22 +1,19 @@
-name: Mahasiswa-Simak-Client
+name: vtocph23
 
 on:
   push:
-    branches:
-      - main # Execute on every push
-  workflow_dispatch: # Execute on manual trigger
+    branches: main
 
 jobs:
-  build-and-start:
-    runs-on: ubuntu-latest # Linux base image
+  publish:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # Checkout repo
-      - uses: oven-sh/setup-bun@v1 # Setup bun
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-            bun-version: latest # You can also use a specific version
-      - run: bun install # Only needed if you have any dependencies
-      - run: bun run build:production  # Change to your entrypoint!
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NPM_TOKEN: ${{ secrets.TOKEN }}
+          node-version: "20"
+      - run: npm ci
+      - run: npm test
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.TOKEN }}
