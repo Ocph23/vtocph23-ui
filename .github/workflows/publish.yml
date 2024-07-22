@@ -19,7 +19,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm i
-      - run: npm run build:package
 
       - name: publish package
         run: npm set "//registry.npmjs.org/:_authToken" ${{ secrets.TOKEN }} && npm publish -access public
