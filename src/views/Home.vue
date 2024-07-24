@@ -15,6 +15,8 @@
               <VTButtonAction type="detail" @click="row.data" />
               <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
               <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
+              <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
+              <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
             </div>
           </template>
           <template #nomor="row">{{ row.index + 1 }}</template>

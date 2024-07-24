@@ -65,7 +65,7 @@
                   </div>
                   <div
                     :class="['p-3 w-auto rounded-lg text-white absolute pt-0 top-14 right-[.55rem] bg-gray-600', showAction ? 'block' : ' hidden']">
-                    <div class="h-36 w-auto *:flex-col *:pt-6">
+                    <div class="h-auto w-auto *:flex-col *:pt-6">
                       <template v-for="(custome, cusIndex) in headerColumns" :key="cusIndex">
                         <slot v-if="custome.name === 'action'" :name="custome.name"
                           v-bind="{ data: row, index: cusIndex }" />
