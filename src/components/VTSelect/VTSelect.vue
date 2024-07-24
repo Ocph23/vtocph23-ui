@@ -31,7 +31,7 @@ import FwbInputErrorMessage from '../VTInputErrorMessage.vue'
 import type { SelectOption } from '..'
 
 interface InputProps {
-    modelValue?: string;
+    modelValue?: any;
     label?: string;
     options?: SelectOption[];
     placeholder?: string;
