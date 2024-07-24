@@ -41,7 +41,7 @@ import VTInputErrorMessage from '../VTInputErrorMessage.vue'
 interface InputProps {
   disabled?: boolean
   label?: string
-  modelValue: string
+  modelValue: any
   required?: boolean
   size?: InputSize
   type?: InputType
