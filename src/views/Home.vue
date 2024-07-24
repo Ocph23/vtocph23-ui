@@ -14,9 +14,9 @@
           </template>
           <template #action="row">
             <div class="flex flex-row items-center">
-              <VTButtonAction type="detail" @click="testQuery(row.data)" />
-              <VTButtonAction :style="'warning'" type="edit" @click="testQuery(row.data)" />
-              <VTButtonAction :style="'danger'" type="delete" @click="testQuery(row.data)" />
+              <VTButtonAction type="detail" @click="row.data" />
+              <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
+              <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
             </div>
           </template>
           <template #nomor="row">{{ row.index + 1 }}</template>
@@ -30,7 +30,6 @@
 
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
-import { VTDialogService } from '@/components/VTDialog'
 import { onMounted, reactive, ref } from 'vue'
 import { type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
