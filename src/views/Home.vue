@@ -35,7 +35,6 @@ import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
-import VTInput from '@/components/VTInput/VTInput.vue'
 
 interface DataTest {
   id: string
@@ -56,7 +55,7 @@ const tableData = reactive({
 
 tableData.columns = [
   { title: "Action", name: 'action', type: 'Custome' },
-  { propName: "status_sync", title: "Status", name: 'status_sync', type: 'Custome' },
+  { propName: "status_sync", title: "Status", name: 'sync', type: 'Custome' },
   { propName: 'nomor', title: 'No.', name: 'nomor', type: 'Custome', },
   { propName: "kode_mata_kuliah", title: "Kode MK" },
   { propName: "nama_mata_kuliah", title: "Nama Mata Kuliah", isMobileHeader: true },
