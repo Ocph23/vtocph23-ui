@@ -1,8 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <VTCard class="text-white" title="Title" subtitle="subtitle" description="description">
-    <VTInput v-model="tableData.testDate" type="date" label="Tanggal"/>
-    {{ tableData.testDate }}
     <div class="my-10 flex justify-center">
       <VTCardMobile />
     </div>
@@ -21,6 +19,7 @@
           </template>
           <template #nomor="row">{{ row.index + 1 }}</template>
           <template #tanggal="row">{{ row.data.tanggal.date }}</template>
+          <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
         </VTTable>
       </VTCard>
     </div>
@@ -56,10 +55,10 @@ const tableData = reactive({
 
 tableData.columns = [
   { propName: 'action', title: 'Action', name: 'action', type: 'Custome' },
-  { propName: 'sync_status', title: 'Status', name: 'sync', type: 'Custome' },
+  { propName: 'status_sync', title: 'Status', name: 'sync', type: 'Custome' },
   { propName: 'no', title: 'No.', name: 'nomor', type: 'Custome', rowClass: 'text-center' },
   { propName: 'kode_program_studi', title: 'Kode Program Studi', rowClass: 'text-center' },
-  { propName: 'nama_program_studi', title: 'Nama Program Studi', isMobileHeader: true },
+  { propName: 'nama_program_studi', title: 'Nama Program Studi', isMobileHeader: true, name: 'namaProdi', type: 'Custome' },
   { propName: 'tanggal', title: 'Tanggal', rowClass: 'text-center', name: 'tanggal', type: 'Custome' },
   { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
   { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
