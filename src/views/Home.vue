@@ -15,8 +15,6 @@
               <VTButtonAction type="detail" @click="row.data" />
               <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
               <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
-              <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
-              <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
             </div>
           </template>
           <template #nomor="row">{{ row.index + 1 }}</template>
@@ -41,11 +39,12 @@ import VTInput from '@/components/VTInput/VTInput.vue'
 
 interface DataTest {
   id: string
-  kode_program_studi: string
-  nama_program_studi: string
+  kode_mata_kuliah: string
+  nama_mata_kuliah: string
   status: string
-  nama_jenjang_pendidikan: string,
-  tanggal: Tanggal
+  sks_mata_kuliah: number,
+  nama_program_studi: string,
+  id_jenis_mata_kuliah: string,
 }
 
 const tableData = reactive({
@@ -56,21 +55,18 @@ const tableData = reactive({
 })
 
 tableData.columns = [
-  { propName: 'action', title: 'Action', name: 'action', type: 'Custome' },
-  { propName: 'status_sync', title: 'Status', name: 'sync', type: 'Custome' },
-  { propName: 'no', title: 'No.', name: 'nomor', type: 'Custome', rowClass: 'text-center' },
-  { propName: 'kode_program_studi', title: 'Kode Program Studi', rowClass: 'text-center' },
-  { propName: 'nama_program_studi', title: 'Nama Program Studi', isMobileHeader: true, name: 'namaProdi', type: 'Custome' },
-  { propName: 'tanggal', title: 'Tanggal', rowClass: 'text-center', name: 'tanggal', type: 'Custome' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
-  { propName: 'nama_jenjang_pendidikan', title: 'Jenjang Pendidikan', rowClass: 'text-center' },
+  { title: "Action", name: 'action', type: 'Custome' },
+  { propName: "status_sync", title: "Status", name: 'status_sync', type: 'Custome' },
+  { propName: 'nomor', title: 'No.', name: 'nomor', type: 'Custome', },
+  { propName: "kode_mata_kuliah", title: "Kode MK" },
+  { propName: "nama_mata_kuliah", title: "Nama Mata Kuliah", isMobileHeader: true },
+  { propName: "sks_mata_kuliah", title: "Bobot MK (sks)", rowClass: "text-center", headerClass: "text-center" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  {
+    propName: "id_jenis_mata_kuliah", title: "Jenis Mata Kuliah",
+    name: 'jenis', type: 'Custome',
+    rowClass: '!w-10 text-center'
+  },
 ]
 
 onMounted(() => {
@@ -93,52 +89,57 @@ const createTanggal = (date: string): Tanggal => {
 dataTests.value = [
   {
     id: '1',
-    kode_program_studi: 'CS101',
-    nama_program_studi: 'Ilmu Komputer',
+    kode_mata_kuliah: 'CS101',
+    nama_mata_kuliah: 'Pemrograman Dasar',
     status: 'sudah sync',
-    nama_jenjang_pendidikan: 'Sarjana',
-    tanggal: createTanggal('2020-07-23')
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
   },
   {
     id: '2',
-    kode_program_studi: 'ENG102',
-    nama_program_studi: 'Teknik Elektro',
-    status: 'sudah sync',
-    nama_jenjang_pendidikan: 'Sarjana',
-    tanggal: createTanggal('2020-07-23')
+    kode_mata_kuliah: 'CS102',
+    nama_mata_kuliah: 'Struktur Data',
+    status: 'belum sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
   },
   {
     id: '3',
-    kode_program_studi: 'BIO103',
-    nama_program_studi: 'Biologi',
-    status: 'belum sync',
-    nama_jenjang_pendidikan: 'Magister',
-    tanggal: createTanggal('2020-07-23')
+    kode_mata_kuliah: 'CS103',
+    nama_mata_kuliah: 'Basis Data',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
   },
   {
     id: '4',
-    kode_program_studi: 'MATH104',
-    nama_program_studi: 'Matematika',
-    status: 'sudah sync',
-    nama_jenjang_pendidikan: 'Sarjana',
-    tanggal: createTanggal('2020-07-23')
+    kode_mata_kuliah: 'CS104',
+    nama_mata_kuliah: 'Jaringan Komputer',
+    status: 'belum sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '3',
   },
   {
     id: '5',
-    kode_program_studi: 'PHY105',
-    nama_program_studi: 'Fisika',
-    status: 'belum sync',
-    nama_jenjang_pendidikan: 'Doktor',
-    tanggal: createTanggal('2020-07-23')
-  }
+    kode_mata_kuliah: 'CS105',
+    nama_mata_kuliah: 'Sistem Operasi',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+  },
 ]
 
 
 interface Tanggal {
-    date: string;
-    timezone_type: number;
-    timezone: string;
-    getTanggal: Function
+  date: string;
+  timezone_type: number;
+  timezone: string;
+  getTanggal: Function
 
 }
 </script>
