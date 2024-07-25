@@ -2,7 +2,7 @@
     <th :hidden="hiddenCol"
         :class="[$attrs.class, headerClass, { 'cursor-pointer': sortable }, bordered ? 'border-[1px]' : '']"
         @click="toggleSort"
-        class=" text-nowrap p-4 dark:bg-gray-700 text-gray-600 font-semibold bg-gray-200 dark:text-gray-200 border-b-[1.5px] border-gray-400">
+        class=" text-nowrap p-4 dark:bg-slate-700 text-gray-600 font-semibold bg-gray-200 dark:text-gray-200 border-b-[1.5px] border-gray-400">
         <div class="flex flex-row items-center justify-center">
             <span v-if="props.title">
                 {{ title }}
