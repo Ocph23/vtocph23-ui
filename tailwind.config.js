@@ -8,7 +8,7 @@ export default {
   content: [
 
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     screens: {
       'hp': '344px',
