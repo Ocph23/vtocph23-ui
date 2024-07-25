@@ -23,6 +23,7 @@
         </VTTable>
       </VTCard>
     </div>
+    <VTButtonSave @click="setVal" title="Tambah Kepala Program Studi" :busy="isBusy" :disabled="isDisabled"/>
   </VTCard>
 
 </template>
@@ -30,11 +31,19 @@
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
 import { onMounted, reactive, ref } from 'vue'
-import { type VTTableColumn } from '..'
+import { VTBusyProgressService, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
+import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
+
+const setVal = (() => {
+  VTBusyProgressService.start(isBusy);
+  setTimeout(() => {
+    VTBusyProgressService.stop(isBusy);
+  },5000);
+});
 
 interface DataTest {
   id: string
@@ -76,6 +85,8 @@ onMounted(() => {
 
 const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
 const dataTests = ref(tableData.sources)
+const isBusy = ref(false);
+const isDisabled = ref(false);
 
 const createTanggal = (date: string): Tanggal => {
   return {
