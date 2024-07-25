@@ -50,7 +50,8 @@ const tableData = reactive({
   columns: [] as VTTableColumn[],
   sources: [] as DataTest[],
   text: false,
-  testDate: [] as Tanggal[]
+  testDate: [] as Tanggal[],
+  coba: '' as string
 })
 
 tableData.columns = [
