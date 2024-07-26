@@ -54,12 +54,12 @@
               <FwbAccordionPanel v-for="row in sortedData" :key="row.name">
                 <FwbAccordionHeader>{{ row[headerName] }}</FwbAccordionHeader>
                 <FwbAccordionContent class="relative">
-                  <div class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
-                    <VTButton outline color="blue" class="group" @click="showAction = !showAction">
-                      <IconEllipsis size="md" color="white" />
-                    </VTButton>
-                  </div>
                   <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
+                    <div v-if="col.name === 'action'" class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
+                      <VTButton outline color="blue" class="group" @click="showAction = !showAction">
+                        <IconEllipsis size="md" color="white" />
+                      </VTButton>
+                    </div>
                     <VTLabelItem v-if="col.type !== 'Custome'" :labelText="col.title"
                       :value="row[col.propName ? col.propName : '']" />
                   </div>
