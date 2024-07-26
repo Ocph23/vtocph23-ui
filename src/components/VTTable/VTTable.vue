@@ -200,7 +200,7 @@ export default {
     const progress = ref(0);
     const isBussy = ref(false);
     const isPending = ref(false);
-    const isLargeScreen = useMediaQuery('(min-width: 1024px)');
+    const isLargeScreen = useMediaQuery('(min-width: 768px)');
     const showAction = ref(false);
 
     onMounted(() => {
