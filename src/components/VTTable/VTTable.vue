@@ -30,7 +30,7 @@
         </thead>
         <tbody v-if="isLargeScreen">
           <tr v-for="(row, rowIndex) in sortedData" :key="rowIndex" :class="[
-            (rowIndex & 1) === 0 ? 'bg-gray-200 dark:bg-slate-600' : 'bg-gray-100 dark:bg-slate-500', 'hover:bg-gray-300 dark:hover:bg-slate-700'
+            rowIndex % 2 === 0 ? 'bg-slate-200 dark:bg-slate-500' : 'bg-slate-300 dark:bg-slate-600', 'hover:bg-slate-400 dark:hover:bg-slate-700'
           ]">
             <td v-for="column in headerColumns.filter((x) => !x.hiddenColumn)" :key="column.name"
               :class="[props.bordered ? ' border-[1px]' : '', column.rowClass, 'px-4 py-2 border-r-0 border-b-[1px] border-gray-300 text-nowrap']">
