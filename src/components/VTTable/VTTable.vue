@@ -60,8 +60,10 @@
                         <IconEllipsis size="md" color="white" />
                       </VTButton>
                     </div>
-                    <VTLabelItem v-if="col.type !== 'Custome'" :labelText="col.title"
+                    <VTLabelItem v-if="col.type !== 'Custome' && col.type !== 'Tanggal'" :labelText="col.title"
                       :value="row[col.propName ? col.propName : '']" />
+                    <VTLabelItem v-if="col.type === 'Tanggal' && col.propName" :labelText="col.title"
+                      :value="VTHelper.TanggalToDate(row[col.propName ? col.propName : ''], 'dmY')" />
                   </div>
                   <div
                     :class="['p-3 w-auto rounded-lg text-white absolute pt-0 top-14 right-[.55rem] bg-gray-600', showAction ? 'block' : ' hidden']">
@@ -116,7 +118,6 @@ export default {
     FwbAccordionContent,
     FwbAccordionHeader,
     FwbAccordionPanel,
-
     Pagination,
     Costume,
     // eslint-disable-next-line vue/no-reserved-component-names

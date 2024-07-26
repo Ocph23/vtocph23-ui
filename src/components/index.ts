@@ -60,14 +60,19 @@ export const VTHelper = {
         return target;
     },
 
-    TanggalToDate(data: Tanggal, format: TanggalFormat) {
-        const tanggal = data as Object as Tanggal;
-        if (tanggal && tanggal.date) {
-            if (format == 'Ymd')
-                return DateWithFormat.DateYMD(new Date(tanggal.date))
-            return DateWithFormat.DateDMY(new Date(tanggal.date));
+    TanggalToDate(data: any, format: TanggalFormat):string {
+        try {
+
+            const tanggal = data as Object as Tanggal;
+            if (tanggal && tanggal.date) {
+                if (format == 'Ymd')
+                    return DateWithFormat.DateYMD(new Date(tanggal.date))
+                return DateWithFormat.DateDMY(new Date(tanggal.date));
+            }
+            return data;
+        } catch {
+            return '';
         }
-        return data;
     },
     ConvertGender(data: string) {
         return data ? data.toLowerCase() === "p" ? 'Perempuan' : 'Laki-Laki' : '';

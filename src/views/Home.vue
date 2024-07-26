@@ -53,6 +53,7 @@ interface DataTest {
   sks_mata_kuliah: number,
   nama_program_studi: string,
   id_jenis_mata_kuliah: string,
+  tanggal_sk: Tanggal
 }
 
 const tableData = reactive({
@@ -71,11 +72,7 @@ tableData.columns = [
   { propName: "nama_mata_kuliah", title: "Nama Mata Kuliah", isMobileHeader: true },
   { propName: "sks_mata_kuliah", title: "Bobot MK (sks)", rowClass: "text-center", headerClass: "text-center" },
   { propName: "nama_program_studi", title: "Program Studi" },
-  {
-    propName: "id_jenis_mata_kuliah", title: "Jenis Mata Kuliah",
-    name: 'jenis', type: 'Custome',
-    rowClass: '!w-10 text-center'
-  },
+  { propName: "tanggal_sk", title: "Tanggal SK", name: "tanggal-sk", type: 'Tanggal' },
 ]
 
 onMounted(() => {
@@ -106,6 +103,7 @@ dataTests.value = [
     sks_mata_kuliah: 4,
     nama_program_studi: 'Ilmu Komputer',
     id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
   },
   {
     id: '2',
@@ -115,6 +113,7 @@ dataTests.value = [
     sks_mata_kuliah: 3,
     nama_program_studi: 'Ilmu Komputer',
     id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
   },
   {
     id: '3',
@@ -124,6 +123,7 @@ dataTests.value = [
     sks_mata_kuliah: 3,
     nama_program_studi: 'Ilmu Komputer',
     id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
   },
   {
     id: '4',
@@ -133,6 +133,7 @@ dataTests.value = [
     sks_mata_kuliah: 4,
     nama_program_studi: 'Ilmu Komputer',
     id_jenis_mata_kuliah: '3',
+    tanggal_sk: createTanggal('2024-08-30')
   },
   {
     id: '5',
@@ -142,6 +143,7 @@ dataTests.value = [
     sks_mata_kuliah: 3,
     nama_program_studi: 'Ilmu Komputer',
     id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
   },
 ]
 
