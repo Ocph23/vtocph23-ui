@@ -1,6 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <VTCard class="text-white" title="Title" subtitle="subtitle" description="description">
+    <div>
+      <VTStatus :text="'ini adalah isi status'" :type="'warning'"></VTStatus>
+    </div>
+
+
     <div class="my-10 flex justify-center">
       <VTCardMobile />
     </div>
@@ -23,7 +28,7 @@
         </VTTable>
       </VTCard>
     </div>
-    <VTButtonSave @click="setVal" title="Tambah Kepala Program Studi" :busy="isBusy" :disabled="isDisabled"/>
+    <VTButtonSave @click="setVal" title="Tambah Kepala Program Studi" :busy="isBusy" :disabled="isDisabled" />
   </VTCard>
 
 </template>
@@ -34,6 +39,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { VTBusyProgressService, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
+import VTStatus from '@/components/VTStatus.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
@@ -42,7 +48,7 @@ const setVal = (() => {
   VTBusyProgressService.start(isBusy);
   setTimeout(() => {
     VTBusyProgressService.stop(isBusy);
-  },5000);
+  }, 5000);
 });
 
 interface DataTest {
