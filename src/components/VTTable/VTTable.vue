@@ -81,7 +81,7 @@
           </div>
 
         </tbody>
-        <tfoot v-if="$slots.footer">
+        <tfoot v-if="$slots.footer" class="bg-slate-200 dark:bg-slate-700">
           <slot name="footer"></slot>
         </tfoot>
       </table>
