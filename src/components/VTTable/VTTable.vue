@@ -185,7 +185,7 @@ export default {
       displayedData: [] as any[],
       source: [] as any[],
       totalPages: 0,
-      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: null as 'asc' | 'desc' | null } }
+      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: '' as 'asc' | 'desc' | null } }
     });
 
     const sortState = reactive({
