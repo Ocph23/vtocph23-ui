@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <VTPageTitle title="mahasiswa" subtitle="ini halaman mahasiswa"/>
+  <VTPageTitle title="mahasiswa" subtitle="ini halaman"/>
   <VTCard class="text-white" title="Title" subtitle="subtitle" description="description">
     <div>
       <VTStatus :text="'ini adalah isi status'" :type="'warning'"></VTStatus>
