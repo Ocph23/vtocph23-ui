@@ -1,5 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
+  <VTPageTitle title="mahasiswa" subtitle="ini halaman mahasiswa"/>
   <VTCard class="text-white" title="Title" subtitle="subtitle" description="description">
     <div class="my-10 flex justify-center">
       <VTCardMobile />
@@ -37,6 +38,7 @@ import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
+import VTPageTitle from '@/components/VTPageTitle.vue'
 
 const setVal = (() => {
   VTBusyProgressService.start(isBusy);

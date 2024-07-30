@@ -55,7 +55,8 @@
                 <FwbAccordionHeader>{{ row[headerName] }}</FwbAccordionHeader>
                 <FwbAccordionContent class="relative">
                   <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
-                    <div v-if="col.name === 'action'" class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
+                    <div v-if="col.name === 'action'"
+                      class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
                       <VTButton outline color="blue" class="group" @click="showAction = !showAction">
                         <IconEllipsis size="md" color="white" />
                       </VTButton>
@@ -184,7 +185,7 @@ export default {
       displayedData: [] as any[],
       source: [] as any[],
       totalPages: 0,
-      paginate: { page: 1, count: 10, cari: '' }
+      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: null as 'asc' | 'desc' | null } }
     });
 
     const sortState = reactive({
@@ -286,16 +287,16 @@ export default {
           }
         } as any;
 
-        if (method.value == "Post") {
+        if (method.value === "Post") {
           request.data = JSON.stringify(data.paginate);
         }
         const result = (await axios.request(request)).data
-        if (method.value == "Post") {
+        if (method.value === "Post") {
           const pagination = result as PaginateResponse;
           data.source = pagination.data;
           data.totalPages = result.pager.total;
           updateDisplayedData();
-        } else if (method.value == "Get") {
+        } else if (method.value === "Get") {
           data.source = result.data;
           data.totalPages = result.data ? Math.ceil(result.data.length / data.paginate.count) : 0;
           updateDisplayedData();
@@ -363,20 +364,21 @@ export default {
     };
 
     const sortedData = computed(() => {
-      if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
-        return data.displayedData;
-      }
+      return data.displayedData;
+      // if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
+      //   return data.displayedData;
+      // }
 
-      return [...data.displayedData].sort((a, b) => {
-        const aValue = a[sortState.columnKey];
-        const bValue = b[sortState.columnKey];
+      // return [...data.displayedData].sort((a, b) => {
+      //   const aValue = a[sortState.columnKey];
+      //   const bValue = b[sortState.columnKey];
 
-        if (sortState.sortOrder === 'asc') {
-          return aValue > bValue ? 1 : -1;
-        } else {
-          return aValue < bValue ? 1 : -1;
-        }
-      });
+      //   if (sortState.sortOrder === 'asc') {
+      //     return aValue > bValue ? 1 : -1;
+      //   } else {
+      //     return aValue < bValue ? 1 : -1;
+      //   }
+      // });
     });
 
     const onChangeHiddenColumn = (columns: VTTableColumn[]) => {
@@ -392,6 +394,25 @@ export default {
     }) => {
       sortState.columnKey = columnKey;
       sortState.sortOrder = sortOrder;
+
+      data.paginate.order.field = columnKey;
+      data.paginate.order.direction = sortOrder;
+
+      if (method.value.toLowerCase() === 'post') {
+        getData();
+      } else {
+        // Lakukan pengurutan langsung pada data yang sudah ada
+        data.displayedData = [...data.displayedData].sort((a, b) => {
+          const aValue = a[columnKey];
+          const bValue = b[columnKey];
+
+          if (sortOrder === 'asc') {
+            return aValue > bValue ? 1 : -1;
+          } else {
+            return aValue < bValue ? 1 : -1;
+          }
+        });
+      }
     };
 
     provide('sort', onSort);
