@@ -289,7 +289,7 @@ export default {
 
         if (method.value === "Post") {
           if(data.paginate.order.direction === null){
-            data.paginate.order.direction = 'asc'
+            data.paginate.order.direction = 'desc'
           }
           request.data = JSON.stringify(data.paginate);
         }
@@ -372,7 +372,7 @@ export default {
         return data.displayedData;
       }
 
-      const safeSortOrder = sortState.sortOrder || 'asc';
+      const safeSortOrder = sortState.sortOrder || 'desc';
 
       return [...data.displayedData].sort((a, b) => {
         const aValue = a[sortState.columnKey];
@@ -397,7 +397,7 @@ export default {
       columnKey: string,
       sortOrder: 'asc' | 'desc' | null
     }) => {
-      const safeSortOrder = sortOrder || 'asc';
+      const safeSortOrder = sortOrder || 'desc';
 
       sortState.columnKey = columnKey;
       sortState.sortOrder = sortOrder;
@@ -413,10 +413,10 @@ export default {
           const aValue = a[columnKey];
           const bValue = b[columnKey];
 
-          if (sortOrder === 'asc') {
-            return aValue > bValue ? 1 : -1;
-          } else {
+          if (sortOrder === 'desc') {
             return aValue < bValue ? 1 : -1;
+          } else {
+            return aValue > bValue ? 1 : -1;
           }
         });
       }
