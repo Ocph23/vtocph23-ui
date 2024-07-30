@@ -185,7 +185,7 @@ export default {
       displayedData: [] as any[],
       source: [] as any[],
       totalPages: 0,
-      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: '' as 'asc' | 'desc' | null } }
+      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: null as 'asc' | 'desc' | null } }
     });
 
     const sortState = reactive({
@@ -288,6 +288,9 @@ export default {
         } as any;
 
         if (method.value === "Post") {
+          if(data.paginate.order.direction === null){
+            data.paginate.order.direction = 'asc'
+          }
           request.data = JSON.stringify(data.paginate);
         }
         const result = (await axios.request(request)).data
@@ -364,21 +367,23 @@ export default {
     };
 
     const sortedData = computed(() => {
-      return data.displayedData;
-      // if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
-      //   return data.displayedData;
-      // }
+      // return data.displayedData;
+      if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
+        return data.displayedData;
+      }
 
-      // return [...data.displayedData].sort((a, b) => {
-      //   const aValue = a[sortState.columnKey];
-      //   const bValue = b[sortState.columnKey];
+      const safeSortOrder = sortState.sortOrder || 'asc';
 
-      //   if (sortState.sortOrder === 'asc') {
-      //     return aValue > bValue ? 1 : -1;
-      //   } else {
-      //     return aValue < bValue ? 1 : -1;
-      //   }
-      // });
+      return [...data.displayedData].sort((a, b) => {
+        const aValue = a[sortState.columnKey];
+        const bValue = b[sortState.columnKey];
+
+        if (safeSortOrder === 'asc') {
+          return aValue > bValue ? 1 : -1;
+        } else {
+          return aValue < bValue ? 1 : -1;
+        }
+      });
     });
 
     const onChangeHiddenColumn = (columns: VTTableColumn[]) => {
@@ -392,11 +397,13 @@ export default {
       columnKey: string,
       sortOrder: 'asc' | 'desc' | null
     }) => {
+      const safeSortOrder = sortOrder || 'asc';
+
       sortState.columnKey = columnKey;
       sortState.sortOrder = sortOrder;
 
       data.paginate.order.field = columnKey;
-      data.paginate.order.direction = sortOrder;
+      data.paginate.order.direction = safeSortOrder;
 
       if (method.value.toLowerCase() === 'post') {
         getData();
