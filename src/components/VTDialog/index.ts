@@ -12,7 +12,7 @@ export interface Dialog {
     type: DialogType
 }
 
-export type DialogType = 'success' | 'info' | 'warning' | 'danger'
+export type DialogType = 'success' | 'info' | 'warning' | 'danger' | 'question'
 
 class VTDialogProvider {
     dialog: Dialog = reactive({

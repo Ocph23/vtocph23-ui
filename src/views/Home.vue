@@ -1,7 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <VTPageTitle title="mahasiswa" subtitle="ini halaman"/>
-  <VTCard class="text-white" title="Title" subtitle="subtitle" description="description">
+  <VTCard title="Title" subtitle="subtitle" description="description">
+    <VTButton @click="VTDialogService.asyncShowDialog('Nambah?', 'Apakah anda yakin ingin menambah data?', isBusy, 'question')">show dialog</VTButton>
+    <VTPageTitle title="mahasiswa" subtitle="ini halaman"/>
     <div>
       <VTStatus :text="'ini adalah isi status'" :type="'warning'"></VTStatus>
     </div>
@@ -37,7 +38,7 @@
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
 import { onMounted, reactive, ref } from 'vue'
-import { VTBusyProgressService, type VTTableColumn } from '..'
+import { VTBusyProgressService, VTDialogService, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTStatus from '@/components/VTStatus.vue'
@@ -45,6 +46,7 @@ import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 import VTPageTitle from '@/components/VTPageTitle.vue'
+import VTButton from '@/components/VTButton/VTButton.vue'
 
 const setVal = (() => {
   VTBusyProgressService.start(isBusy);

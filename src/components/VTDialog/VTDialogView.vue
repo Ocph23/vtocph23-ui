@@ -25,9 +25,10 @@
                     <!-- Modal body -->
                     <div :class="$slots.header ? '' : 'pt-0'" class="flex items-center p-6 text-black dark:text-white">
                         <div class="rounded-full shadow-2xl p-3 m-3 w-auto"
-                            :class="VTDialogService.dialog.type == 'warning' ? ' bg-[#e3a008]' : VTDialogService.dialog.type == 'info' ? ' bg-[#1c64f2]' : VTDialogService.dialog.type == 'success' ? 'bg-[#057a55]' : 'bg-[#e02424]'">
+                            :class="VTDialogService.dialog.type == 'warning' ? ' bg-[#e3a008]' : VTDialogService.dialog.type == 'info' ? ' bg-[#1c64f2]' : VTDialogService.dialog.type == 'success' ? 'bg-[#057a55]' : VTDialogService.dialog.type == 'question' ? ' bg-[#e3a008]' : 'bg-[#e02424]'">
                             <IconDetail size="xl" v-if="VTDialogService.dialog.type == 'info'" />
                             <IconCheck size="xl" v-else-if="VTDialogService.dialog.type == 'success'" />
+                            <IconQuestion size="xl" v-else-if="VTDialogService.dialog.type == 'question'" />
                             <IconExclamationTriangle size="xl" v-else />
                         </div>
                         <span class="dark:text-white"> {{ VTDialogService.dialog.message }}</span>
@@ -57,6 +58,7 @@ import { onMounted, ref, type Ref } from 'vue'
 import IconDetail from '@/icons/IconDetail.vue';
 import IconExclamationTriangle from '@/icons/IconExclamationTriangle.vue';
 import IconCheck from '@/icons/IconCheck.vue';
+import IconQuestion from '@/icons/IconQuestion.vue';
 
 interface ModalProps {
     notEscapable?: boolean
@@ -147,9 +149,10 @@ const getColor = computed(() => {
         return 'green';
     } else if (VTDialogService.dialog.type === 'warning') {
         return 'yellow';
-    }
-    else if (VTDialogService.dialog.type === 'danger') {
+    } else if (VTDialogService.dialog.type === 'danger') {
         return 'red';
+    } else if (VTDialogService.dialog.type === 'question') {
+        return 'yellow';
     } else {
         return 'blue';
     }
