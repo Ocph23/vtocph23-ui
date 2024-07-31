@@ -15,7 +15,7 @@ import VTButton from './VTButton/VTButton.vue';
                     <VTIconEllipsis size="md" color="black" />
                 </VTButton>
             </div>
-            <div class="px-5 mt-5 mb-2 font-semibold text-lg text-gray-700 dark:text-white">
+            <div class="px-5 mt-5 mb-2 font-semibold text-lg text-white">
                 Abraham Victor Patrick Ohoiwutun
             </div>
             <div class="px-5 mb-10">

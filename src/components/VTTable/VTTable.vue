@@ -1,16 +1,12 @@
 <template>
   <div class="p-0">
-    <div class="mb-4 grid grid-cols-2 justify-items-end">
-      <div class="justify-self-start">
+    <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col md:flex-row md:justify-start items-end md:items-center space-y-4 md:space-y-0 md:space-x-4">
         <Dropdown :options="dropdownOptions" @select="onSelectDropdown" v-if="showCount" />
+        <Costume @hiddenColumn="onChangeHiddenColumn" />
       </div>
-      <div class="grid grid-cols-10 justify-items-end">
-        <div class="col-span-9">
-          <Search class="mr-4" @search="onSearch" v-if="showSearch" />
-        </div>
-        <div>
-          <Costume @hiddenColumn="onChangeHiddenColumn" />
-        </div>
+      <div class="w-full flex justify-end">
+          <Search @search="onSearch" v-if="showSearch" />
       </div>
     </div>
     <FwbProgress :progress="progress" size="sm" v-if="isBussy" class="mb-[.05rem]" />
@@ -81,8 +77,8 @@
           </div>
 
         </tbody>
-        <tfoot v-if="$slots.footer">
-          <slot name="footer"></slot>
+        <tfoot v-if="$slots.footer && isLargeScreen" class="bg-slate-200 dark:bg-slate-700">
+          <slot name="footer" v-bind="sortedData"></slot>
         </tfoot>
       </table>
     </div>
@@ -189,7 +185,7 @@ export default {
       displayedData: [] as any[],
       source: [] as any[],
       totalPages: 0,
-      paginate: { page: 1, count: 10, cari: '' }
+      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: null as 'asc' | 'desc' | null } }
     });
 
     const sortState = reactive({
@@ -291,16 +287,19 @@ export default {
           }
         } as any;
 
-        if (method.value == "Post") {
+        if (method.value === "Post") {
+          if(data.paginate.order.direction === null){
+            data.paginate.order.direction = 'desc'
+          }
           request.data = JSON.stringify(data.paginate);
         }
         const result = (await axios.request(request)).data
-        if (method.value == "Post") {
+        if (method.value === "Post") {
           const pagination = result as PaginateResponse;
           data.source = pagination.data;
           data.totalPages = result.pager.total;
           updateDisplayedData();
-        } else if (method.value == "Get") {
+        } else if (method.value === "Get") {
           data.source = result.data;
           data.totalPages = result.data ? Math.ceil(result.data.length / data.paginate.count) : 0;
           updateDisplayedData();
@@ -368,15 +367,18 @@ export default {
     };
 
     const sortedData = computed(() => {
+      // return data.displayedData;
       if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
         return data.displayedData;
       }
+
+      const safeSortOrder = sortState.sortOrder || 'desc';
 
       return [...data.displayedData].sort((a, b) => {
         const aValue = a[sortState.columnKey];
         const bValue = b[sortState.columnKey];
 
-        if (sortState.sortOrder === 'asc') {
+        if (safeSortOrder === 'asc') {
           return aValue > bValue ? 1 : -1;
         } else {
           return aValue < bValue ? 1 : -1;
@@ -395,8 +397,29 @@ export default {
       columnKey: string,
       sortOrder: 'asc' | 'desc' | null
     }) => {
+      const safeSortOrder = sortOrder || 'desc';
+
       sortState.columnKey = columnKey;
       sortState.sortOrder = sortOrder;
+
+      data.paginate.order.field = columnKey;
+      data.paginate.order.direction = safeSortOrder;
+
+      if (method.value.toLowerCase() === 'post') {
+        getData();
+      } else {
+        // Lakukan pengurutan langsung pada data yang sudah ada
+        data.displayedData = [...data.displayedData].sort((a, b) => {
+          const aValue = a[columnKey];
+          const bValue = b[columnKey];
+
+          if (sortOrder === 'desc') {
+            return aValue < bValue ? 1 : -1;
+          } else {
+            return aValue > bValue ? 1 : -1;
+          }
+        });
+      }
     };
 
     provide('sort', onSort);

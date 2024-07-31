@@ -1,6 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <VTCard class="text-white" title="Title" subtitle="subtitle" description="description">
+  <VTCard title="Title" subtitle="subtitle" description="description">
+    <VTButton @click="VTDialogService.asyncShowDialog('Nambah?', 'Apakah anda yakin ingin menambah data?', isBusy, 'question')">show dialog</VTButton>
+    <VTPageTitle title="mahasiswa" subtitle="ini halaman"/>
     <div>
       <VTStatus :text="'ini adalah isi status'" :type="'warning'"></VTStatus>
     </div>
@@ -11,7 +13,7 @@
     </div>
     <div class="p-2">
       <VTCard title="ini test table">
-        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest">
+        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false" :showSearch="false" >
           <template #sync="row">
             <VTSyncStatus :column="row.data.status" />
           </template>
@@ -25,6 +27,12 @@
           <template #nomor="row">{{ row.index + 1 }}</template>
           <template #tanggal="row">{{ row.data.tanggal.date }}</template>
           <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+          <template #footer>
+            <tr>
+              <th colspan="7" class="text-end">Ini di dalam row</th>
+              <th>40</th>
+            </tr>
+          </template>
         </VTTable>
       </VTCard>
     </div>
@@ -36,13 +44,15 @@
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
 import { onMounted, reactive, ref } from 'vue'
-import { VTBusyProgressService, type VTTableColumn } from '..'
+import { VTBusyProgressService, VTDialogService, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTStatus from '@/components/VTStatus.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
+import VTPageTitle from '@/components/VTPageTitle.vue'
+import VTButton from '@/components/VTButton/VTButton.vue'
 
 const setVal = (() => {
   VTBusyProgressService.start(isBusy);
