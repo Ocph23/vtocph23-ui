@@ -81,8 +81,8 @@
           </div>
 
         </tbody>
-        <tfoot v-if="$slots.footer" class="bg-slate-200 dark:bg-slate-700">
-          <slot name="footer"></slot>
+        <tfoot v-if="$slots.footer && isLargeScreen" class="bg-slate-200 dark:bg-slate-700">
+          <slot name="footer" v-bind="sortedData"></slot>
         </tfoot>
       </table>
     </div>
