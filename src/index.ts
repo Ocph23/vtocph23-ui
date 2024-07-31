@@ -24,6 +24,10 @@ export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView
 export { default as VTButton } from "./components/VTButton/VTButton.vue";
 export { default as VTCardMobile } from './components/VTCardMobile.vue'
 export { default as VTLabelItem } from './components/VTLabelItem.vue';
+export { default as VTAccordion } from './components/VTAccordion/VTAccordion.vue';
+export { default as VTAccordionContent } from './components/VTAccordion/VTAccordionContent.vue';
+export { default as VTAccordionHeader } from './components/VTAccordion/VTAccordionHeader.vue';
+export { default as VTAccordionPanel } from './components/VTAccordion/VTAccordionPanel.vue';
 
 
 ///types

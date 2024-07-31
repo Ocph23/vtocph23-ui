@@ -50,12 +50,13 @@
         </tbody>
         <tbody v-else>
           <div class="">
-            <FwbAccordion>
-              <FwbAccordionPanel v-for="row in sortedData" :key="row.name">
-                <FwbAccordionHeader>{{ row[headerName] }}</FwbAccordionHeader>
-                <FwbAccordionContent class="relative">
+            <VTAccordion>
+              <VTAccordionPanel v-for="row in sortedData" :key="row.name">
+                <VTAccordionHeader>{{ row[headerName] }}</VTAccordionHeader>
+                <VTAccordionContent class="relative">
                   <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
-                    <div v-if="col.name === 'action'" class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
+                    <div v-if="col.name === 'action'"
+                      class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
                       <VTButton outline color="blue" class="group" @click="showAction = !showAction">
                         <IconEllipsis size="md" color="white" />
                       </VTButton>
@@ -74,9 +75,9 @@
                       </template>
                     </div>
                   </div>
-                </FwbAccordionContent>
-              </FwbAccordionPanel>
-            </FwbAccordion>
+                </VTAccordionContent>
+              </VTAccordionPanel>
+            </VTAccordion>
           </div>
 
         </tbody>
@@ -90,7 +91,11 @@
 </template>
 
 <script lang="ts">
-import { FwbAccordion, FwbAccordionContent, FwbAccordionHeader, FwbAccordionPanel, FwbProgress } from 'flowbite-vue'
+import { FwbProgress } from 'flowbite-vue'
+import VTAccordion from '../VTAccordion/VTAccordion.vue'
+import VTAccordionContent from '../VTAccordion/VTAccordionContent.vue'
+import VTAccordionPanel from '../VTAccordion/VTAccordionPanel.vue'
+import VTAccordionHeader from '../VTAccordion/VTAccordionHeader.vue'
 import { ref, reactive, watch, onMounted, computed, provide, toRefs } from 'vue'
 import Dropdown from './VTDropdown.vue'
 import Search from './VTSearch.vue'
@@ -109,15 +114,15 @@ export default {
   name: 'TableComponent',
   components: {
     FwbProgress,
-    FwbAccordion,
+    VTAccordion,
     VTLabelItem,
     VTButton,
     IconEllipsis,
     Dropdown,
     Search,
-    FwbAccordionContent,
-    FwbAccordionHeader,
-    FwbAccordionPanel,
+    VTAccordionContent,
+    VTAccordionHeader,
+    VTAccordionPanel,
     Pagination,
     Costume,
     // eslint-disable-next-line vue/no-reserved-component-names
