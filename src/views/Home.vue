@@ -13,7 +13,7 @@
     </div>
     <div class="p-2">
       <VTCard title="ini test table">
-        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest">
+        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false" :showSearch="false" >
           <template #sync="row">
             <VTSyncStatus :column="row.data.status" />
           </template>
@@ -27,6 +27,12 @@
           <template #nomor="row">{{ row.index + 1 }}</template>
           <template #tanggal="row">{{ row.data.tanggal.date }}</template>
           <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+          <template #footer>
+            <tr>
+              <th colspan="7" class="text-end">Ini di dalam row</th>
+              <th>40</th>
+            </tr>
+          </template>
         </VTTable>
       </VTCard>
     </div>

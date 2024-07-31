@@ -1,16 +1,12 @@
 <template>
   <div class="p-0">
-    <div class="mb-4 grid grid-cols-2 justify-items-end">
-      <div class="justify-self-start">
+    <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col md:flex-row md:justify-start items-end md:items-center space-y-4 md:space-y-0 md:space-x-4">
         <Dropdown :options="dropdownOptions" @select="onSelectDropdown" v-if="showCount" />
+        <Costume @hiddenColumn="onChangeHiddenColumn" />
       </div>
-      <div class="grid grid-cols-10 justify-items-end">
-        <div class="col-span-9">
-          <Search class="mr-4" @search="onSearch" v-if="showSearch" />
-        </div>
-        <div>
-          <Costume @hiddenColumn="onChangeHiddenColumn" />
-        </div>
+      <div class="w-full flex justify-end">
+          <Search @search="onSearch" v-if="showSearch" />
       </div>
     </div>
     <FwbProgress :progress="progress" size="sm" v-if="isBussy" class="mb-[.05rem]" />
