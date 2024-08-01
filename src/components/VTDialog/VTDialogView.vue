@@ -1,7 +1,7 @@
 <template>
     <div v-if="VTDialogService.dialog.isShow">
-        <div class="bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40" />
-        <div ref="modalRef" class="fixed inset-0 z-50 " tabindex="0" @click.self="clickOutside"
+        <div class="bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-60" />
+        <div ref="modalRef" class="fixed inset-0 z-70 " tabindex="0" @click.self="clickOutside"
             @keyup.esc="closeWithEsc">
             <div :class="[modalSizeClasses[size], modalPositionClasses[position]]" class="absolute p-4 w-full">
                 <!-- Modal content -->
