@@ -10,21 +10,21 @@ const props = defineProps({
     date: { type: String },
 });
 
-const syncStatus = ref(props.column);
-
-if (syncStatus.value != 'sudah sync') {
-    syncStatus.value = "belum sync";
-}
+// const syncStatus = ref(props.column);
+// if (props.column != 'sudah sync') {
+//     syncStatus.value = "belum sync";
+// }
 
 </script>
 <template>
     <VTToolTip :data="props.date">
         <template #trigger>
             <div
-                :class="[syncStatus === 'sudah sync' ? 'bg-green-500 dark:bg-green-600' : 'bg-amber-500', 'p-1 rounded-2xl w-32 flex flex-row items-center justify-center']">
-                <IconDoubleCheck v-if="syncStatus === 'sudah sync'" type="button" size="md"/>
-                <IconTime v-else type="button" size="sm"/>
-                <span class="text-md pb-[.20rem] text-white capitalize">{{ syncStatus }}</span>
+                :class="[props.column === 'sudah sync' ? 'bg-green-500 dark:bg-green-600' : 'bg-amber-500', 'px-1 rounded-2xl w-32 flex flex-row items-center justify-center']">
+                <IconDoubleCheck v-if="props.column === 'sudah sync'" type="button" size="md" />
+                <IconTime v-else type="button" size="sm" />
+                <span class="text-md pb-[.20rem] text-white capitalize">{{ props.column === 'sudah sync' ? props.column
+                    : 'belum sync' }}</span>
             </div>
         </template>
         <template #content>
