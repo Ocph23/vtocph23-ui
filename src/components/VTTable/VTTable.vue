@@ -334,6 +334,7 @@ export default {
     const onSearch = (query: string) => {
       if (query.length < 3) {
         if(query.length == 0 && method.value !== 'Default'){
+          data.paginate.cari = ''
           getData();
         }
         data.displayedData = data.source;
