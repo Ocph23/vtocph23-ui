@@ -333,7 +333,7 @@ export default {
     const onSearch = (query: string) => {
       if (query.length < 3) {
         watch(() => query, (newVal, oldVal)=> {
-          if(newVal === ''){
+          if(newVal === oldVal){
             getData();
           }
         })
