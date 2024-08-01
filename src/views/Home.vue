@@ -13,7 +13,7 @@
     </div>
     <div class="p-2">
       <VTCard title="ini test table">
-        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false" :showSearch="false" >
+        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false">
           <template #sync="row">
             <VTSyncStatus :column="row.data.status" />
           </template>

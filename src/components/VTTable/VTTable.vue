@@ -334,7 +334,7 @@ export default {
       data.paginate.cari = query;
       if (query.length < 3) {
         data.displayedData = data.source;
-        return;
+        // return;
       }
       data.paginate.page = 1;
       if (showPaginate.value && method.value === 'Post') {
