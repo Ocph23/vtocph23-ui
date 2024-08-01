@@ -332,13 +332,13 @@ export default {
 
     const onSearch = (query: string) => {
       if (query.length < 3) {
-        watch(() => query, (newVal, oldVal)=> {
-          if(newVal === oldVal){
-            getData();
+        watch(() => query.length, (newVal)=> {
+          if(newVal === 0){
+            getData()
           }
         })
         data.displayedData = data.source;
-        // return;
+        return;
       }
       data.paginate.cari = query;
       data.paginate.page = 1;
