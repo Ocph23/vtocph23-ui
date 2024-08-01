@@ -331,11 +331,16 @@ export default {
     };
 
     const onSearch = (query: string) => {
-      data.paginate.cari = query;
       if (query.length < 3) {
+        watch(() => query, (newVal, oldVal)=> {
+          if(newVal === ''){
+            getData();
+          }
+        })
         data.displayedData = data.source;
         // return;
       }
+      data.paginate.cari = query;
       data.paginate.page = 1;
       if (showPaginate.value && method.value === 'Post') {
         getData();
