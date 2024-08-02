@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <!-- <VTCard title="Title" subtitle="subtitle" description="description">
+  <VTCard title="Title" subtitle="subtitle" description="description">
     <VTButton @click="VTDialogService.asyncShowDialog('Nambah?', 'Apakah anda yakin ingin menambah data?', isBusy, 'question')">show dialog</VTButton>
     <VTPageTitle title="mahasiswa" subtitle="ini halaman"/>
     <div>
@@ -37,9 +37,9 @@
       </VTCard>
     </div>
     <VTButtonSave @click="setVal" title="Tambah Kepala Program Studi" :busy="isBusy" :disabled="isDisabled" />
-  </VTCard> -->
+  </VTCard>
 
-  <VTComingSoonView/>
+  <!-- <VTComingSoonView/> -->
 
 </template>
 

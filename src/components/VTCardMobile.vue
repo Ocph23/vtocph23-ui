@@ -6,7 +6,7 @@ import VTButton from './VTButton/VTButton.vue';
 <template>
     <div class="bg-no-repeat bg-center bg-cover shadow-xl rounded-lg ring-[1.2px] ring-gray-50 ring-opacity-30
     drop-shadow-lg
-    bg-[url('../assets/images/fluid-bg-1.jpg')]">
+    bg-[url('../assets/images/fluid-bg-5.jpg')]">
 
         <div class="z-50 w-72 rounded-lg bg-gray-800/20 backdrop-blur-sm overflow-hidden
          drop-shadow-2xl shadow-inner shadow-gray-300/50">
