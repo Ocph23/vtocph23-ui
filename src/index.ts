@@ -28,6 +28,7 @@ export { default as VTAccordion } from './components/VTAccordion/VTAccordion.vue
 export { default as VTAccordionContent } from './components/VTAccordion/VTAccordionContent.vue';
 export { default as VTAccordionHeader } from './components/VTAccordion/VTAccordionHeader.vue';
 export { default as VTAccordionPanel } from './components/VTAccordion/VTAccordionPanel.vue';
+export { default as VTComingSoon } from './components/VTComingSoonView.vue';
 
 
 ///types

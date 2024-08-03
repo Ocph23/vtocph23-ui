@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row items-center">
     <input v-model="searchQuery" @input="onSearch" type="text" placeholder="Search..."
-      class="flex justify-center bg-transparent rounded-lg active:ring active:ring-sky-400">
+      class="flex justify-center text-gray-700 dark:text-gray-300 bg-transparent rounded-lg active:ring active:ring-sky-400">
     <!-- <button @click="onSearch"
       class="bg-blue-600 rounded-lg p-[.6rem] text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
       Cari

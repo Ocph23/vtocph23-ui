@@ -72,8 +72,8 @@ const toggleColumn = (index: number) => {
             <span class="sr-only">Costume Data Column</span>
             <VTIconGear size="sm" />
         </button>
-        <div id="vtcolumn" class="absolute translate-y-2/4 translate-x-[200px]" :class="isShow ? '' : 'hidden'">
-            <div class="z-20 bg-gray-200 divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:divide-gray-600">
+        <div id="vtcolumn" class="absolute translate-y-2/4 -translate-x-[65px] md:translate-x-[200px]" :class="isShow ? '' : 'hidden'">
+            <div class="z-20 w-auto bg-gray-200 divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-800 dark:divide-gray-600">
                 <div class="px-4 py-3 text-gray-900 dark:text-white font-semibold text-base">
                     <div>Showed Data</div>
                 </div>

@@ -46,6 +46,8 @@
     <VTButtonSave @click="setVal" title="Tambah Kepala Program Studi" :busy="isBusy" :disabled="isDisabled" />
   </VTCard>
 
+  <!-- <VTComingSoonView/> -->
+
 </template>
 
 <script setup lang="ts">
@@ -60,6 +62,7 @@ import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 import VTPageTitle from '@/components/VTPageTitle.vue'
 import VTButton from '@/components/VTButton/VTButton.vue'
+import VTComingSoonView from '@/components/VTComingSoonView.vue'
 
 const setVal = (() => {
   VTBusyProgressService.start(isBusy);
