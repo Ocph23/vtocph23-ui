@@ -1,10 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <VTCard title="Title" subtitle="subtitle" description="description">
-    <VTButton @click="VTDialogService.asyncShowDialog('Nambah?', 'Apakah anda yakin ingin menambah data?', isBusy, 'question')">show dialog</VTButton>
-    <VTPageTitle title="mahasiswa" subtitle="ini halaman"/>
+    <VTButton
+      @click="VTDialogService.asyncShowDialog('Nambah?', 'Apakah anda yakin ingin menambah data?', isBusy, 'question')">
+      show dialog</VTButton>
+    <VTPageTitle title="mahasiswa" subtitle="ini halaman" />
     <div>
-      <VTStatus :text="'ini adalah isi status'" :type="'warning'"></VTStatus>
+      <VTStatus :type="'warning'">
+        <template #text>
+          text from Slot
+        </template>
+      </VTStatus>
     </div>
 
 
@@ -13,7 +19,8 @@
     </div>
     <div class="p-2">
       <VTCard title="ini test table">
-        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false">
+        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false"
+          :showSearch="false">
           <template #sync="row">
             <VTSyncStatus :column="row.data.status" />
           </template>

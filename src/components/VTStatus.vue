@@ -4,7 +4,7 @@ import VTToolTip from './VTToolTip.vue';
 
 export type StatusType = 'info' | 'success' | 'danger' | 'warning';
 
-const props = defineProps<{ text: String, type: StatusType, tooltip?: String }>()
+const props = defineProps<{ text?: String, type: StatusType, tooltip?: String }>()
 
 const bgClass = computed(() => {
     switch (props.type) {
@@ -27,7 +27,12 @@ const bgClass = computed(() => {
         <template #trigger>
             <div :class="[bgClass, 'p-1 px-3 rounded-2xl w-auto flex flex-row items-center justify-center']">
                 <slot name="icon"></slot>
-                <span class="text-md text-white capitalize">{{ props.text }}</span>
+                <span class="text-md text-white capitalize">
+                    <slot v-if="$slots.text" name="text"></slot>
+                    <span v-else>
+                        {{ props.text }}
+                    </span>
+                </span>
             </div>
         </template>
         <template #content>
