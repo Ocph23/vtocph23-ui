@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <VTCard title="Title" subtitle="subtitle" description="description">
-    <VTButton
-      @click="VTDialogService.asyncShowDialog('Nambah?', 'Apakah anda yakin ingin menambah data?', isBusy, 'question')">
+    <VTButton @click="showModal">
       show dialog</VTButton>
+    
     <VTPageTitle title="mahasiswa" subtitle="ini halaman" />
     <div>
       <VTStatus :type="'warning'">
@@ -19,31 +19,48 @@
     </div>
     <div class="p-2">
       <VTCard title="ini test table">
-        <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showCount="false"
-          :showSearch="false">
-          <template #sync="row">
-            <VTSyncStatus :column="row.data.status" />
-          </template>
-          <template #action="row">
-            <div class="flex flex-row items-center">
-              <VTButtonAction type="detail" @click="row.data" />
-              <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
-              <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
+        <VTModal v-if="isShowModal" @close="closeModal" size="5xl">
+          <template #header>
+            <div class="flex items-center text-lg">
+              KRS MAHASISWA
             </div>
           </template>
-          <template #nomor="row">{{ row.index + 1 }}</template>
-          <template #tanggal="row">{{ row.data.tanggal.date }}</template>
-          <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
-          <template #footer>
-            <tr>
-              <th colspan="7" class="text-end">Ini di dalam row</th>
-              <th>40</th>
-            </tr>
+          <template #body>
+            <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showSearch="false">
+              <template #sync="row">
+                <VTSyncStatus :column="row.data.status" />
+              </template>
+              <template #action="row">
+                <div class="flex flex-row items-center">
+                  <VTButtonAction type="detail" @click="row.data" />
+                  <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
+                  <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
+                </div>
+              </template>
+              <template #nomor="row">{{ row.index + 1 }}</template>
+              <template #tanggal="row">{{ row.data.tanggal.date }}</template>
+              <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+              <template #footer="datas">
+                {{ console.log('ini footer: ', datas) }}
+                <tr>
+                  <th colspan="7" class="text-end">Ini di dalam footer</th>
+                  <th class="text-end"> {{ datas.nama_program_studi }}</th>
+                </tr>
+              </template>
+            </VTTable>
           </template>
-        </VTTable>
+          <template #footer>
+            <div class="flex justify-end">
+              <VTButton @click="closeModal" color="alternative">
+                Tutup
+              </VTButton>
+              <VTButton @click="tableTest?.refresh()">Refresh</VTButton>
+            </div>
+          </template>
+        </VTModal>
+
       </VTCard>
     </div>
-    <VTButtonSave @click="setVal" title="Tambah Kepala Program Studi" :busy="isBusy" :disabled="isDisabled" />
   </VTCard>
 
   <!-- <VTComingSoonView/> -->
@@ -63,13 +80,9 @@ import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 import VTPageTitle from '@/components/VTPageTitle.vue'
 import VTButton from '@/components/VTButton/VTButton.vue'
 import VTComingSoonView from '@/components/VTComingSoonView.vue'
+import VTModal from '@/components/VTModal.vue'
 
-const setVal = (() => {
-  VTBusyProgressService.start(isBusy);
-  setTimeout(() => {
-    VTBusyProgressService.stop(isBusy);
-  }, 5000);
-});
+
 
 interface DataTest {
   id: string
@@ -98,18 +111,41 @@ tableData.columns = [
   { propName: "nama_mata_kuliah", title: "Nama Mata Kuliah", isMobileHeader: true },
   { propName: "sks_mata_kuliah", title: "Bobot MK (sks)", rowClass: "text-center", headerClass: "text-center" },
   { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
+  { propName: "nama_program_studi", title: "Program Studi" },
   { propName: "tanggal_sk", title: "Tanggal SK", name: "tanggal-sk", type: 'Tanggal' },
 ]
+const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
 
 onMounted(() => {
   tableTest.value?.setDataSource(dataTests.value)
   tableTest.value?.refresh()
 })
 
-const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
 const dataTests = ref(tableData.sources)
 const isBusy = ref(false);
 const isDisabled = ref(false);
+
+const isShowModal = ref(false);
+
+const closeModal = (() => {
+  isShowModal.value = false
+});
+
+const showModal = (() => {
+  isShowModal.value = true;
+});
+
+const rowClick = (rowData: any) => {
+  console.log("Row clicked:", rowData);
+};
 
 const createTanggal = (date: string): Tanggal => {
   return {
@@ -171,6 +207,157 @@ dataTests.value = [
     id_jenis_mata_kuliah: '2',
     tanggal_sk: createTanggal('2024-08-30')
   },
+  {
+    id: '6',
+    kode_mata_kuliah: 'CS101',
+    nama_mata_kuliah: 'Pemrograman Dasar',
+    status: 'sudah sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '7',
+    kode_mata_kuliah: 'CS102',
+    nama_mata_kuliah: 'Struktur Data',
+    status: 'belum sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '8',
+    kode_mata_kuliah: 'CS103',
+    nama_mata_kuliah: 'Basis Data',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '9',
+    kode_mata_kuliah: 'CS104',
+    nama_mata_kuliah: 'Jaringan Komputer',
+    status: 'belum sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '3',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '10',
+    kode_mata_kuliah: 'CS105',
+    nama_mata_kuliah: 'Sistem Operasi',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '1',
+    kode_mata_kuliah: 'CS101',
+    nama_mata_kuliah: 'Pemrograman Dasar',
+    status: 'sudah sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '2',
+    kode_mata_kuliah: 'CS102',
+    nama_mata_kuliah: 'Struktur Data',
+    status: 'belum sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '3',
+    kode_mata_kuliah: 'CS103',
+    nama_mata_kuliah: 'Basis Data',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '4',
+    kode_mata_kuliah: 'CS104',
+    nama_mata_kuliah: 'Jaringan Komputer',
+    status: 'belum sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '3',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '5',
+    kode_mata_kuliah: 'CS105',
+    nama_mata_kuliah: 'Sistem Operasi',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '6',
+    kode_mata_kuliah: 'CS101',
+    nama_mata_kuliah: 'Pemrograman Dasar',
+    status: 'sudah sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '7',
+    kode_mata_kuliah: 'CS102',
+    nama_mata_kuliah: 'Struktur Data',
+    status: 'belum sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '8',
+    kode_mata_kuliah: 'CS103',
+    nama_mata_kuliah: 'Basis Data',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '1',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '9',
+    kode_mata_kuliah: 'CS104',
+    nama_mata_kuliah: 'Jaringan Komputer',
+    status: 'belum sync',
+    sks_mata_kuliah: 4,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '3',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  {
+    id: '10',
+    kode_mata_kuliah: 'CS105',
+    nama_mata_kuliah: 'Sistem Operasi',
+    status: 'sudah sync',
+    sks_mata_kuliah: 3,
+    nama_program_studi: 'Ilmu Komputer',
+    id_jenis_mata_kuliah: '2',
+    tanggal_sk: createTanggal('2024-08-30')
+  },
+  
 ]
 
 
