@@ -41,7 +41,6 @@
               <template #tanggal="row">{{ row.data.tanggal.date }}</template>
               <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
               <template #footer="datas">
-              
                 <tr>
                   <th colspan="7" class="text-end">Ini di dalam footer</th>
                   <th class="text-end">   {{ ShowResult(datas) }} </th>
