@@ -79,7 +79,7 @@
 
         </tbody>
         <tfoot v-if="$slots.footer && isLargeScreen" class="bg-slate-200 dark:bg-slate-700">
-          <slot name="footer" v-bind="sortedData"></slot>
+          <slot name="footer" v-bind="footerData(sortedData)"></slot>
         </tfoot>
       </table>
     </div>
@@ -229,6 +229,11 @@ export default {
       }
     });
 
+    const footerData = (data: any) => {
+      let datas = Object.entries(data);
+      return datas.map(x => JSON.parse(JSON.stringify(x[1])));
+    }
+
     const startProgress = () => {
       return new Promise<void>((resolve) => {
         if (progress.value < 80) {
@@ -333,7 +338,7 @@ export default {
 
     const onSearch = (query: string) => {
       if (query.length < 3) {
-        if(query.length == 0 && method.value !== 'Default'){
+        if (query.length == 0 && method.value !== 'Default') {
           data.paginate.cari = ''
           getData();
         }
@@ -459,7 +464,7 @@ export default {
       setDataSource,
       isLargeScreen,
       headerName,
-      showAction
+      showAction, footerData
     };
   }
 };

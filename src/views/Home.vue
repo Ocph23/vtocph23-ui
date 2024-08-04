@@ -3,7 +3,7 @@
   <VTCard title="Title" subtitle="subtitle" description="description">
     <VTButton @click="showModal">
       show dialog</VTButton>
-    
+
     <VTPageTitle title="mahasiswa" subtitle="ini halaman" />
     <div>
       <VTStatus :type="'warning'">
@@ -26,7 +26,8 @@
             </div>
           </template>
           <template #body>
-            <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest" :showSearch="false">
+            <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest"
+              :showSearch="false">
               <template #sync="row">
                 <VTSyncStatus :column="row.data.status" />
               </template>
@@ -41,9 +42,10 @@
               <template #tanggal="row">{{ row.data.tanggal.date }}</template>
               <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
               <template #footer="datas">
+
                 <tr>
                   <th colspan="7" class="text-end">Ini di dalam footer</th>
-                  <th class="text-end">   {{ ShowResult(datas) }} </th>
+                  <th class="text-end"> {{ ShowResult(datas) }} </th>
                 </tr>
               </template>
             </VTTable>
@@ -68,21 +70,21 @@
 
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
-import { computed, onMounted, reactive, ref } from 'vue'
-import { VTBusyProgressService, VTDialogService, type VTTableColumn } from '..'
+import { onMounted, reactive, ref } from 'vue'
+import { type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTStatus from '@/components/VTStatus.vue'
 import VTCardMobile from '@/components/VTCardMobile.vue'
 import VTButtonAction from '@/components/VTButtonAction.vue'
-import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 import VTPageTitle from '@/components/VTPageTitle.vue'
 import VTButton from '@/components/VTButton/VTButton.vue'
-import VTComingSoonView from '@/components/VTComingSoonView.vue'
 import VTModal from '@/components/VTModal.vue'
 
-const ShowResult = (data:any)=>{
-      console.log( JSON.parse(JSON.stringify(data)));
+const ShowResult = (data: any[]) => {
+  console.log(data.reduce((total, item) => {
+    return total + item.sks_mata_kuliah
+  }, 0));
 };
 
 interface DataTest {
@@ -358,7 +360,7 @@ dataTests.value = [
     id_jenis_mata_kuliah: '2',
     tanggal_sk: createTanggal('2024-08-30')
   },
-  
+
 ]
 
 
