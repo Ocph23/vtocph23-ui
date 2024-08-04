@@ -41,10 +41,10 @@
               <template #tanggal="row">{{ row.data.tanggal.date }}</template>
               <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
               <template #footer="datas">
-                {{ console.log('ini footer: ', datas) }}
+              
                 <tr>
                   <th colspan="7" class="text-end">Ini di dalam footer</th>
-                  <th class="text-end"> {{ datas.nama_program_studi }}</th>
+                  <th class="text-end">   {{ ShowResult(datas) }} </th>
                 </tr>
               </template>
             </VTTable>
@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { VTBusyProgressService, VTDialogService, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
@@ -82,7 +82,9 @@ import VTButton from '@/components/VTButton/VTButton.vue'
 import VTComingSoonView from '@/components/VTComingSoonView.vue'
 import VTModal from '@/components/VTModal.vue'
 
-
+const ShowResult = (data:any)=>{
+      console.log( JSON.parse(JSON.stringify(data)));
+};
 
 interface DataTest {
   id: string
