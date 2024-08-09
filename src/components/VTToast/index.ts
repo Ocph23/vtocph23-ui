@@ -25,19 +25,19 @@ class ToastProvider {
         }
     }
 
-    error(message: string, duration: number = 5000, closable: boolean = true, divide: boolean = true) {
+    error(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "danger", duration, closable, divide)
     }
 
-    info(message: string, duration: number = 5000, closable: boolean = true, divide: boolean = true) {
+    info(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "empty", duration, closable, divide)
     }
 
-    warning(message: string, duration: number = 5000, closable: boolean = true, divide: boolean = true) {
+    warning(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "warning", duration, closable, divide)
     }
 
-    success(message: string, duration: number = 5000, closable: boolean = true, divide: boolean = true) {
+    success(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "success", duration, closable, divide)
     }
 

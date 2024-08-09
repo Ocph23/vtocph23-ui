@@ -89,7 +89,7 @@ const ShowResult = (data: any[]) => {
 
 
 const showToast = () => {
-  VTToastService.warning('Anda tidak memiliki hak akses', 5000, true, true);
+  VTToastService.success('Anda tidak memiliki hak akses', 0, true);
 }
 
 interface DataTest {
