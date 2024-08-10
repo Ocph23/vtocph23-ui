@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <VTCard title="Title" subtitle="subtitle" description="description">
+  <!-- <VTCard title="Title" subtitle="subtitle" description="description">
     <VTButton @click="showToast">
       show dialog</VTButton>
 
@@ -62,9 +62,9 @@
 
       </VTCard>
     </div>
-  </VTCard>
-
-  <!-- <VTComingSoonView/> -->
+  </VTCard> -->
+  <VTErrorView type="500"/>
+  <VTComingSoonView/>
 
 </template>
 
@@ -80,6 +80,7 @@ import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTPageTitle from '@/components/VTPageTitle.vue'
 import VTButton from '@/components/VTButton/VTButton.vue'
 import VTModal from '@/components/VTModal.vue'
+import VTErrorView from '@/components/VTError/VTErrorView.vue'
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {
