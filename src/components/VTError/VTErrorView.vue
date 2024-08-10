@@ -41,7 +41,7 @@ const desc = computed(() => {
 
 </script>
 <template>
-    <div class="p-5 md:p-0 flex flex-col justify-center items-center h-screen font-poppins bg-gray-900">
+    <div class="p-5 md:p-0 flex flex-col justify-center items-center h-screen font-poppins">
         <DotLottieVue v-if="props.type === '404'" class="w-full md:w-1/2" autoplay loop :src="notFoundAnimation" />
         <DotLottieVue v-else-if="props.type === '500'" class="w-full md:w-1/2" autoplay loop :src="serverErrorAnimation" />
         <DotLottieVue v-else class="w-full md:w-1/2" autoplay loop :src="maintenanceAnimation" />
