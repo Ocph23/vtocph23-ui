@@ -39,7 +39,6 @@ onMounted(() => {
     }
 });
 
-/* @vite-ignore */
 const loadingAnimation = new URL('./loading_animation.json', import.meta.url).href;
 const successAnimation = new URL('./checkanimation.json', import.meta.url).href;
 
