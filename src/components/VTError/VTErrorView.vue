@@ -43,7 +43,7 @@ const desc = computed(() => {
     return "Sorry for the inconvenience. Our website is currently undergoing scheduled maintenance to improve your experience. We'll be back online shortly. Thank you for your patience!"
 })
 
-// /* @vite-ignore */
+/* @vite-ignore */
 const maintenanceAnimation = new URL('./Gear-Animation.json', import.meta.url).href;
 const serverErrorAnimation = new URL('./Error-500-Animation.json', import.meta.url).href;
 const notFoundAnimation = new URL('./Not-Found-Animation.json', import.meta.url).href;
