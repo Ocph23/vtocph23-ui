@@ -63,7 +63,9 @@
       </VTCard>
     </div>
   </VTCard> -->
-  <VTErrorView type="500"/>
+  <div class="bg-gray-200 dark:bg-gray-800">
+    <VTErrorView type="500"/>
+  </div>
   <VTComingSoonView/>
 
 </template>
