@@ -3,8 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 import { VTIconSave } from '@/index';
 
-const loadingAnimation = new URL('./loading_animation.json', import.meta.url).href;
-const successAnimation = new URL('./checkanimation.json', import.meta.url).href;
+
 
 
 const props = defineProps({
@@ -39,6 +38,10 @@ onMounted(() => {
         showContent.value = true;
     }
 });
+
+/* @vite-ignore */
+const loadingAnimation = new URL('./loading_animation.json', import.meta.url).href;
+const successAnimation = new URL('./checkanimation.json', import.meta.url).href;
 
 </script>
 
