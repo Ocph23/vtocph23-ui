@@ -43,16 +43,16 @@ const desc = computed(() => {
     return "Sorry for the inconvenience. Our website is currently undergoing scheduled maintenance to improve your experience. We'll be back online shortly. Thank you for your patience!"
 })
 
-const maintenanceAnimation = new URL('./Gear-Animation.json', import.meta.url /* @vite-ignore */).href;
-const serverErrorAnimation = new URL('./Error-500-Animation.json', import.meta.url /* @vite-ignore */).href;
-const notFoundAnimation = new URL('./Not-Found-Animation.json', import.meta.url /* @vite-ignore */).href;
+// const maintenanceAnimation = new URL('./Gear-Animation.json', import.meta.url /* @vite-ignore */).href;
+// const serverErrorAnimation = new URL('./Error-500-Animation.json', import.meta.url /* @vite-ignore */).href;
+// const notFoundAnimation = new URL('./Not-Found-Animation.json', import.meta.url /* @vite-ignore */).href;
 
 </script>
 <template>
     <div class="p-5 md:p-0 flex flex-col justify-center items-center h-screen font-poppins">
-        <DotLottieVue v-if="props.type === '404'" class="w-full md:w-1/2" autoplay loop :src="notFoundAnimation" />
-        <DotLottieVue v-else-if="props.type === '500'" class="w-full md:w-1/2" autoplay loop :src="serverErrorAnimation" />
-        <DotLottieVue v-else class="w-full md:w-1/2" autoplay loop :src="maintenanceAnimation" />
+        <DotLottieVue v-if="props.type === '404'" class="w-full md:w-1/2" autoplay loop src="https://lottie.host/9ac7b1cf-c767-494e-8ce0-b2b40190469b/qkiVELasjB.json" />
+        <DotLottieVue v-else-if="props.type === '500'" class="w-full md:w-1/2" autoplay loop src="https://lottie.host/1fd22879-f680-44cb-9b74-2612b4dca1bc/CejunICjVm.json" />
+        <DotLottieVue v-else class="w-full md:w-1/2" autoplay loop src="https://lottie.host/ab2f46b1-bc92-4849-aca2-69a468ced02b/dVzHt29Gzf.json" />
         <h1 class="text-2xl my-7 text-gray-800 font-bold dark:text-gray-200">
             {{ Headline }}
         </h1>
