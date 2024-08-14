@@ -1,6 +1,6 @@
 {
   "name": "@ocph23/vtocph23",
-  "version": "0.2.37",
+  "version": "0.2.38",
   "main": "./dist/vtocph23.umd.js",
   "module": "./dist/vtocph23.umd.cjs",
   "type": "module",
