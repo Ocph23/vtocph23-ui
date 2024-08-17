@@ -17,25 +17,27 @@ class ToastProvider {
     showToast(message: string, type: string, duration: number = 0, closable: boolean = true, divide: boolean) {
         const toas = { closable, divide, message, type } as ToastItem;
         this.toasts.push(toas);
-        setTimeout(() => {
-            const index = this.toasts.indexOf(toas);
-            this.toasts.splice(index, 1);
-        }, duration);
+        if(!closable){
+            setTimeout(() => {
+                const index = this.toasts.indexOf(toas);
+                this.toasts.splice(index, 1);
+            }, duration);
+        }
     }
 
-    error(message: string, duration: number = 3000, closable: boolean = true, divide: boolean = true) {
+    error(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "danger", duration, closable, divide)
     }
 
-    info(message: string, duration: number = 3000, closable: boolean = true, divide: boolean = true) {
+    info(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "empty", duration, closable, divide)
     }
 
-    warning(message: string, duration: number = 3000, closable: boolean = true, divide: boolean = true) {
+    warning(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "warning", duration, closable, divide)
     }
 
-    success(message: string, duration: number = 3000, closable: boolean = true, divide: boolean = true) {
+    success(message: string, duration: number = 5000, closable: boolean = false, divide: boolean = true) {
         this.showToast(message, "success", duration, closable, divide)
     }
 

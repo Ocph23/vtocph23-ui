@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '../../../node_modules/aos/dist/aos.css';
-import { FwbToast } from 'flowbite-vue';
+import  FwbToast  from './VTToast.vue';
 import { computed, onMounted } from 'vue';
 import { VTToastService } from './index';
 import AOS from 'aos';
@@ -16,10 +16,10 @@ onMounted(() => {
 <template>
     <div class="fixed top-11 z-50 min-w-80 flex flex-col shadow-sm justify-end items-end m-3 -right-0">
         <div v-for="item in toastList" :key="item.id">
-            <fwb-toast divide class="my-1 " :closeable="item.closable" :type="item.type" data-aos="fade-left"
+            <FwbToast divide class="my-1" :closable="item.closable" :type="item.type" data-aos="fade-left"
                 data-aos-delay="100" data-aos-anchor-placement="center-center" data-aos-offset="0">
                 {{ item.message }}
-            </fwb-toast>
+            </FwbToast>
         </div>
         <div class="mr-5">
         </div>

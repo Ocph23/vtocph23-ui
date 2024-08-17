@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <VTCard title="Title" subtitle="subtitle" description="description">
-    <VTButton @click="showModal">
+  <!-- <VTCard title="Title" subtitle="subtitle" description="description">
+    <VTButton @click="showToast">
       show dialog</VTButton>
 
     <VTPageTitle title="mahasiswa" subtitle="ini halaman" />
@@ -32,7 +32,7 @@
                 <VTSyncStatus :column="row.data.status" />
               </template>
               <template #action="row">
-                <div class="flex flex-row items-center">
+                <div class="flex flex-row items-center min-w-">
                   <VTButtonAction type="detail" @click="row.data" />
                   <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
                   <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
@@ -62,16 +62,19 @@
 
       </VTCard>
     </div>
-  </VTCard>
+  </VTCard> -->
 
-  <!-- <VTComingSoonView/> -->
+  <div class="bg-gray-200 dark:bg-gray-800">
+    <VTErrorView type="503"/>
+  </div>
+  <VTComingSoonView/>
 
 </template>
 
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
 import { onMounted, reactive, ref } from 'vue'
-import { type VTTableColumn } from '..'
+import { VTToastService, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTStatus from '@/components/VTStatus.vue'
@@ -80,12 +83,18 @@ import VTButtonAction from '@/components/VTButtonAction.vue'
 import VTPageTitle from '@/components/VTPageTitle.vue'
 import VTButton from '@/components/VTButton/VTButton.vue'
 import VTModal from '@/components/VTModal.vue'
+import VTErrorView from '@/components/VTError/VTErrorView.vue'
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {
     return total + item.sks_mata_kuliah
   }, 0));
 };
+
+
+const showToast = () => {
+  VTToastService.success('Anda tidak memiliki hak akses', 0, true);
+}
 
 interface DataTest {
   id: string
