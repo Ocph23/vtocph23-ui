@@ -22,7 +22,7 @@
           <tr>
             <Th v-for="column in props.columns.filter((x) => !x.hiddenColumn)" :key="column.name" :title="column.title"
               :column-key="column.propName || ''" :columns="props.columns" :header-class="column.headerClass"
-              @sort="onSort" />
+              :header-position="column.headerPosition" @sort="onSort" />
           </tr>
         </thead>
         <tbody v-if="isLargeScreen">

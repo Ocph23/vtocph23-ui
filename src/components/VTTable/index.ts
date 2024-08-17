@@ -5,6 +5,7 @@ export interface VTTableColumn {
     type?: ColumnType,
     name?: string,
     headerClass?: string,
+    headerPosition?: 'left' | 'center' | 'right' | 'between',
     rowClass?: string,
     hiddenColumn?: Boolean,
     checked?: Boolean,

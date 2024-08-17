@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <!-- <VTCard title="Title" subtitle="subtitle" description="description">
+  <VTCard title="Title" subtitle="subtitle" description="description">
     <VTButton @click="showToast">
       show dialog</VTButton>
 
@@ -26,8 +26,7 @@
             </div>
           </template>
           <template #body>
-            <VTTable :columns="tableData.columns" :source="dataTests" method="Default" ref="tableTest"
-              :showSearch="false">
+            <VTTable :columns="tableData.columns" :source="datas" method="Default" ref="tableTest" :showSearch="false">
               <template #sync="row">
                 <VTSyncStatus :column="row.data.status" />
               </template>
@@ -62,12 +61,12 @@
 
       </VTCard>
     </div>
-  </VTCard> -->
+  </VTCard>
 
   <div class="bg-gray-200 dark:bg-gray-800">
-    <VTErrorView type="503"/>
+    <VTErrorView type="503" />
   </div>
-  <VTComingSoonView/>
+  <VTComingSoonView />
 
 </template>
 
@@ -94,6 +93,10 @@ const ShowResult = (data: any[]) => {
 
 const showToast = () => {
   VTToastService.success('Anda tidak memiliki hak akses', 0, true);
+  isShowModal.value = true;
+  setTimeout(() => {
+    tableTest.value?.refresh();
+  }, 500);
 }
 
 interface DataTest {
@@ -117,22 +120,7 @@ const tableData = reactive({
 
 tableData.columns = [
   { title: "Action", name: 'action', type: 'Custome' },
-  { propName: "status_sync", title: "Status", name: 'sync', type: 'Custome' },
-  { propName: 'nomor', title: 'No.', name: 'nomor', type: 'Custome', },
-  { propName: "kode_mata_kuliah", title: "Kode MK" },
-  { propName: "nama_mata_kuliah", title: "Nama Mata Kuliah", isMobileHeader: true },
-  { propName: "sks_mata_kuliah", title: "Bobot MK (sks)", rowClass: "text-center", headerClass: "text-center" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "nama_program_studi", title: "Program Studi" },
-  { propName: "tanggal_sk", title: "Tanggal SK", name: "tanggal-sk", type: 'Tanggal' },
+  { propName: "nama_program_studi", title: "Program Studi", headerPosition: "between" },
 ]
 const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
 
@@ -168,7 +156,7 @@ const createTanggal = (date: string): Tanggal => {
   };
 };
 
-dataTests.value = [
+const datas = [
   {
     id: '1',
     kode_mata_kuliah: 'CS101',
