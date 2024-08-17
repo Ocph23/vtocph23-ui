@@ -18,8 +18,10 @@ import { onMounted, ref } from 'vue';
 
 const selected = ref(null)
 const data = [{ name: "Yoseph Kungkung", value: 1 }, { name: "Yoseph X", value: 2 }]
-
+const isBusy = ref(false);
 const showDialog = () => {
+
+    VTBusyProgressService.start(isBusy);
     VTDialogService.asyncShowDialog("Dialog", "ini Pesan ini Pesanini Pesanini Pesanini Pesanini Pesanini Pesanini Pesanini Pesan", { name: 'budi' }, 'warning')
         .then(result => {
             VTToastService.error("ini Pesan" + result.name)
