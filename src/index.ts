@@ -30,7 +30,7 @@ export { default as VTAccordionHeader } from './components/VTAccordion/VTAccordi
 export { default as VTAccordionPanel } from './components/VTAccordion/VTAccordionPanel.vue';
 export { default as VTComingSoon } from './components/VTComingSoonView.vue';
 export { default as VTCardAbout } from './components/VTCardAbout.vue';
-export { default as VTErrorView} from './components/VTError/VTErrorView.vue'
+export { default as VTErrorView } from './components/VTError/VTErrorView.vue'
 
 
 ///types
@@ -84,3 +84,4 @@ export { default as VTIconCalendar } from "./icons/IconCalendar.vue";
 export { default as VTIconExclamationTriangle } from "./icons/IconExclamationTriangle.vue";
 export { default as VTIconUser } from './icons/IconUser.vue';
 export { default as VTIconEllipsis } from './icons/IconEllipsis.vue';
+export { default as VTIconSync } from './icons/IconSync.vue';
