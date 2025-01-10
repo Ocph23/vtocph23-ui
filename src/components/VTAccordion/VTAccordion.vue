@@ -6,13 +6,8 @@
 
 <script lang="ts" setup>
 import { nanoid } from 'nanoid'
-import { useAccordionState } from './composables/useAccordionState'
+import { useAccordionState, type AccordionProps } from './composables/useAccordionState'
 
-interface AccordionProps {
-  alwaysOpen?: boolean
-  openFirstItem?: boolean
-  flush?: boolean
-}
 
 const props = withDefaults(defineProps<AccordionProps>(), {
   alwaysOpen: false,

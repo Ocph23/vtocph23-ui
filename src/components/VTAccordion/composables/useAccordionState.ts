@@ -1,7 +1,7 @@
 import { onBeforeMount, onBeforeUnmount, reactive } from 'vue'
 import type { tState } from '../types'
 
-interface AccordionProps {
+export interface AccordionProps {
   alwaysOpen?: boolean
   openFirstItem?: boolean
   flush?: boolean
@@ -9,7 +9,7 @@ interface AccordionProps {
 
 const accordionsStates = reactive<tState>({})
 
-export function useAccordionState (
+export function useAccordionState(
   id?: string,
   options?: AccordionProps,
 ): {

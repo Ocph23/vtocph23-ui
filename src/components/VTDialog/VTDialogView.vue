@@ -23,7 +23,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div :class="$slots.header ? '' : 'pt-0'" class="flex items-center p-6 text-black dark:text-white">
+                    <div :class="'pt-0'" class="flex items-center p-6 text-black dark:text-white">
                         <div class="rounded-full shadow-2xl p-3 m-3 w-auto"
                             :class="VTDialogService.dialog.type == 'warning' ? ' bg-[#e3a008]' : VTDialogService.dialog.type == 'info' ? ' bg-[#1c64f2]' : VTDialogService.dialog.type == 'success' ? 'bg-[#057a55]' : VTDialogService.dialog.type == 'question' ? ' bg-[#e3a008]' : 'bg-[#e02424]'">
                             <IconDetail size="xl" v-if="VTDialogService.dialog.type == 'info'" />

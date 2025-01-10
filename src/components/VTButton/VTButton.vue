@@ -19,7 +19,7 @@
     <div v-if="!isOutlineGradient && $slots.suffix" class="ml-2">
       <slot name="suffix" />
     </div>
-    
+
   </component>
 </template>
 
@@ -29,7 +29,7 @@ import { useMergeClasses } from '..'
 import { useButtonClasses } from './ButtonClasses'
 import type { ButtonGradient, ButtonMonochromeGradient, ButtonSize, ButtonVariant } from './types'
 
-interface IButtonProps {
+export interface IButtonProps {
   class?: string
   color?: ButtonVariant
   gradient?: ButtonGradient | null
