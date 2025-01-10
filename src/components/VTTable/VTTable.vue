@@ -175,6 +175,8 @@ export default {
       url,
       method,
       showPaginate,
+      showCount,
+      showSearch,
       tableName,
       bordered
     } = toRefs(props);
