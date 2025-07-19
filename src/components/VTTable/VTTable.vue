@@ -46,7 +46,7 @@
           </tr>
         </tbody>
         <tbody v-else>
-          <div class="">
+          <div>
             <VTAccordion>
               <VTAccordionPanel v-for="row in sortedData" :key="row.name">
                 <VTAccordionHeader>{{ row[headerName] }}</VTAccordionHeader>

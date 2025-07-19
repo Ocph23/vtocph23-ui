@@ -11,6 +11,12 @@
           text from Slot
         </template>
       </VTStatus>
+
+      <VTButtonSave @click="ButtonSaveClick" :busy="isBusy">
+
+      </VTButtonSave>
+
+
     </div>
 
 
@@ -83,6 +89,7 @@ import VTPageTitle from '@/components/VTPageTitle.vue'
 import VTButton from '@/components/VTButton/VTButton.vue'
 import VTModal from '@/components/VTModal.vue'
 import VTErrorView from '@/components/VTError/VTErrorView.vue'
+import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {
@@ -90,7 +97,14 @@ const ShowResult = (data: any[]) => {
   }, 0));
 };
 
+const ButtonSaveClick = () => {
+  isBusy.value = true;
+  isDisabled.value = false;
+  setTimeout(() => {
+    isBusy.value = false;
+  }, 3000);
 
+}
 const showToast = () => {
   VTToastService.success('Anda tidak memiliki hak akses', 0, true);
   isShowModal.value = true;
