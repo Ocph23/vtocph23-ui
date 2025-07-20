@@ -1,6 +1,6 @@
 <template>
   <label class="block mb-2 text-sm font-medium" :class="[labelClasses]">{{ props.label }}<span v-if="validation"
-      class="text-rose-500 text-lg" >*</span></label>
+      class="text-rose-500 text-lg">*</span></label>
   <div class="relative mb-2" ref="dropdown">
     <div class="relative">
       <input :class="[inputClasses]" type="text" v-model="internalQuery" @input="filterList"
@@ -70,6 +70,8 @@ watch(query, (newValue: any) => {
       var data = props.sources.find((x) => x.value == newValue)
       selectItem(data as SelectOption)
     }
+  } else {
+    internalQuery.value = ''
   }
 })
 

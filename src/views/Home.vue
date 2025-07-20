@@ -15,6 +15,10 @@
       <VTButtonSave :busy="isBusy" :disabled="isDisabled" @click="ButtonSaveClick">
       </VTButtonSave>
 
+      <VTAutocomplete v-model="selectedAutoComplete"
+        :sources="datas.map((item) => { return { name: item.nama_mata_kuliah, value: item.id } as SelectOption })">
+      </VTAutocomplete>
+
     </div>
 
 
@@ -70,14 +74,13 @@
   <div class="bg-gray-200 dark:bg-gray-800">
     <VTErrorView type="503" />
   </div>
-  <VTComingSoonView />
-
+  <VTComingSoonView></VTComingSoonView>
 </template>
 
 <script setup lang="ts">
 import VTCard from '@/components/VTCard.vue'
 import { onMounted, reactive, ref } from 'vue'
-import { VTToastService, type VTTableColumn } from '..'
+import { VTToastService, type SelectOption, type VTTableColumn } from '..'
 import VTTable from '@/components/VTTable/VTTable.vue'
 import VTSyncStatus from '@/components/VTSyncStatus.vue'
 import VTStatus from '@/components/VTStatus.vue'
@@ -88,7 +91,8 @@ import VTButton from '@/components/VTButton/VTButton.vue'
 import VTModal from '@/components/VTModal.vue'
 import VTErrorView from '@/components/VTError/VTErrorView.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
-import BusyComponent from '@/BusyComponent.vue'
+import VTAutocomplete from '@/components/VTAutocomplete.vue'
+import VTComingSoonView from '@/components/VTComingSoonView.vue'
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {
@@ -96,11 +100,14 @@ const ShowResult = (data: any[]) => {
   }, 0));
 };
 
+const selectedAutoComplete = ref('');
+
 const ButtonSaveClick = () => {
   isBusy.value = true;
   isDisabled.value = false;
   setTimeout(() => {
     isBusy.value = false;
+    selectedAutoComplete.value = '';
   }, 2000);
 
 }

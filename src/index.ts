@@ -31,6 +31,7 @@ export { default as VTAccordionPanel } from './components/VTAccordion/VTAccordio
 export { default as VTComingSoon } from './components/VTComingSoonView.vue';
 export { default as VTCardAbout } from './components/VTCardAbout.vue';
 export { default as VTErrorView } from './components/VTError/VTErrorView.vue'
+export { default as VTComingSoonView } from './components/VTComingSoonView.vue';
 
 
 ///types
