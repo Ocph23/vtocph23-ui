@@ -12,10 +12,8 @@
         </template>
       </VTStatus>
 
-      <VTButtonSave @click="ButtonSaveClick" :busy="isBusy">
-
+      <VTButtonSave :busy="isBusy" :disabled="isDisabled" @click="ButtonSaveClick">
       </VTButtonSave>
-
 
     </div>
 
@@ -90,6 +88,7 @@ import VTButton from '@/components/VTButton/VTButton.vue'
 import VTModal from '@/components/VTModal.vue'
 import VTErrorView from '@/components/VTError/VTErrorView.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
+import BusyComponent from '@/BusyComponent.vue'
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {
@@ -102,7 +101,7 @@ const ButtonSaveClick = () => {
   isDisabled.value = false;
   setTimeout(() => {
     isBusy.value = false;
-  }, 3000);
+  }, 2000);
 
 }
 const showToast = () => {
