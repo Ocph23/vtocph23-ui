@@ -30,7 +30,7 @@
             rowIndex % 2 === 0 ? 'bg-slate-300 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-500', 'hover:bg-slate-400 dark:hover:bg-slate-700'
           ]">
             <td v-for="column in headerColumns.filter((x) => !x.hiddenColumn)" :key="column.name"
-              :class="[props.bordered ? ' border-[1px]' : '', column.rowClass, 'px-4 py-2 border-r-0 border-b-[1px] border-gray-300 text-nowrap']">
+              :class="[props.bordered ? ' border-[1px]' : '', column.rowClass, 'px-4 py-2 border-r-0 border-b-[1px] border-gray-100 text-nowrap']">
               <div v-if="column.name && column.type == 'Custome'">
                 <slot :name="column.name" v-bind="{ data: row, index: rowIndex }" />
               </div>
@@ -46,37 +46,34 @@
           </tr>
         </tbody>
         <tbody v-else>
-          <div>
-            <VTAccordion>
-              <VTAccordionPanel v-for="row in sortedData" :key="row.name">
-                <VTAccordionHeader>{{ row[headerName] }}</VTAccordionHeader>
-                <VTAccordionContent class="relative">
-                  <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
-                    <div v-if="col.name === 'action'"
-                      class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
-                      <VTButton outline color="blue" class="group" @click="showAction = !showAction">
-                        <IconEllipsis size="md" color="white" />
-                      </VTButton>
-                    </div>
-                    <VTLabelItem v-if="col.type !== 'Custome' && col.type !== 'Tanggal'" :labelText="col.title"
-                      :value="row[col.propName ? col.propName : '']" />
-                    <VTLabelItem v-if="col.type === 'Tanggal' && col.propName" :labelText="col.title"
-                      :value="VTHelper.TanggalToDate(row[col.propName ? col.propName : ''], 'dmY')" />
+          <VTAccordion>
+            <VTAccordionPanel v-for="row in sortedData" :key="row.name">
+              <VTAccordionHeader>{{ row[headerName] }}</VTAccordionHeader>
+              <VTAccordionContent class="relative">
+                <div class="overflow-y-auto h-1/2" v-for="(col, colIndex) in headerColumns" :key="colIndex">
+                  <div v-if="col.name === 'action'"
+                    class="absolute p-2 top-0 right-0 flex justify-end  hp:max-[640px]:w-full">
+                    <VTButton outline color="blue" class="group" @click="showAction = !showAction">
+                      <IconEllipsis size="md" color="white" />
+                    </VTButton>
                   </div>
-                  <div
-                    :class="['p-3 w-auto rounded-lg text-white absolute pt-0 top-14 right-[.55rem] bg-gray-600', showAction ? 'block' : ' hidden']">
-                    <div class="h-auto w-auto *:flex-col *:pt-6">
-                      <template v-for="(custome, cusIndex) in headerColumns" :key="cusIndex">
-                        <slot v-if="custome.name === 'action'" :name="custome.name"
-                          v-bind="{ data: row, index: cusIndex }" />
-                      </template>
-                    </div>
+                  <VTLabelItem v-if="col.type !== 'Custome' && col.type !== 'Tanggal'" :labelText="col.title"
+                    :value="row[col.propName ? col.propName : '']" />
+                  <VTLabelItem v-if="col.type === 'Tanggal' && col.propName" :labelText="col.title"
+                    :value="VTHelper.TanggalToDate(row[col.propName ? col.propName : ''], 'dmY')" />
+                </div>
+                <div
+                  :class="['p-3 w-auto rounded-lg text-white absolute pt-0 top-14 right-[.55rem] bg-gray-600', showAction ? 'block' : ' hidden']">
+                  <div class="h-auto w-auto *:flex-col *:pt-6">
+                    <template v-for="(custome, cusIndex) in headerColumns" :key="cusIndex">
+                      <slot v-if="custome.name === 'action'" :name="custome.name"
+                        v-bind="{ data: row, index: cusIndex }" />
+                    </template>
                   </div>
-                </VTAccordionContent>
-              </VTAccordionPanel>
-            </VTAccordion>
-          </div>
-
+                </div>
+              </VTAccordionContent>
+            </VTAccordionPanel>
+          </VTAccordion>
         </tbody>
         <tfoot v-if="$slots.footer && isLargeScreen" class="bg-slate-200 dark:bg-slate-700">
           <slot name="footer" v-bind="footerData(sortedData)"></slot>
@@ -270,12 +267,22 @@ export default {
     };
 
     const refresh = async () => {
-      if (method.value == 'Default') {
-        data.source = source.value;
-        updateDisplayedData();
-      } else {
-        await getData();
+      try {
+        isBussy.value = true;
+        await startProgress();
+        if (method.value == 'Default') {
+          data.source = source.value;
+          updateDisplayedData();
+        } else {
+          await getData();
+        }
+      } catch (error) {
+        console.error('Error refreshing data:', error);
+      } finally {
+        isBussy.value = false;
+        continueProgress();
       }
+
     };
 
     const getData = async () => {
@@ -285,11 +292,11 @@ export default {
       try {
         let request = {
           method: method.value.toLowerCase(),
-          mode: 'cors',
+          // mode: 'cors',
           url: url.value,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'bearer ' + localStorage.getItem('token')
+            // Authorization: 'bearer ' + localStorage.getItem('token')
           }
         } as any;
 
@@ -299,14 +306,19 @@ export default {
           }
           request.data = JSON.stringify(data.paginate);
         }
-        const result = (await axios.request(request)).data
+        const response = (await axios.request(request))
+        const result = response.data
         if (method.value === "Post") {
           const pagination = result as PaginateResponse;
           data.source = pagination.data;
           data.totalPages = result.pager.total;
           updateDisplayedData();
         } else if (method.value === "Get") {
-          data.source = result.data;
+          if (result.data == null || result.data == undefined) {
+            data.source = result;
+          } else {
+            data.source = result.data;
+          }
           data.totalPages = result.data ? Math.ceil(result.data.length / data.paginate.count) : 0;
           updateDisplayedData();
         }
@@ -322,6 +334,7 @@ export default {
         showPaginate.value &&
         (method.value === "Get" || method.value === "Default")
       ) {
+        data.totalPages = Math.ceil(data.source.length / data.paginate.count);
         const startIndex = (data.paginate.page - 1) * data.paginate.count;
         const endIndex = startIndex + data.paginate.count;
         data.displayedData = data.source ? data.source.slice(startIndex, endIndex) : [];
@@ -333,7 +346,11 @@ export default {
     const onSelectDropdown = (option: number) => {
       data.paginate.count = option;
       data.paginate.page = 1;
-      getData();
+      if (method.value === 'Default') {
+        updateDisplayedData();
+      } else if (method.value === 'Get') {
+        getData();
+      }
     };
 
     const onSearch = (query: string) => {
@@ -367,7 +384,7 @@ export default {
       data.paginate.page = page;
       if (method.value === "Post") {
         getData();
-      } else if (method.value === "Get") {
+      } else if (method.value === "Get" || method.value === "Default") {
         updateDisplayedData();
       }
     };

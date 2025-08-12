@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import Home from './views/Home.vue'
 import Ocph from './views/Ocph.vue'
+import TestPage from './views/TestPage.vue'
 
 
 
@@ -17,7 +18,12 @@ const route = [
         path: '/ocph',
         name: 'ocph',
         component: Ocph,
+    }, {
+        path: '/test',
+        name: 'test',
+        component: TestPage,
     },
+
 ]
 
 
