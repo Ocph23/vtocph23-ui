@@ -292,11 +292,11 @@ export default {
       try {
         let request = {
           method: method.value.toLowerCase(),
-          // mode: 'cors',
+          mode: 'cors',
           url: url.value,
           headers: {
             'Content-Type': 'application/json',
-            // Authorization: 'bearer ' + localStorage.getItem('token')
+            Authorization: 'bearer ' + localStorage.getItem('token')
           }
         } as any;
 
