@@ -2,7 +2,7 @@
     <div class="flex items-start">
         <tooltip :placement="placement" :triggers="[trigger]" :theme="theme" auto-hide :disabled="isDisabled">
             <slot name="trigger" />
-            <template #popper >
+            <template #popper>
                 <slot name="content" />
             </template>
         </tooltip>
@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<TooltipProps>(), {
 })
 
 const isDisabled = ref(false)
-if(!props.data){
+if (!props.data) {
     isDisabled.value = true
 }
 

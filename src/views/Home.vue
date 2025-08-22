@@ -1,6 +1,24 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <VTCard title="Title" subtitle="subtitle" description="description">
+
+    <VTButtonAction class="'bg-yellow-500 hover:bg-yellow-300'">Save Action</VTButtonAction>
+
+    <VTStatus :text="'test text'" :type="'success'" :tooltip="'Test tooltip'">
+
+    </VTStatus>
+
+    <VTToolTip>
+      <template #trigger>
+        <label for="">Tooltip</label>
+      </template>
+      <template #content>
+        <div class="text-white">
+          <p>ini adalah isi tooltip</p>
+        </div>
+      </template>
+    </VTToolTip>
+
     <VTButton @click="showToast">
       show dialog</VTButton>
 
@@ -93,6 +111,7 @@ import VTErrorView from '@/components/VTError/VTErrorView.vue'
 import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 import VTAutocomplete from '@/components/VTAutocomplete.vue'
 import VTComingSoonView from '@/components/VTComingSoonView.vue'
+import VTToolTip from '@/components/VTToolTip.vue'
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {

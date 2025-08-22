@@ -8,10 +8,15 @@
                 { name: 'idx', title: 'No', propName: 'id', type: 'Custome' },
                 { title: 'Nama Guru', propName: 'name' },
                 { title: 'Mata Pelajaran', propName: 'subject', },
-                { title: 'Email', propName: 'email', }
+                { name: 'email', title: 'Email', propName: 'email', type: 'Custome' }
             ]">
             <template #idx="{ data, index }">
                 <span>{{ index + 1 }}</span>
+            </template>
+
+            <template #email="{ data }">
+                <span v-if="data.email">{{ data.email }}</span>
+                <span v-else class="text-gray-500">Tidak ada email</span>
             </template>
         </VTTable>
     </div>

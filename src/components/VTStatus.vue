@@ -4,21 +4,26 @@ import VTToolTip from './VTToolTip.vue';
 
 export type StatusType = 'info' | 'success' | 'danger' | 'warning';
 
-const props = defineProps<{ text?: String, type: StatusType, tooltip?: String }>()
+const props = defineProps<{ text?: String, type: StatusType, tooltip?: String, class?: String }>()
 
 const bgClass = computed(() => {
+
+    let style = "bg-neutral-300 dark:bg-neutral-700";
     switch (props.type) {
         case 'success':
-            return "bg-green-500 dark:bg-green-600";
+            style = "bg-green-500 dark:bg-green-600";
+            break;
         case 'danger':
-            return "bg-red-500 dark:bg-red-600";
+            style = "bg-red-500 dark:bg-red-600";
+            break;
         case 'warning':
-            return "bg-amber-500 dark:bg-amber-600";
+            style = "bg-amber-500 dark:bg-amber-600";
+            break;
         case 'info':
-            return "bg-blue-500 dark:bg-blue-600";
-        default:
-            return "";
+            style = "bg-blue-500 dark:bg-blue-600";
+            break;
     }
+    return style;
 })
 
 </script>
