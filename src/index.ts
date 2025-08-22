@@ -86,3 +86,5 @@ export { default as VTIconExclamationTriangle } from "./icons/IconExclamationTri
 export { default as VTIconUser } from './icons/IconUser.vue';
 export { default as VTIconEllipsis } from './icons/IconEllipsis.vue';
 export { default as VTIconSync } from './icons/IconSync.vue';
+export { default as VTIconBack } from './icons/IconBack.vue';
+export { default as VTIconXMark } from './icons/IconXMark.vue';
