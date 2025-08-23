@@ -1,29 +1,23 @@
 <template>
   <div>
-    <label v-if="label" :class="[labelClasses]"
-      >{{ label }} <span v-if="props.validation" class="text-orange-500">*</span></label
-    >
+    <label v-if="label" :class="[labelClasses]">{{ label }} <span v-if="props.validation"
+        class="text-orange-500">*</span></label>
     <div class="flex relative">
-      <div
-        v-if="$slots.prefix"
-        class="w-10 flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none overflow-hidden"
-      >
+      <div v-if="$slots.prefix"
+        class="w-10 flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none overflow-hidden">
         <slot name="prefix" />
       </div>
-      <input
-        v-bind="$attrs"
-        v-model="model"
-        :disabled="disabled"
-        :type="type"
-        :required="required"
-        :class="[inputClasses, $slots.prefix ? 'pl-10' : '']"
-      />
+      <input v-bind="$attrs" v-model="model" :disabled="disabled" :type="type" :required="required"
+        :class="[inputClasses, $slots.prefix ? 'pl-10' : '']" />
       <div v-if="$slots.suffix" class="absolute right-2.5 bottom-2.5">
         <slot name="suffix" />
       </div>
     </div>
     <p v-if="props.validation && props.validation.$error">
       <VTInputErrorMessage :messages="props.validation.$errors" />
+    </p>
+    <p v-if="props.validation && props.validation._errors">
+      <slot name="validationMessage" />
     </p>
   </div>
 </template>
@@ -100,9 +94,12 @@ const errorInputClasses =
 const inputClasses = computed(() => {
   let classByStatus = defaultInputClasses
   if (props.validation) {
-    const vsx = props.validation.$error
+    const vsx = props.validation.$error || props.validation._errors;
     classByStatus = vsx ? errorInputClasses : successInputClasses
   }
+  // if (props.disabled) {
+  //   classByStatus = disabledInputClasses
+  // }
 
   return twMerge(
     defaultInputClasses,
@@ -115,7 +112,7 @@ const inputClasses = computed(() => {
 const labelClasses = computed(() => {
   let classByStatus = 'text-gray-900 dark:text-white'
   if (props.validation) {
-    const vsx = props.validation.$error
+    const vsx = props.validation.$error || props.validation._errors;
     classByStatus = vsx ? 'text-red-700 dark:text-red-500' : 'text-green-700 dark:text-green-500'
   }
 
