@@ -67,7 +67,8 @@
     "pinia": "^2.3.0",
     "tailwind-merge": "2.3.0",
     "vue": "^3.4.x",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "zod": "^4.0.17"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.11",

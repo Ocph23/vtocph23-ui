@@ -2,6 +2,15 @@
 <template>
   <VTCard title="Title" subtitle="subtitle" description="description">
 
+    <VTCard title="Form">
+      <VTInput v-model="sessionData.firstName" :label="'First Name'" :validation="true"
+        :errors="errors?.firstName?._errors">
+        <template #validationMessage>First Name</template>
+      </VTInput>
+      <VTButton @click="validate">Validate</VTButton>
+    </VTCard>
+
+
     <VTButtonAction class="'bg-yellow-500 hover:bg-yellow-300'">Save Action</VTButtonAction>
 
     <VTStatus :text="'test text'" :type="'success'" :tooltip="'Test tooltip'">
@@ -112,6 +121,37 @@ import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
 import VTAutocomplete from '@/components/VTAutocomplete.vue'
 import VTComingSoonView from '@/components/VTComingSoonView.vue'
 import VTToolTip from '@/components/VTToolTip.vue'
+import VTInput from '@/components/VTInput/VTInput.vue'
+
+import z from 'zod'
+
+interface User {
+  firstName: string
+}
+
+const schema = z.object({
+  firstName: z.string().min(3)
+})
+
+type SessionFormSchema = z.Infer<typeof schema>;
+
+const errors = ref<z.ZodFormattedError<SessionFormSchema> | null>(null);
+
+const sessionData = reactive<User>({ firstName: '' });
+
+setTimeout(() => {
+  validate();
+}, 200)
+
+const validate = () => {
+  var validatorResult = schema.safeParse(sessionData);
+  if (validatorResult.success) {
+    errors.value = null;
+  } else {
+    errors.value = validatorResult.error.format();
+  }
+}
+
 
 const ShowResult = (data: any[]) => {
   console.log(data.reduce((total, item) => {
