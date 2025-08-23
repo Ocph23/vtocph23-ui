@@ -16,7 +16,7 @@
     <p v-if="props.validation && props.validation.$error">
       <VTInputErrorMessage :messages="props.validation.$errors" />
     </p>
-    <p v-if="props.validation && props.validation._errors">
+    <p v-if="props.validation && props.errors">
       <slot name="validationMessage" />
     </p>
   </div>
@@ -40,6 +40,7 @@ interface InputProps {
   size?: InputSize
   type?: InputType
   validation?: any
+  errors?: any
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
@@ -94,12 +95,10 @@ const errorInputClasses =
 const inputClasses = computed(() => {
   let classByStatus = defaultInputClasses
   if (props.validation) {
-    const vsx = props.validation.$error || props.validation._errors;
+    const vsx = props.validation.$error || props.errors;
     classByStatus = vsx ? errorInputClasses : successInputClasses
   }
-  // if (props.disabled) {
-  //   classByStatus = disabledInputClasses
-  // }
+
 
   return twMerge(
     defaultInputClasses,
@@ -112,7 +111,7 @@ const inputClasses = computed(() => {
 const labelClasses = computed(() => {
   let classByStatus = 'text-gray-900 dark:text-white'
   if (props.validation) {
-    const vsx = props.validation.$error || props.validation._errors;
+    const vsx = props.validation.$error || props.errors;
     classByStatus = vsx ? 'text-red-700 dark:text-red-500' : 'text-green-700 dark:text-green-500'
   }
 
