@@ -20,6 +20,9 @@
     <p v-if="props.validation && props.validation.$error">
       <FwbInputErrorMessage :messages="props.validation.$errors" />
     </p>
+    <p v-if="props.validation && props.errors">
+      <slot name="validationMessage" />
+    </p>
     <ul v-if="showOptions && filteredList.length" @keyup.esc="closeFocus"
       class=" absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]">
       <li v-for="(item, index) in filteredList.slice(0, 10)" :key="index" @click="selectItem(item)"
@@ -46,7 +49,8 @@ const props = withDefaults(
     placeholder?: string
     validationStatus?: boolean
     label?: string
-    validation?: any
+    validation?: any,
+    errors?: any,
     disabled?: boolean
   }>(),
   { placeholder: 'Cari . . .' }
@@ -168,7 +172,7 @@ const errorInputClasses =
 const inputClasses = computed(() => {
   let classByStatus = defaultInputClasses
   if (props.validation) {
-    const vsx = props.validation.$error
+    const vsx = props.validation.$error || props.errors
     classByStatus = vsx ? errorInputClasses : successInputClasses
   }
 
@@ -178,7 +182,7 @@ const inputClasses = computed(() => {
 const labelClasses = computed(() => {
   let classByStatus = 'text-gray-900 dark:text-white'
   if (props.validation) {
-    const vsx = props.validation.$error
+    const vsx = props.validation.$error || props.errors
     classByStatus = vsx ? 'text-red-700 dark:text-red-500' : 'text-green-700 dark:text-green-500'
   }
 

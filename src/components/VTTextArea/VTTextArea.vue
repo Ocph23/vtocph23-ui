@@ -4,6 +4,9 @@
         <span :class="wrapperClasses">
             <textarea v-model="model" v-bind="$attrs" :class="textAreaClasses" :rows="rows"
                 :placeholder="placeholder" />
+            <p v-if="props.validation && props.errors">
+                <slot name="validationMessage" />
+            </p>
             <span v-if="$slots.footer" :class="footerClasses">
                 <slot name="footer" />
             </span>
@@ -23,7 +26,8 @@ interface TextareaProps {
     custom?: boolean
     placeholder?: string
     validation?: any,
-    disabled?: boolean
+    disabled?: boolean,
+    errors?: any,
 }
 
 defineOptions({
@@ -68,7 +72,7 @@ const textareaDefaultClasses = 'block p-2.5 w-full text-sm text-gray-900 bg-gray
 const textAreaClasses = computed(() => {
     let classByStatus = textareaDefaultClasses;
     if (props.validation) {
-        const vsx = props.validation.$error;
+        const vsx = props.validation.$error || props.errors;;
         classByStatus = vsx
             ? errorClasses
             : successClasses
@@ -84,7 +88,7 @@ const textAreaClasses = computed(() => {
 const labelClasses = computed(() => {
     let classByStatus = 'text-gray-900 dark:text-white';
     if (props.validation) {
-        const vsx = props.validation.$error;
+        const vsx = props.validation.$error || props.errors;;
         classByStatus = vsx
             ? 'text-red-700 dark:text-red-500'
             : 'text-green-700 dark:text-green-500'

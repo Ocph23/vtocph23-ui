@@ -18,6 +18,9 @@
         <p v-if="props.validation && props.validation.$error">
             <FwbInputErrorMessage :messages="props.validation.$errors" />
         </p>
+        <p v-if="props.validation && props.errors">
+            <slot name="validationMessage" />
+        </p>
     </div>
 </template>
 
@@ -39,6 +42,7 @@ interface InputProps {
     underline?: boolean;
     size?: InputSize;
     validation?: any,
+    errors?: any;
 }
 const props = withDefaults(defineProps<InputProps>(), {
     modelValue: '',
@@ -72,7 +76,7 @@ const errorInputClasses = 'bg-red-50 border-red-500 text-red-900 placeholder-red
 const inputClasses = computed(() => {
     let classByStatus = defaultInputClasses;
     if (props.validation) {
-        const vsx = props.validation.$error;
+        const vsx = props.validation.$error || props.errors;
         classByStatus = vsx
             ? errorInputClasses
             : successInputClasses
@@ -89,7 +93,7 @@ const inputClasses = computed(() => {
 const labelClasses = computed(() => {
     let classByStatus = 'text-gray-900 dark:text-white';
     if (props.validation) {
-        const vsx = props.validation.$error;
+        const vsx = props.validation.$error || props.errors;
         classByStatus = vsx
             ? 'text-red-700 dark:text-red-500'
             : 'text-green-700 dark:text-green-500'

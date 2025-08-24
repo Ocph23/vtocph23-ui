@@ -19,6 +19,9 @@
     <p v-if="props.validation && props.errors">
       <slot name="validationMessage" />
     </p>
+    <p v-if="props.validation && props.errors">
+      <slot name="validationMessage" />
+    </p>
   </div>
 </template>
 
