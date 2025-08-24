@@ -3,11 +3,7 @@
   <VTCard title="Title" subtitle="subtitle" description="description">
 
     <VTCard title="Form">
-      <VTInput v-model="sessionData.firstName" :label="'First Name'" :validation="true"
-        :errors="errors?.firstName?._errors">
-        <template #validationMessage>First Name</template>
-      </VTInput>
-      <VTButton @click="validate">Validate</VTButton>
+
     </VTCard>
 
 
@@ -29,6 +25,9 @@
       </template>
     </VTToolTip>
 
+    <VTButton @click="showModal">
+      show modal</VTButton>
+
     <VTButton @click="showToast">
       show dialog</VTButton>
 
@@ -48,42 +47,50 @@
       </VTAutocomplete>
 
     </div>
-
-
     <div class="my-10 flex justify-center">
       <VTCardMobile />
     </div>
     <div class="p-2">
       <VTCard title="ini test table">
-        <VTModal v-if="isShowModal" @close="closeModal" size="5xl">
+        <VTModal v-if="isShowModal" @close="closeModal" size="5xl" :persistent="true">
           <template #header>
             <div class="flex items-center text-lg">
-              KRS MAHASISWA
+              KRS MAHASISWAsss
             </div>
           </template>
           <template #body>
-            <VTTable :columns="tableData.columns" :source="datas" method="Default" ref="tableTest" :showSearch="false">
+            <VTInput v-if="selectedAutoCompletex == 0" v-model="sessionData.firstName" :label="'First Name'"
+              :validation="true" :errors="errors?.firstName?._errors">
+            </VTInput>
+            <VTAutocomplete v-model="selectedAutoCompletex" :sources="autoSource">
+            </VTAutocomplete>
+
+            <VTTextArea v-model="sessionData.firstName" :label="'First Name'" :validation="true"
+              :errors="errors?.firstName?._errors"></VTTextArea>
+
+            <VTButton @click="validate">Validate</VTButton>
+            <!-- <VTTable :columns="tableData.columns" :source="datas" method="Default" ref="tableTest" :showSearch="false">
               <template #sync="row">
                 <VTSyncStatus :column="row.data.status" />
               </template>
-              <template #action="row">
+      <template #action="row">
                 <div class="flex flex-row items-center min-w-">
                   <VTButtonAction type="detail" @click="row.data" />
                   <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
                   <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
                 </div>
               </template>
-              <template #nomor="row">{{ row.index + 1 }}</template>
-              <template #tanggal="row">{{ row.data.tanggal.date }}</template>
-              <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
-              <template #footer="datas">
+      <template #nomor="row">{{ row.index + 1 }}</template>
+      <template #tanggal="row">{{ row.data.tanggal.date }}</template>
+      <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+      <template #footer="datas">
 
                 <tr>
                   <th colspan="7" class="text-end">Ini di dalam footer</th>
                   <th class="text-end"> {{ ShowResult(datas) }} </th>
                 </tr>
               </template>
-            </VTTable>
+      </VTTable> -->
           </template>
           <template #footer>
             <div class="flex justify-end">
@@ -125,6 +132,7 @@ import VTToolTip from '@/components/VTToolTip.vue'
 import VTInput from '@/components/VTInput/VTInput.vue'
 
 import z from 'zod'
+import VTTextArea from '@/components/VTTextArea/VTTextArea.vue'
 
 interface User {
   firstName: string
@@ -134,24 +142,24 @@ const schema = z.object({
   firstName: z.string().min(3)
 })
 
+const autoSource = [{ name: 'buku 1', value: '1' }, { name: 'buku 2', value: '2' }, { name: 'buku 3', value: '3' },
+{ name: 'buku 4', value: '4' }, { name: 'buku 5', value: '5' }, { name: 'buku 6', value: '1' }];
+
+
+
 type SessionFormSchema = z.Infer<typeof schema>;
 
+const selectedAutoCompletex = ref(0);
 const errors = ref<z.ZodFormattedError<SessionFormSchema> | null>(null);
 
 const sessionData = reactive<User>({ firstName: '' });
 
-setTimeout(() => {
-  validate();
-}, 200)
 
 const validate = () => {
   var validatorResult = schema.safeParse(sessionData);
-  if (validatorResult.success) {
-    errors.value = null;
-  } else {
-    errors.value = validatorResult.error.format();
-  }
+  errors.value = validatorResult.success ? null : validatorResult.error?.format();
 }
+validate();
 
 
 const ShowResult = (data: any[]) => {
@@ -160,17 +168,16 @@ const ShowResult = (data: any[]) => {
   }, 0));
 };
 
-const selectedAutoComplete = ref('');
 
 const ButtonSaveClick = () => {
   isBusy.value = true;
   isDisabled.value = false;
   setTimeout(() => {
     isBusy.value = false;
-    selectedAutoComplete.value = '';
   }, 2000);
 
 }
+
 const showToast = () => {
   VTToastService.success('Anda tidak memiliki hak akses', 0, true);
   isShowModal.value = true;

@@ -66,30 +66,35 @@ const dropdown = ref<HTMLElement | null>(null);
 
 onMounted(() => {
 
-})
+  if (props.modelValue) {
+    var data = props.sources.find((x) => x.value == props.modelValue)
+    selectItem(data as SelectOption)
+  }
+}
+)
 
-watch(query, (newValue: any) => {
+watch(query, (newValue: any, oldvalue: any) => {
   if (newValue) {
     if (props.modelValue) {
       var data = props.sources.find((x) => x.value == newValue)
       selectItem(data as SelectOption)
     }
   } else {
-    internalQuery.value = ''
+    // internalQuery.value = ''
   }
 })
 
 const filterList = () => {
-  const searchQuery = internalQuery.value.toLowerCase()
+  const searchQuery = internalQuery.value?.toLowerCase()
   emit("search", searchQuery)
-  filteredList = props.sources.filter((item) => item.name.toLowerCase().includes(searchQuery))
+  filteredList = props.sources.filter((item) => item.name?.toLowerCase().includes(searchQuery))
 }
 
 const onClickDropdown = () => {
   showOptions.value = !showOptions.value
-  const searchQuery = internalQuery.value.toLowerCase()
+  const searchQuery = internalQuery.value?.toLowerCase()
   if (searchQuery) {
-    filteredList = props.sources.filter((item) => item.name.toLowerCase().includes(searchQuery))
+    filteredList = props.sources.filter((item) => item.name?.toLowerCase().includes(searchQuery))
   } else {
     filteredList = props.sources;
   }
@@ -100,9 +105,9 @@ const onFocus = () => {
   emit('update:modelValue', null)
   emit('change', null)
   if (showOptions.value) {
-    const searchQuery = internalQuery.value.toLowerCase()
+    const searchQuery = internalQuery.value?.toLowerCase()
     if (searchQuery.length) {
-      filteredList = props.sources.filter((item) => item.name.toLowerCase().includes(searchQuery))
+      filteredList = props.sources.filter((item) => item.name?.toLowerCase().includes(searchQuery))
     } else {
       filteredList = props.sources;
     }

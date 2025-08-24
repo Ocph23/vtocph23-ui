@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { twMerge } from 'tailwind-merge'
 import { simplifyTailwindClasses } from '../simplyTailwindClass';
 
@@ -53,6 +53,12 @@ const model = computed({
 })
 
 
+watch(props.modelValue, (newValue: any) => {
+    emit('update:modelValue', model.value)
+})
+
+
+
 
 
 // LABEL
@@ -72,7 +78,7 @@ const textareaDefaultClasses = 'block p-2.5 w-full text-sm text-gray-900 bg-gray
 const textAreaClasses = computed(() => {
     let classByStatus = textareaDefaultClasses;
     if (props.validation) {
-        const vsx = props.validation.$error || props.errors;;
+        const vsx = props.validation.$error || props.errors;
         classByStatus = vsx
             ? errorClasses
             : successClasses
@@ -85,10 +91,12 @@ const textAreaClasses = computed(() => {
     )
 })
 
+
+
 const labelClasses = computed(() => {
     let classByStatus = 'text-gray-900 dark:text-white';
     if (props.validation) {
-        const vsx = props.validation.$error || props.errors;;
+        const vsx = props.validation.$error || props.errors;
         classByStatus = vsx
             ? 'text-red-700 dark:text-red-500'
             : 'text-green-700 dark:text-green-500'
