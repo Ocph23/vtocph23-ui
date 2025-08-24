@@ -42,7 +42,7 @@
       <VTButtonSave :busy="isBusy" :disabled="isDisabled" @click="ButtonSaveClick">
       </VTButtonSave>
 
-      <VTAutocomplete v-model="selectedAutoComplete"
+      <VTAutocomplete
         :sources="datas.map((item) => { return { name: item.nama_mata_kuliah, value: item.id } as SelectOption })">
       </VTAutocomplete>
 
