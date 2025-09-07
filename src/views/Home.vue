@@ -3,7 +3,10 @@
   <VTCard title="Title" subtitle="subtitle" description="description">
 
     <VTCard title="Form">
-
+      <VTInput v-model="sessionData.firstName" :label="'First Name'" :validation="true"
+        :errors="errors?.firstName?._errors"></VTInput>
+      <VTInput v-model="sessionData.bornDate" :type="'time'" :label="'Born Date'" :validation="true"
+        :errors="errors?.bornDate?._errors"></VTInput>
     </VTCard>
 
 
@@ -42,8 +45,7 @@
       <VTButtonSave :busy="isBusy" :disabled="isDisabled" @click="ButtonSaveClick">
       </VTButtonSave>
 
-      <VTAutocomplete
-        :sources="datas.map((item) => { return { name: item.nama_mata_kuliah, value: item.id } as SelectOption })">
+      <VTAutocomplete v-on:search="search" :sources="dataku">
       </VTAutocomplete>
 
     </div>
@@ -62,7 +64,7 @@
             <VTInput v-if="selectedAutoCompletex == 0" v-model="sessionData.firstName" :label="'First Name'"
               :validation="true" :errors="errors?.firstName?._errors">
             </VTInput>
-            <VTAutocomplete v-model="selectedAutoCompletex" :sources="autoSource">
+            <VTAutocomplete label="Test" v-model="selectedAutoCompletex" :sources="autoSource">
             </VTAutocomplete>
 
             <VTTextArea v-model="sessionData.firstName" :label="'First Name'" :validation="true"
@@ -135,11 +137,13 @@ import z from 'zod'
 import VTTextArea from '@/components/VTTextArea/VTTextArea.vue'
 
 interface User {
-  firstName: string
+  firstName: string,
+  bornDate: Date
 }
 
 const schema = z.object({
-  firstName: z.string().min(3)
+  firstName: z.string().min(3),
+  bornDate: z.date()
 })
 
 const autoSource = [{ name: 'buku 1', value: '1' }, { name: 'buku 2', value: '2' }, { name: 'buku 3', value: '3' },
@@ -152,7 +156,7 @@ type SessionFormSchema = z.Infer<typeof schema>;
 const selectedAutoCompletex = ref(0);
 const errors = ref<z.ZodFormattedError<SessionFormSchema> | null>(null);
 
-const sessionData = reactive<User>({ firstName: '' });
+const sessionData = reactive<User>({ firstName: '', bornDate: new Date() });
 
 
 const validate = () => {
@@ -184,6 +188,14 @@ const showToast = () => {
   setTimeout(() => {
     tableTest.value?.refresh();
   }, 500);
+}
+
+const dataku = ref<SelectOption[]>([]);
+
+const search = (searchText: string) => {
+  if (searchText.length === 3) {
+    dataku.value = datas.map((item) => { return { name: item.nama_mata_kuliah, value: item.id } as SelectOption });
+  }
 }
 
 interface DataTest {

@@ -34,6 +34,7 @@ import { type InputSize, type InputType } from './types'
 import type { Tanggal } from '../index'
 import { VTHelper } from '../../components'
 import VTInputErrorMessage from '../VTInputErrorMessage.vue'
+import { DateTime } from 'ts-luxon'
 
 interface InputProps {
   disabled?: boolean
@@ -57,16 +58,16 @@ const props = withDefaults(defineProps<InputProps>(), {
 
 const dateHandler = (value: any) => {
   let temp: any = value
-  if (props.type == 'date' || props.type == 'datetime-local') {
-    const tanggal: Tanggal = value as Object as Tanggal
-    if (tanggal && tanggal.date && tanggal.timezone) {
-      temp = VTHelper.TanggalToDate(tanggal, 'Ymd')
-      emit('update:modelValue', temp)
-    } else {
-      temp = tanggal
-    }
+  if (value instanceof Date) {
+    temp = DateTime.fromJSDate(value).toFormat(props.type == 'date' ? 'yyyy-MM-dd' : props.type == 'time' ? 'HH:mm' : 'yyyy-MM-dd HH:mm')
   }
-  emit('update:modelValue', temp)
+  const tanggal: Tanggal = value as Object as Tanggal
+  if (tanggal && tanggal.date && tanggal.timezone) {
+    temp = DateTime.fromJSDate(new Date(tanggal.date)).toFormat(props.type == 'date' ? 'yyyy-MM-dd' : props.type == 'time' ? 'HH:mm' : 'yyyy-MM-dd HH:mm')
+  }
+  setTimeout(() => {
+    emit('update:modelValue', temp)
+  }, 100)
 }
 
 const model = useVModel(props, 'modelValue')

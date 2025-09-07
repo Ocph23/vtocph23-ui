@@ -53,6 +53,8 @@ export { VTToastService } from "./components/VTToast/index";
 ///Icon
 export { default as VTIconResetPassword } from "./icons/IconResetPassword.vue"
 export { default as VTIconAddUser } from "./icons/IconAddUser.vue"
+export { default as VTIconEye } from "./icons/IconEye.vue"
+export { default as VTIconEyeSlash } from "./icons/IconEyeSlash.vue"
 export { default as VTIconCheck } from "./icons/IconCheck.vue"
 export { default as VTIconDelete } from "./icons/IconDelete.vue";
 export { default as VTIconDetail } from "./icons/IconDetail.vue";

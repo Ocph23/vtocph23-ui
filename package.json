@@ -66,6 +66,7 @@
     "nanoid": "^5.0.9",
     "pinia": "^2.3.0",
     "tailwind-merge": "2.3.0",
+    "ts-luxon": "^6.2.0",
     "vue": "^3.4.x",
     "vue-router": "^4.5.0",
     "zod": "^4.0.17"
