@@ -62,9 +62,7 @@ const dateHandler = (value: any) => {
   if (tanggal && tanggal.date && tanggal.timezone) {
     temp = DateTime.fromJSDate(new Date(tanggal.date)).toFormat(props.type == 'date' ? 'yyyy-MM-dd' : props.type == 'time' ? 'HH:mm' : 'yyyy-MM-dd HH:mm')
   }
-  setTimeout(() => {
-    emit('update:modelValue', temp)
-  }, 100)
+  emit('update:modelValue', temp)
 }
 
 const model = useVModel(props, 'modelValue')

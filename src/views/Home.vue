@@ -1,470 +1,148 @@
-<!-- eslint-disable vue/multi-word-component-names -->
+// eslint-disable-next-line vue/multi-word-component-names
 <template>
-  <VTCard title="Title" subtitle="subtitle" description="description">
+  <MainLayout>
+    <div class="p-6 max-w-4xl mx-auto space-y-6">
+      <h1 class="text-3xl font-bold">vtocph23-ui</h1>
+      <p class="text-gray-700">
+        vtocph23-ui adalah library komponen UI berbasis Flowbite dan Tailwind CSS yang dikembangkan khusus untuk Vue.js
+        3
+        (Composition API).
+        Library ini dirancang untuk mempercepat pengembangan antarmuka pengguna dengan komponen siap pakai yang
+        konsisten,
+        responsif, dan mudah dikustomisasi.
+      </p>
 
-    <VTCard title="Form">
-      <VTInput v-model="sessionData.firstName" :label="'First Name'" :validation="true"
-        :errors="errors?.firstName?._errors"></VTInput>
-      <VTInput v-model="sessionData.bornDate" :type="'time'" :label="'Born Date'" :validation="true"
-        :errors="errors?.bornDate?._errors"></VTInput>
-    </VTCard>
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">🚀 Fitur Utama</h2>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Dibangun di atas Flowbite + Tailwind CSS</li>
+          <li>Mendukung Vue 3 (Composition API)</li>
+          <li>Komponen interaktif seperti tombol, form, tabel, modal, dan lainnya</li>
+          <li>Integrasi penuh dengan tema Flowbite (light/dark mode)</li>
+          <li>Struktur modular & mudah digunakan</li>
+          <li>Dapat disesuaikan melalui konfigurasi Tailwind</li>
+        </ul>
+      </section>
 
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">📦 Instalasi</h2>
+        <p class="mb-2">Pastikan proyek Anda menggunakan Vue 3 dan Tailwind CSS.</p>
+        <pre class="bg-gray-100 p-3 rounded mb-2"><code>npm install vtocph23-ui</code></pre>
+        <p>Atau menggunakan yarn:</p>
+        <pre class="bg-gray-100 p-3 rounded"><code>yarn add vtocph23-ui</code></pre>
+      </section>
 
-    <VTButtonAction class="'bg-yellow-500 hover:bg-yellow-300'">Save Action</VTButtonAction>
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">⚙️ Konfigurasi Awal</h2>
+        <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>module.exports = {
+    content: [
+      "./index.html",
+      "./src/**/*.{vue,js,ts,jsx,tsx}",
+      "./node_modules/flowbite/**/*.js",
+      "./node_modules/vtocph23-ui/**/*.js"
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [
+      require('flowbite/plugin'),
+      require('vtocph23-ui/plugin'),
+    ],
+  }</code></pre>
+      </section>
 
-    <VTStatus :text="'test text'" :type="'success'" :tooltip="'Test tooltip'">
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">🧩 Penggunaan Dasar</h2>
+        <p>Import komponen ke dalam file Vue Anda:</p>
+        <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>&lt;script setup&gt;
+  import { VtButton } from 'vtocph23-ui'
+  &lt;/script&gt;
+  
+  &lt;template&gt;
+    &lt;VtButton color="primary"&gt;Klik Saya&lt;/VtButton&gt;
+  &lt;/template&gt;
+  
+  &lt;style&gt;
+  @import 'flowbite';
+  @import 'vtocph23-ui/dist/style.css';
+  &lt;/style&gt;</code></pre>
+      </section>
 
-    </VTStatus>
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">🧱 Contoh Komponen</h2>
+        <h3 class="font-semibold">Tombol (Button)</h3>
+        <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>&lt;VtButton color="success" @click="onSave"&gt;
+    Simpan Data
+  &lt;/VtButton&gt;</code></pre>
 
+        <h3 class="font-semibold mt-2">Modal</h3>
+        <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>&lt;VtModal v-model="showModal" title="Konfirmasi"&gt;
+    &lt;p&gt;Apakah Anda yakin ingin melanjutkan?&lt;/p&gt;
+    &lt;template #footer&gt;
+      &lt;VtButton color="secondary" @click="showModal = false"&gt;Batal&lt;/VtButton&gt;
+      &lt;VtButton color="primary" @click="confirm"&gt;Ya&lt;/VtButton&gt;
+    &lt;/template&gt;
+  &lt;/VtModal&gt;</code></pre>
+      </section>
 
-    <VTToolTip>
-      <template #trigger>
-        <label for="">Tooltip</label>
-      </template>
-      <template #content>
-        <div class="text-white">
-          <p>ini adalah isi tooltip</p>
-        </div>
-      </template>
-    </VTToolTip>
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">🎨 Kustomisasi Tema</h2>
+        <p>
+          Anda dapat menyesuaikan warna, ukuran, atau gaya global dengan memodifikasi konfigurasi Tailwind atau menimpa
+          variabel CSS yang disediakan oleh Flowbite dan vtocph23-ui.
+        </p>
+      </section>
 
-    <VTButton @click="showModal">
-      show modal</VTButton>
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">🧪 Kompatibilitas</h2>
+        <table class="table-auto border border-gray-300 w-full">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2 border">Dependensi</th>
+              <th class="px-4 py-2 border">Versi Minimum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-4 py-2 border">Vue.js</td>
+              <td class="px-4 py-2 border">3.x</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Tailwind CSS</td>
+              <td class="px-4 py-2 border">3.x</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border">Flowbite</td>
+              <td class="px-4 py-2 border">2.x</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    <VTButton @click="showToast">
-      show dialog</VTButton>
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">🛠️ Kontribusi</h2>
+        <p>Kontribusi sangat diterima! Silakan fork repo ini, buat branch baru (<code>feature/nama-fitur</code>), lalu
+          ajukan pull request.</p>
+      </section>
 
-    <VTPageTitle title="mahasiswa" subtitle="ini halaman" />
-    <div>
-      <VTStatus :type="'warning'">
-        <template #text>
-          text from Slot
-        </template>
-      </VTStatus>
-
-      <VTButtonSave :busy="isBusy" :disabled="isDisabled" @click="ButtonSaveClick">
-      </VTButtonSave>
-
-      <VTAutocomplete v-on:search="search" :sources="dataku">
-      </VTAutocomplete>
-
+      <section>
+        <h2 class="text-2xl font-semibold mb-2">📄 Lisensi</h2>
+        <p>Proyek ini dilisensikan di bawah MIT License.</p>
+        <p>Dibuat dengan oleh Ocph23 & Victor </p>
+        <p>Berbasis pada ekosistem Flowbite & Tailwind CSS.</p>
+      </section>
     </div>
-    <div class="my-10 flex justify-center">
-      <VTCardMobile />
-    </div>
-    <div class="p-2">
-      <VTCard title="ini test table">
-        <VTModal v-if="isShowModal" @close="closeModal" size="5xl" :persistent="true">
-          <template #header>
-            <div class="flex items-center text-lg">
-              KRS MAHASISWAsss
-            </div>
-          </template>
-          <template #body>
-            <VTInput v-if="selectedAutoCompletex == 0" v-model="sessionData.firstName" :label="'First Name'"
-              :validation="true" :errors="errors?.firstName?._errors">
-            </VTInput>
-            <VTAutocomplete label="Test" v-model="selectedAutoCompletex" :sources="autoSource">
-            </VTAutocomplete>
-
-            <VTTextArea v-model="sessionData.firstName" :label="'First Name'" :validation="true"
-              :errors="errors?.firstName?._errors"></VTTextArea>
-
-            <VTButton @click="validate">Validate</VTButton>
-            <!-- <VTTable :columns="tableData.columns" :source="datas" method="Default" ref="tableTest" :showSearch="false">
-              <template #sync="row">
-                <VTSyncStatus :column="row.data.status" />
-              </template>
-      <template #action="row">
-                <div class="flex flex-row items-center min-w-">
-                  <VTButtonAction type="detail" @click="row.data" />
-                  <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
-                  <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
-                </div>
-              </template>
-      <template #nomor="row">{{ row.index + 1 }}</template>
-      <template #tanggal="row">{{ row.data.tanggal.date }}</template>
-      <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
-      <template #footer="datas">
-
-                <tr>
-                  <th colspan="7" class="text-end">Ini di dalam footer</th>
-                  <th class="text-end"> {{ ShowResult(datas) }} </th>
-                </tr>
-              </template>
-      </VTTable> -->
-          </template>
-          <template #footer>
-            <div class="flex justify-end">
-              <VTButton @click="closeModal" color="alternative">
-                Tutup
-              </VTButton>
-              <VTButton @click="tableTest?.refresh()">Refresh</VTButton>
-            </div>
-          </template>
-        </VTModal>
-
-      </VTCard>
-    </div>
-  </VTCard>
-
-  <div class="bg-gray-200 dark:bg-gray-800">
-    <VTErrorView type="503" />
-  </div>
-  <VTComingSoonView></VTComingSoonView>
+  </MainLayout>
 </template>
 
-<script setup lang="ts">
-import VTCard from '@/components/VTCard.vue'
-import { onMounted, reactive, ref } from 'vue'
-import { VTToastService, type SelectOption, type VTTableColumn } from '..'
-import VTTable from '@/components/VTTable/VTTable.vue'
-import VTSyncStatus from '@/components/VTSyncStatus.vue'
-import VTStatus from '@/components/VTStatus.vue'
-import VTCardMobile from '@/components/VTCardMobile.vue'
-import VTButtonAction from '@/components/VTButtonAction.vue'
-import VTPageTitle from '@/components/VTPageTitle.vue'
-import VTButton from '@/components/VTButton/VTButton.vue'
-import VTModal from '@/components/VTModal.vue'
-import VTErrorView from '@/components/VTError/VTErrorView.vue'
-import VTButtonSave from '@/components/VTButtonSave/VTButtonSave.vue'
-import VTAutocomplete from '@/components/VTAutocomplete.vue'
-import VTComingSoonView from '@/components/VTComingSoonView.vue'
-import VTToolTip from '@/components/VTToolTip.vue'
-import VTInput from '@/components/VTInput/VTInput.vue'
+<script setup>
+import MainLayout from './MainLayout.vue';
 
-import z from 'zod'
-import VTTextArea from '@/components/VTTextArea/VTTextArea.vue'
-
-interface User {
-  firstName: string,
-  bornDate: Date
-}
-
-const schema = z.object({
-  firstName: z.string().min(3),
-  bornDate: z.date()
-})
-
-const autoSource = [{ name: 'buku 1', value: '1' }, { name: 'buku 2', value: '2' }, { name: 'buku 3', value: '3' },
-{ name: 'buku 4', value: '4' }, { name: 'buku 5', value: '5' }, { name: 'buku 6', value: '1' }];
-
-
-
-type SessionFormSchema = z.Infer<typeof schema>;
-
-const selectedAutoCompletex = ref(0);
-const errors = ref<z.ZodFormattedError<SessionFormSchema> | null>(null);
-
-const sessionData = reactive<User>({ firstName: '', bornDate: new Date() });
-
-
-const validate = () => {
-  var validatorResult = schema.safeParse(sessionData);
-  errors.value = validatorResult.success ? null : validatorResult.error?.format();
-}
-validate();
-
-
-const ShowResult = (data: any[]) => {
-  console.log(data.reduce((total, item) => {
-    return total + item.sks_mata_kuliah
-  }, 0));
-};
-
-
-const ButtonSaveClick = () => {
-  isBusy.value = true;
-  isDisabled.value = false;
-  setTimeout(() => {
-    isBusy.value = false;
-  }, 2000);
-
-}
-
-const showToast = () => {
-  VTToastService.success('Anda tidak memiliki hak akses', 0, true);
-  isShowModal.value = true;
-  setTimeout(() => {
-    tableTest.value?.refresh();
-  }, 500);
-}
-
-const dataku = ref<SelectOption[]>([]);
-
-const search = (searchText: string) => {
-  if (searchText.length === 3) {
-    dataku.value = datas.map((item) => { return { name: item.nama_mata_kuliah, value: item.id } as SelectOption });
-  }
-}
-
-interface DataTest {
-  id: string
-  kode_mata_kuliah: string
-  nama_mata_kuliah: string
-  status: string
-  sks_mata_kuliah: number,
-  nama_program_studi: string,
-  id_jenis_mata_kuliah: string,
-  tanggal_sk: Tanggal
-}
-
-const tableData = reactive({
-  columns: [] as VTTableColumn[],
-  sources: [] as DataTest[],
-  text: false,
-  testDate: [] as Tanggal[],
-  coba: '' as string
-})
-
-tableData.columns = [
-  { title: "Action", name: 'action', type: 'Custome' },
-  { propName: "nama_program_studi", title: "Program Studi", headerPosition: "between" },
-]
-const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
-
-onMounted(() => {
-  tableTest.value?.setDataSource(dataTests.value)
-  tableTest.value?.refresh()
-})
-
-const dataTests = ref(tableData.sources)
-const isBusy = ref(false);
-const isDisabled = ref(false);
-
-const isShowModal = ref(false);
-
-const closeModal = (() => {
-  isShowModal.value = false
-});
-
-const showModal = (() => {
-  isShowModal.value = true;
-});
-
-const rowClick = (rowData: any) => {
-  console.log("Row clicked:", rowData);
-};
-
-const createTanggal = (date: string): Tanggal => {
-  return {
-    date,
-    timezone_type: 3,
-    timezone: 'UTC',
-    getTanggal: () => new Date(date).toLocaleDateString('id-ID')
-  };
-};
-
-const datas = [
-  {
-    id: '1',
-    kode_mata_kuliah: 'CS101',
-    nama_mata_kuliah: 'Pemrograman Dasar',
-    status: 'sudah sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '2',
-    kode_mata_kuliah: 'CS102',
-    nama_mata_kuliah: 'Struktur Data',
-    status: 'belum sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '3',
-    kode_mata_kuliah: 'CS103',
-    nama_mata_kuliah: 'Basis Data',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '4',
-    kode_mata_kuliah: 'CS104',
-    nama_mata_kuliah: 'Jaringan Komputer',
-    status: 'belum sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '3',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '5',
-    kode_mata_kuliah: 'CS105',
-    nama_mata_kuliah: 'Sistem Operasi',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '6',
-    kode_mata_kuliah: 'CS101',
-    nama_mata_kuliah: 'Pemrograman Dasar',
-    status: 'sudah sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '7',
-    kode_mata_kuliah: 'CS102',
-    nama_mata_kuliah: 'Struktur Data',
-    status: 'belum sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '8',
-    kode_mata_kuliah: 'CS103',
-    nama_mata_kuliah: 'Basis Data',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '9',
-    kode_mata_kuliah: 'CS104',
-    nama_mata_kuliah: 'Jaringan Komputer',
-    status: 'belum sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '3',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '10',
-    kode_mata_kuliah: 'CS105',
-    nama_mata_kuliah: 'Sistem Operasi',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '1',
-    kode_mata_kuliah: 'CS101',
-    nama_mata_kuliah: 'Pemrograman Dasar',
-    status: 'sudah sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '2',
-    kode_mata_kuliah: 'CS102',
-    nama_mata_kuliah: 'Struktur Data',
-    status: 'belum sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '3',
-    kode_mata_kuliah: 'CS103',
-    nama_mata_kuliah: 'Basis Data',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '4',
-    kode_mata_kuliah: 'CS104',
-    nama_mata_kuliah: 'Jaringan Komputer',
-    status: 'belum sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '3',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '5',
-    kode_mata_kuliah: 'CS105',
-    nama_mata_kuliah: 'Sistem Operasi',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '6',
-    kode_mata_kuliah: 'CS101',
-    nama_mata_kuliah: 'Pemrograman Dasar',
-    status: 'sudah sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '7',
-    kode_mata_kuliah: 'CS102',
-    nama_mata_kuliah: 'Struktur Data',
-    status: 'belum sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '8',
-    kode_mata_kuliah: 'CS103',
-    nama_mata_kuliah: 'Basis Data',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '1',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '9',
-    kode_mata_kuliah: 'CS104',
-    nama_mata_kuliah: 'Jaringan Komputer',
-    status: 'belum sync',
-    sks_mata_kuliah: 4,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '3',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-  {
-    id: '10',
-    kode_mata_kuliah: 'CS105',
-    nama_mata_kuliah: 'Sistem Operasi',
-    status: 'sudah sync',
-    sks_mata_kuliah: 3,
-    nama_program_studi: 'Ilmu Komputer',
-    id_jenis_mata_kuliah: '2',
-    tanggal_sk: createTanggal('2024-08-30')
-  },
-
-]
-
-
-interface Tanggal {
-  date: string;
-  timezone_type: number;
-  timezone: string;
-  getTanggal: Function
-
-}
+// Opsional: data reactive untuk modal/button bisa ditambahkan di sini
 </script>
+
+<style scoped>
+pre {
+  font-family: 'Fira Code', monospace;
+}
+</style>

@@ -2,29 +2,8 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
-import Home from './views/Home.vue'
-import Ocph from './views/Ocph.vue'
-import TestPage from './views/TestPage.vue'
+import route from './route'
 
-
-
-const route = [
-    {
-        path: '/',
-        name: 'home',
-        component: Home,
-    },
-    {
-        path: '/ocph',
-        name: 'ocph',
-        component: Ocph,
-    }, {
-        path: '/test',
-        name: 'test',
-        component: TestPage,
-    },
-
-]
 
 
 const router = createRouter({
