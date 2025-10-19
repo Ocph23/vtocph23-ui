@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <VTTableX :hovered="false" :striped="false" :columns="tableData.columns" :source="datas" method="Default"
+        <VTTable :hovered="true" :striped="true" :columns="tableData.columns" :source="datas" method="Default"
             ref="tableTest" :showSearch="false">
             <template #sync="row">
                 <VTSyncStatus :column="row.data.status" />
@@ -21,7 +21,7 @@
                     <th class="text-end"> </th>
                 </tr>
             </template>
-        </VTTableX>
+        </VTTable>
     </MainLayout>
 </template>
 

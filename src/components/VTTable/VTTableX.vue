@@ -105,7 +105,7 @@ import VTButton from '../VTButton/VTButton.vue'
 import IconEllipsis from '@/icons/IconEllipsis.vue'
 
 export default {
-  name: 'TableComponent',
+  name: 'TableComponentX',
   components: {
     FwbProgress,
     VTAccordion,
