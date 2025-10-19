@@ -1,8 +1,6 @@
 <template>
     <MainLayout>
         <VTPageTitle title="Button" subtitle="This is button view"></VTPageTitle>
-
-
         <VTPageTitle :size="'sm'" title="Color" subtitle="Button Color"></VTPageTitle>
         <pre class="bg-gray-100 p-3 rounded overflow-x-auto">
             <code>&lt;VTButton :color="'alternative'"&gt;Button&lt;/VTButton&gt;</code>

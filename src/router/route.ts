@@ -1,9 +1,10 @@
-import ButtonView from './views/ButtonView.vue';
-import Home from './views/Home.vue'
-import InputView from './views/InputView.vue';
-import Ocph from './views/Ocph.vue'
-import TableView from './views/TableView.vue';
-import TestPage from './views/TestPage.vue'
+import Home from "../views/Home.vue";
+import ButtonView from "../views/ButtonView.vue";
+import Ocph from "../views/Ocph.vue";
+import InputView from "../views/InputView.vue";
+import TableView from "../views/TableView.vue";
+import TestPage from "../views/TestPage.vue";
+
 
 const route = [
     {
