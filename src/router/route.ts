@@ -1,39 +1,27 @@
-import Home from "../views/Home.vue";
-import ButtonView from "../views/ButtonView.vue";
-import Ocph from "../views/Ocph.vue";
-import InputView from "../views/InputView.vue";
-import TableView from "../views/TableView.vue";
-import TestPage from "../views/TestPage.vue";
-
 
 const route = [
     {
         path: '/',
         name: 'home',
-        component: Home,
-    },
-    {
-        path: '/ocph',
-        name: 'ocph',
-        component: Ocph,
+        component: () => import('../views/HomeView.vue')
     },
     {
         path: '/button',
         name: 'button',
-        component: ButtonView,
+        component: () => import('../views/ButtonView.vue')
     },
     {
         path: '/input',
         name: 'input',
-        component: InputView,
+        component: () => import('../views/InputView.vue')
     }, {
         path: '/table',
         name: 'table',
-        component: TableView,
+        component: () => import('../views/TableView.vue')
     }, {
         path: '/test',
         name: 'test',
-        component: TestPage,
+        component: () => import('../views/TestPage.vue'),
     },
 
 ]

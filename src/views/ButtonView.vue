@@ -54,10 +54,10 @@
     </MainLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import VTButton from '@/components/VTButton/VTButton.vue';
-import MainLayout from './MainLayout.vue';
 import VTPageTitle from '@/components/VTPageTitle.vue';
+import MainLayout from './MainLayout.vue';
 
 
 </script>

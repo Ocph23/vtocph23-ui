@@ -1,4 +1,3 @@
-// eslint-disable-next-line vue/multi-word-component-names
 <template>
   <MainLayout>
     <div class="p-6 max-w-4xl mx-auto space-y-6">
@@ -135,10 +134,8 @@
   </MainLayout>
 </template>
 
-<script setup>
-import MainLayout from './MainLayout.vue';
-
-// Opsional: data reactive untuk modal/button bisa ditambahkan di sini
+<script setup lang="ts">
+import MainLayout from '@/views/MainLayout.vue'
 </script>
 
 <style scoped>
