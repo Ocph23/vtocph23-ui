@@ -1,20 +1,44 @@
 <template>
-  <label class="block mb-2 text-sm font-medium" :class="[labelClasses]">{{ props.label }}<span v-if="validation"
-      class="text-rose-500 text-lg">*</span></label>
+  <label class="block mb-2 text-sm font-medium" :class="[labelClasses]"
+    >{{ props.label }}<span v-if="validation" class="text-rose-500 text-lg">*</span></label
+  >
   <div class="relative mb-2" ref="dropdown">
     <div class="relative">
-      <input :class="[inputClasses]" type="text" v-model="internalQuery" @input="filterList"
-        :placeholder="props.placeholder" @keyup="onFocus" @keyup.esc="closeFocus" />
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" @click="onClickDropdown" fill="currentColor"
-        class="w-3 h-3 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-        <path
-          d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-      </svg>
-      <svg v-if="internalQuery" @click="clearSelection" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"
+      <input
+        :class="[inputClasses]"
+        type="text"
+        v-model="internalQuery"
+        @input="filterList"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        :placeholder="props.placeholder"
+        @keyup="onFocus"
+        @keyup.esc="closeFocus"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        @click="onClickDropdown"
         fill="currentColor"
-        class="w-3 h-3 absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer">
+        class="w-3 h-3 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      >
         <path
-          d="M242.72 256l100.07-100.07c12.5-12.5 12.5-32.76 0-45.26l-22.63-22.63c-12.5-12.5-32.76-12.5-45.26 0L175.12 188.1 75.05 88.03c-12.5-12.5-32.76-12.5-45.26 0L7.16 110.66c-12.5 12.5-12.5 32.76 0 45.26L107.23 256 7.16 356.07c-12.5 12.5-12.5 32.76 0 45.26l22.63 22.63c12.5 12.5 32.76 12.5 45.26 0L175.12 323.9l100.07 100.07c12.5 12.5 32.76 12.5 45.26 0l22.63-22.63c12.5-12.5 12.5-32.76 0-45.26L242.72 256z" />
+          d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+        />
+      </svg>
+      <svg
+        v-if="internalQuery"
+        @click="clearSelection"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 352 512"
+        fill="currentColor"
+        class="w-3 h-3 absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
+      >
+        <path
+          d="M242.72 256l100.07-100.07c12.5-12.5 12.5-32.76 0-45.26l-22.63-22.63c-12.5-12.5-32.76-12.5-45.26 0L175.12 188.1 75.05 88.03c-12.5-12.5-32.76-12.5-45.26 0L7.16 110.66c-12.5 12.5-12.5 32.76 0 45.26L107.23 256 7.16 356.07c-12.5 12.5-12.5 32.76 0 45.26l22.63 22.63c12.5 12.5 32.76 12.5 45.26 0L175.12 323.9l100.07 100.07c12.5 12.5 32.76 12.5 45.26 0l22.63-22.63c12.5-12.5 12.5-32.76 0-45.26L242.72 256z"
+        />
       </svg>
     </div>
     <p v-if="props.validation && props.validation.$error">
@@ -23,10 +47,17 @@
     <p v-if="props.validation && props.errors">
       <slot name="validationMessage" />
     </p>
-    <ul v-if="showOptions && filteredList.length" @keyup.esc="closeFocus"
-      class=" absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]">
-      <li v-for="(item, index) in filteredList.slice(0, 10)" :key="index" @click="selectItem(item)"
-        class="p-2 block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:text-gray-200 cursor-pointer font-medium timbul">
+    <ul
+      v-if="showOptions && filteredList.length"
+      @keyup.esc="closeFocus"
+      class="absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]"
+    >
+      <li
+        v-for="(item, index) in filteredList.slice(0, 10)"
+        :key="index"
+        @click="selectItem(item)"
+        class="p-2 block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:text-gray-200 cursor-pointer font-medium timbul"
+      >
         <span>
           {{ item.name }}
         </span>
@@ -40,7 +71,7 @@ import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { twMerge } from 'tailwind-merge'
 import FwbInputErrorMessage from './VTInputErrorMessage.vue'
-import type { SelectOption } from '.';
+import type { SelectOption } from '.'
 
 const props = withDefaults(
   defineProps<{
@@ -49,29 +80,26 @@ const props = withDefaults(
     placeholder?: string
     validationStatus?: boolean
     label?: string
-    validation?: any,
-    errors?: any,
+    validation?: any
+    errors?: any
     disabled?: boolean
   }>(),
   { placeholder: 'Cari . . .' }
 )
-
 
 const internalQuery = ref('')
 let filteredList: SelectOption[] = reactive([])
 const emit = defineEmits(['update:modelValue', 'change', 'search'])
 const query = useVModel(props, 'modelValue', emit)
 const showOptions = ref(false)
-const dropdown = ref<HTMLElement | null>(null);
+const dropdown = ref<HTMLElement | null>(null)
 
 onMounted(() => {
-
   if (props.modelValue) {
     var data = props.sources.find((x) => x.value == props.modelValue)
     selectItem(data as SelectOption)
   }
-}
-)
+})
 
 watch(query, (newValue: any, oldvalue: any) => {
   if (newValue) {
@@ -86,7 +114,7 @@ watch(query, (newValue: any, oldvalue: any) => {
 
 const filterList = () => {
   const searchQuery = internalQuery.value?.toLowerCase()
-  emit("search", searchQuery)
+  emit('search', searchQuery)
   filteredList = props.sources.filter((item) => item.name?.toLowerCase().includes(searchQuery))
 }
 
@@ -96,7 +124,7 @@ const onClickDropdown = () => {
   if (searchQuery) {
     filteredList = props.sources.filter((item) => item.name?.toLowerCase().includes(searchQuery))
   } else {
-    filteredList = props.sources;
+    filteredList = props.sources
   }
 }
 
@@ -109,14 +137,14 @@ const onFocus = () => {
     if (searchQuery.length) {
       filteredList = props.sources.filter((item) => item.name?.toLowerCase().includes(searchQuery))
     } else {
-      filteredList = props.sources;
+      filteredList = props.sources
     }
   } else {
-    filteredList = props.sources;
+    filteredList = props.sources
   }
 }
 
-const closeFocus = () => showOptions.value = false
+const closeFocus = () => (showOptions.value = false)
 
 const selectItem = (item: SelectOption) => {
   if (item) {
@@ -131,35 +159,35 @@ const selectItem = (item: SelectOption) => {
 
 const clearSelection = () => {
   internalQuery.value = ''
-  filteredList = props.sources;
+  filteredList = props.sources
   query.value = null
   emit('update:modelValue', null)
   emit('change', null)
   showOptions.value = true
 }
 
-// Close option when click outside VTAutocomplete component area 
+// Close option when click outside VTAutocomplete component area
 const handleClickOutside = (event: MouseEvent) => {
   if (dropdown.value && !dropdown.value.contains(event.target as Node)) {
-    closeFocus();
+    closeFocus()
   }
-};
+}
 
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
+  document.addEventListener('click', handleClickOutside)
+})
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
+  document.removeEventListener('click', handleClickOutside)
+})
 
 watch(showOptions, (newValue) => {
   if (newValue) {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutside)
   } else {
-    document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('click', handleClickOutside)
   }
-});
+})
 
 // LABEL
 const baseLabelClasses = 'block mb-2 text-sm font-medium'

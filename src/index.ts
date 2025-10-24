@@ -13,13 +13,13 @@ export { default as VTInputErrorMessage } from "./components/VTInputErrorMessage
 export { default as VTModal } from "./components/VTModal.vue";
 export { default as VTPageTitle } from "./components/VTPageTitle.vue";
 export { default as VTSidebarDropdown } from "./components/VTSidebarDropdown.vue";
+export { default as VTSidebar } from "./components/VTSidebar.vue";
 export { default as VTSidebarItem } from "./components/VTSidebarItem.vue";
 export { default as VTSyncStatus } from "./components/VTSyncStatus.vue";
 export { default as VTStatus } from "./components/VTStatus.vue";
 export { default as VTToolTip } from "./components/VTToolTip.vue";
 export { default as VTWrapText } from "./components/VTWrapText.vue";
 export { default as VTTable } from "./components/VTTable/VTTable.vue";
-export { default as VTTableX } from "./components/VTTable/VTTableX.vue";
 export { default as Th } from "./components/VTTable/VTHeader.vue";
 export { default as VTSubMenuDetailView } from "./components/VTSubMenuDetailView.vue";
 export { default as VTButton } from "./components/VTButton/VTButton.vue";

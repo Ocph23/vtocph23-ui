@@ -202,7 +202,7 @@ export default {
     });
 
     const headerColumns = ref(columns.value);
-    const header = headerColumns?.value.find(x => x.isMobileHeader)?.propName;
+    const header = headerColumns.value.find(x => x.isMobileHeader)?.propName;
     const headerName: string = header != null || header != undefined ? header : '';
     const dropdownOptions = [10, 25, 50];
     const selectedDropdownOption = ref(dropdownOptions[0]);
