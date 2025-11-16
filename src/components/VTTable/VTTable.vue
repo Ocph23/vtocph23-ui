@@ -3,7 +3,8 @@
     <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
       <div
         class="flex flex-col md:flex-row md:justify-start items-end md:items-center space-y-4 md:space-y-0 md:space-x-4">
-        <Dropdown :options="dropdownOptions" @select="onSelectDropdown" v-if="showCount" />
+        <Dropdown v-model="selectedDropdownOption" :options="dropdownOptions" @select="onSelectDropdown"
+          v-if="showCount" />
         <Costume @hiddenColumn="onChangeHiddenColumn" />
       </div>
       <div class="w-full flex justify-end">
