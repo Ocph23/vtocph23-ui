@@ -1,10 +1,26 @@
 <template>
-  <MainLayout>
-    <VTPageTitle title="Table" subtitle=" Table Old View"></VTPageTitle>
-    <TableViewOld />
-    <VTPageTitle title="Table New View" subtitle="Table New View"></VTPageTitle>
-    <TableViewNew />
-  </MainLayout>
+  <VTTable tableName="testTable" :hovered="true" :striped="true" :columns="tableData.columns" :source="datas"
+    method="Default" ref="tableTest" :showSearch="true">
+    <template #sync="row">
+      <VTSyncStatus :column="row.data.status" />
+    </template>
+    <template #action="row">
+      <div class="flex flex-row items-center min-w-">
+        <VTButtonAction type="detail" @click="row.data" />
+        <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
+        <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
+      </div>
+    </template>
+    <template #nomor="row">{{ row.index + 1 }}</template>
+    <template #tanggal="row">{{ row.data.tanggal.date }}</template>
+    <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+    <template #footer="datas">
+      <tr>
+        <th colspan="7" class="text-end">Ini di dalam footer x {{ ShowResult(datas) }} </th>
+        <th class="text-end"> </th>
+      </tr>
+    </template>
+  </VTTable>
 </template>
 
 <script setup lang="ts">
@@ -15,9 +31,6 @@ import type { VTTableColumn, VTTableSource } from '@/components/VTTable';
 import VTTable from '@/components/VTTable/VTTable.vue';
 import { onMounted, reactive, ref } from 'vue';
 import MainLayout from './MainLayout.vue';
-import TableViewOld from './TableViewOld.vue';
-import TableViewNew from './TableViewNew.vue';
-import VTPageTitle from '@/components/VTPageTitle.vue';
 
 
 interface DataTest {

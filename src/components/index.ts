@@ -60,7 +60,7 @@ export const VTHelper = {
         return target;
     },
 
-    TanggalToDate(data: any, format: TanggalFormat):string {
+    TanggalToDate(data: any, format: TanggalFormat): string {
         try {
 
             const tanggal = data as Object as Tanggal;

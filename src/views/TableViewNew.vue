@@ -1,45 +1,38 @@
 <template>
-  <MainLayout>
-    <VTPageTitle title="Table" subtitle=" Table Old View"></VTPageTitle>
-    <TableViewOld />
-    <VTPageTitle title="Table New View" subtitle="Table New View"></VTPageTitle>
-    <TableViewNew />
-  </MainLayout>
+  <VTTableNew tableName="testTable" :hovered="true" :striped="true" :columns="columns" :source="tableSource"
+    ref="tableTest" :showSearch="true">
+    <template #sync="row">
+      <VTSyncStatus :column="row.data.status" />
+    </template>
+    <template #action="row">
+      <div class="flex flex-row items-center min-w-">
+        <VTButtonAction type="detail" @click="row.data" />
+        <VTButtonAction :style="'warning'" type="edit" @click="row.data" />
+        <VTButtonAction :style="'danger'" type="delete" @click="row.data" />
+      </div>
+    </template>
+    <template #nomor="row">{{ row.index + 1 }}</template>
+    <template #tanggal="row">{{ row.data.tanggal.date }}</template>
+    <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+    <template #footer="datas">
+      <tr>
+        <th colspan="7" class="text-end">Ini di dalam footer x {{ ShowResult(datas) }} </th>
+        <th class="text-end"> </th>
+      </tr>
+    </template>
+  </VTTableNew>
 </template>
 
 <script setup lang="ts">
 import type { Tanggal } from '@/components';
 import VTButtonAction from '@/components/VTButtonAction.vue';
 import VTSyncStatus from '@/components/VTSyncStatus.vue';
-import type { VTTableColumn, VTTableSource } from '@/components/VTTable';
+import type { VTTableColumn, VTTablePagination, VTTableSource } from '@/components/VTTable';
 import VTTable from '@/components/VTTable/VTTable.vue';
 import { onMounted, reactive, ref } from 'vue';
-import MainLayout from './MainLayout.vue';
-import TableViewOld from './TableViewOld.vue';
-import TableViewNew from './TableViewNew.vue';
-import VTPageTitle from '@/components/VTPageTitle.vue';
+import VTTableNew from '@/components/VTTable/VTTableNew.vue';
 
-
-interface DataTest {
-  id: string
-  kode_mata_kuliah: string
-  nama_mata_kuliah: string
-  status: string
-  sks_mata_kuliah: number,
-  nama_program_studi: string,
-  id_jenis_mata_kuliah: string,
-  tanggal_sk: Tanggal
-}
-
-const tableData = reactive({
-  columns: [] as VTTableColumn[],
-  sources: [] as DataTest[],
-  text: false,
-  testDate: [] as Tanggal[],
-  coba: '' as string
-})
-
-tableData.columns = [
+const columns = [
   { title: "Action", name: 'action', type: 'Custome' },
   { propName: "id", title: "id", headerPosition: "between" },
   { propName: "kode_mata_kuliah", title: "Kode Matakuliah ", headerPosition: "between" },
@@ -48,22 +41,34 @@ tableData.columns = [
   { propName: "sks_mata_kuliah", title: "SKS", headerPosition: "between" },
   { propName: "tanggal_sk", title: "Tanggal SK", type: 'Custome', headerPosition: "between" },
   { propName: "nama_program_studi", title: "Program Studi", headerPosition: "between" },
-]
+] as VTTableColumn[]
+
+
+
 const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
 const tableSource = ref<VTTableSource>({
   data: [],
-
+  paginate: {
+    currentPage: 1,
+    pageSize: 5,
+    sortOrder: 'asc',
+    columnOrder: '',
+    searchTerm: ''
+  } as VTTablePagination,
   totalRecords: 0
 })
 
 onMounted(() => {
-  tableSource.value = {
-    data: datas,
-
-    totalRecords: datas.length
-  }
+  tableSource.value.data = datas;
+  tableSource.value.totalRecords = datas.length
   tableTest.value?.refresh()
 })
+
+const onChangePagination = (pagination: VTTablePagination) => {
+  tableSource.value.paginate = pagination;
+  const pageSize = tableSource.value.paginate?.pageSize;
+  tableSource.value.data = datas.slice((tableSource.value.paginate?.currentPage * pageSize) - pageSize, (tableSource.value.paginate?.currentPage * pageSize))
+};
 
 const createTanggal = (date: string): Tanggal => {
   return {
@@ -82,6 +87,17 @@ const ShowResult = (data: any[]) => {
 
 
 
+
+interface DataTest {
+  id: string
+  kode_mata_kuliah: string
+  nama_mata_kuliah: string
+  status: string
+  sks_mata_kuliah: number,
+  nama_program_studi: string,
+  id_jenis_mata_kuliah: string,
+  tanggal_sk: Tanggal
+}
 
 const datas = [
   {
@@ -167,7 +183,7 @@ const datas = [
   {
     id: '9',
     kode_mata_kuliah: 'CS104',
-    nama_mata_kuliah: 'Jaringan Komputer',
+    nama_mata_kuliah: 'siapa tau',
     status: 'belum sync',
     sks_mata_kuliah: 4,
     nama_program_studi: 'Ilmu Komputer',

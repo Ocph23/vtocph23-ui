@@ -18,6 +18,9 @@
         <li class="p-1 hover:bg-gray-700">
           <router-link to="/dialog">Dialog</router-link>
         </li>
+        <li class="p-1 hover:bg-gray-700">
+          <router-link to="/tooltip">Tooltip</router-link>
+        </li>
       </ul>
     </div>
     <div class="flex-1 p-6">

@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-start">
-        <tooltip :placement="placement" :triggers="[trigger]" :theme="theme" auto-hide :disabled="isDisabled">
+        <tooltip :placement="placement" :triggers="[trigger]" :theme="theme" auto-hide :disabled="disabled">
             <slot name="trigger" />
             <template #popper>
                 <slot name="content" />
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { Tooltip } from 'floating-vue';
 import 'floating-vue/dist/style.css';
 
@@ -18,19 +18,15 @@ interface TooltipProps {
     placement?: TooltipPlacement
     theme?: TooltipStyle
     trigger?: TooltipTrigger
-    data?: string
+    disabled?: boolean
 }
 
 const props = withDefaults(defineProps<TooltipProps>(), {
     placement: 'top',
-    theme: 'dark',
+    theme: 'light',
     trigger: 'hover',
+    disabled: false,
 })
-
-const isDisabled = ref(false)
-if (!props.data) {
-    isDisabled.value = true
-}
 
 const theme = computed(() => {
     const themes = {

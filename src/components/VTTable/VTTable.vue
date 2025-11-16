@@ -80,7 +80,7 @@
         </tfoot>
       </table>
     </div>
-    <Pagination v-if="showPaginate" :totalPages="data.totalPages" @pagechange="onPageChange" />
+    <VTPagination v-if="showPaginate" :totalPages="data.totalPages" @pagechange="onPageChange" />
   </div>
 </template>
 
@@ -93,7 +93,6 @@ import VTAccordionHeader from '../VTAccordion/VTAccordionHeader.vue'
 import { ref, reactive, watch, onMounted, computed, provide, toRefs } from 'vue'
 import Dropdown from './VTDropdown.vue'
 import Search from './VTSearch.vue'
-import Pagination from './VTPagination.vue'
 import Costume from './VTCostumeColumn.vue'
 import Th from './VTHeader.vue'
 import { VTHelper, type PaginateResponse } from '..'
@@ -103,6 +102,7 @@ import { useMediaQuery } from '@vueuse/core'
 import VTLabelItem from '../VTLabelItem.vue';
 import VTButton from '../VTButton/VTButton.vue'
 import IconEllipsis from '@/icons/IconEllipsis.vue'
+import VTPagination from './VTPagination.vue'
 
 export default {
   name: 'TableComponent',
@@ -117,7 +117,7 @@ export default {
     VTAccordionContent,
     VTAccordionHeader,
     VTAccordionPanel,
-    Pagination,
+    VTPagination,
     Costume,
     // eslint-disable-next-line vue/no-reserved-component-names
     Th
@@ -484,7 +484,10 @@ export default {
       onChangeHiddenColumn,
       Dropdown,
       Search,
-      Pagination,
+      VTAccordion,
+      VTAccordionContent,
+      VTAccordionHeader,
+      VTPagination,
       Costume,
       VTHelper,
       refresh,

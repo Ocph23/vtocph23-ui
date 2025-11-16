@@ -2,7 +2,7 @@
   <div class="relative inline-block text-left">
     <button @click="toggleDropdown"
       class="inline-flex justify-center w-full rounded-md border shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      {{ selectedText }}
+      {{ modelValue }}
       <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
         aria-hidden="true">
         <path fill-rule="evenodd"
@@ -25,19 +25,18 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{ options: number[] }>();
-const emit = defineEmits(['select']);
-
+defineProps<{ modelValue: number, options: number[] }>();
+const emit = defineEmits(['select', 'update:modelValue']);
+// const model = useVModel(props, 'modelValue')
 const isOpen = ref(false);
-const selectedText = ref(`${props.options[0]}`);
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
 };
 
 const selectOption = (option: number) => {
-  selectedText.value = `${option}`;
   isOpen.value = false;
   emit('select', option);
+  emit('update:modelValue', option);
 };
 </script>
