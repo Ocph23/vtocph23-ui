@@ -1,6 +1,14 @@
 <template>
-  <VTTable tableName="testTable" :hovered="true" :striped="true" :columns="tableData.columns" :source="datas"
-    method="Default" ref="tableTest" :showSearch="true">
+  <VTTable
+    tableName="testTable"
+    :hovered="true"
+    :striped="true"
+    :columns="tableData.columns"
+    :source="datas"
+    method="Default"
+    ref="tableTest"
+    :showSearch="true"
+  >
     <template #sync="row">
       <VTSyncStatus :column="row.data.status" />
     </template>
@@ -13,34 +21,35 @@
     </template>
     <template #nomor="row">{{ row.index + 1 }}</template>
     <template #tanggal="row">{{ row.data.tanggal.date }}</template>
-    <template #namaProdi="row"><a href="">{{ row.data.nama_program_studi }}</a></template>
+    <template #namaProdi="row"
+      ><a href="">{{ row.data.nama_program_studi }}</a></template
+    >
     <template #footer="datas">
       <tr>
-        <th colspan="7" class="text-end">Ini di dalam footer x {{ ShowResult(datas) }} </th>
-        <th class="text-end"> </th>
+        <th colspan="7" class="text-end">Ini di dalam footer x {{ ShowResult(datas) }}</th>
+        <th class="text-end"></th>
       </tr>
     </template>
   </VTTable>
 </template>
 
 <script setup lang="ts">
-import type { Tanggal } from '@/components';
-import VTButtonAction from '@/components/VTButtonAction.vue';
-import VTSyncStatus from '@/components/VTSyncStatus.vue';
-import type { VTTableColumn, VTTableSource } from '@/components/VTTable';
-import VTTable from '@/components/VTTable/VTTable.vue';
-import { onMounted, reactive, ref } from 'vue';
-import MainLayout from './MainLayout.vue';
-
+import type { Tanggal } from '@/components'
+import VTButtonAction from '@/components/VTButtonAction.vue'
+import VTSyncStatus from '@/components/VTSyncStatus.vue'
+import type { VTTableColumn, VTTableSource } from '@/components/VTTable'
+import VTTable from '@/components/VTTable/VTTable.vue'
+import { onMounted, reactive, ref } from 'vue'
+import MainLayout from './MainLayout.vue'
 
 interface DataTest {
   id: string
   kode_mata_kuliah: string
   nama_mata_kuliah: string
   status: string
-  sks_mata_kuliah: number,
-  nama_program_studi: string,
-  id_jenis_mata_kuliah: string,
+  sks_mata_kuliah: number
+  nama_program_studi: string
+  id_jenis_mata_kuliah: string
   tanggal_sk: Tanggal
 }
 
@@ -53,17 +62,22 @@ const tableData = reactive({
 })
 
 tableData.columns = [
-  { title: "Action", name: 'action', type: 'Custome' },
-  { propName: "id", title: "id", headerPosition: "between" },
-  { propName: "kode_mata_kuliah", title: "Kode Matakuliah ", headerPosition: "between" },
-  { propName: "nama_mata_kuliah", title: "Nama Matakuliah", headerPosition: "between", isMobileHeader: true },
-  { propName: "status", title: "Status", type: 'Custome', headerPosition: "between" },
-  { propName: "sks_mata_kuliah", title: "SKS", headerPosition: "between" },
-  { propName: "tanggal_sk", title: "Tanggal SK", type: 'Custome', headerPosition: "between" },
-  { propName: "nama_program_studi", title: "Program Studi", headerPosition: "between" },
+  { title: 'Action', name: 'action', type: 'Custome' },
+  { propName: 'id', title: 'id', headerPosition: 'between' },
+  { propName: 'kode_mata_kuliah', title: 'Kode Matakuliah ', headerPosition: 'between' },
+  {
+    propName: 'nama_mata_kuliah',
+    title: 'Nama Matakuliah',
+    headerPosition: 'between',
+    isMobileHeader: true
+  },
+  { propName: 'status', title: 'Status', type: 'Custome', headerPosition: 'between' },
+  { propName: 'sks_mata_kuliah', title: 'SKS', headerPosition: 'between' },
+  { propName: 'tanggal_sk', title: 'Tanggal SK', type: 'Custome', headerPosition: 'between' },
+  { propName: 'nama_program_studi', title: 'Program Studi', headerPosition: 'between' }
 ]
 const tableTest = ref<InstanceType<typeof VTTable> | null>(null)
-const tableSource = ref<VTTableSource>({
+const tableSource = ref<VTTableSource<DataTest>>({
   data: [],
 
   totalRecords: 0
@@ -84,17 +98,13 @@ const createTanggal = (date: string): Tanggal => {
     timezone_type: 3,
     timezone: 'UTC',
     getTanggal: () => new Date(date).toLocaleDateString('id-ID')
-  };
-};
+  }
+}
 const ShowResult = (data: any[]) => {
   data.reduce((total, item) => {
     return total + item.sks_mata_kuliah
   }, 0)
-};
-
-
-
-
+}
 
 const datas = [
   {
@@ -296,10 +306,8 @@ const datas = [
     nama_program_studi: 'Ilmu Komputer',
     id_jenis_mata_kuliah: '1',
     tanggal_sk: createTanggal('2024-08-30')
-  },
-
+  }
 ]
-
 </script>
 
 <style lang="scss" scoped></style>
