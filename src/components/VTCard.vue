@@ -1,23 +1,28 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div
-        :class="[cardClass ? cardClass : 'bg-white rounded-lg border shadow-md md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:max-w-full mb-4']">
-        <div class="p-5 ">
-            <div class="mb-8 md:flex md:flex-row justify-between">
-                <h1 v-if="title" class=" uppercase text-xl font-semibold text-gray-600 dark:text-gray-200">{{ title }}
-                </h1>
-                <slot name="right-side" />
-            </div>
-            <slot />
-        </div>
-        <hr v-if="$slots.footerSide" class="border-gray-500 border-t-[.9px]">
-        <div class="flex justify-center py-3">
-            <slot name="footerSide" />
-        </div>
+  <div
+    :class="[
+      cardClass
+        ? cardClass
+        : 'bg-white rounded-lg border shadow-md md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 md:max-w-full mb-4'
+    ]"
+  >
+    <div class="p-5">
+      <div v-if="$slots.rightSide" class="mb-8 flex justify-between">
+        <h1 v-if="title" class="uppercase text-xl font-semibold text-gray-600 dark:text-gray-200">
+          {{ title }}
+        </h1>
+        <slot name="rightSide" />
+      </div>
+      <slot />
     </div>
+    <hr v-if="$slots.footerSide" class="border-gray-500 border-t-[.9px]" />
+    <div class="flex justify-center py-3">
+      <slot name="footerSide" />
+    </div>
+  </div>
 </template>
 
-
 <script setup lang="ts">
-defineProps(["title", "cardClass"]);
+defineProps(['title', 'cardClass'])
 </script>
