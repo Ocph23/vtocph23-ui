@@ -87,13 +87,13 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { FwbProgress } from 'flowbite-vue'
 import VTAccordion from '../VTAccordion/VTAccordion.vue'
 import VTAccordionContent from '../VTAccordion/VTAccordionContent.vue'
 import VTAccordionPanel from '../VTAccordion/VTAccordionPanel.vue'
 import VTAccordionHeader from '../VTAccordion/VTAccordionHeader.vue'
-import { ref, reactive, watch, onMounted, computed, provide, toRefs } from 'vue'
+import { ref, reactive, watch, onMounted, computed, provide, useSlots } from 'vue'
 import Dropdown from './VTDropdown.vue'
 import Search from './VTSearch.vue'
 import Costume from './VTCostumeColumn.vue'
@@ -107,399 +107,318 @@ import VTButton from '../VTButton/VTButton.vue'
 import IconEllipsis from '@/icons/IconEllipsis.vue'
 import VTPagination from './VTPagination.vue'
 
-// @ts-ignore - FwbProgress has private types in flowbite-vue
-export default {
-  name: 'TableComponent',
-  components: {
-    FwbProgress,
-    VTAccordion,
-    VTLabelItem,
-    VTButton,
-    IconEllipsis,
-    Dropdown,
-    Search,
-    VTAccordionContent,
-    VTAccordionHeader,
-    VTAccordionPanel,
-    VTPagination,
-    Costume,
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Th
-  },
-  props: {
-    class: {
-      type: String,
-      default: ''
-    },
-    source: {
-      type: Array as () => any[], // Define the expected type here
-      default: () => []
-    },
-    columns: {
-      type: Array as () => Array<VTTableColumn>,
-      required: true
-    },
-    url: {
-      type: String,
-      default: ''
-    },
-    method: {
-      type: String as () => MethodType,
-      default: 'Default'
-    },
-    showPaginate: {
-      type: Boolean,
-      default: true
-    },
-    showCount: {
-      type: Boolean,
-      default: true
-    },
-    showSearch: {
-      type: Boolean,
-      default: true
-    },
-    tableName: {
-      type: String,
-      default: ''
-    },
-    bordered: {
-      type: Boolean,
-      default: false
-    },
-    striped: {
-      type: Boolean,
-      default: true
-    },
-    hovered: {
-      type: Boolean,
-      default: true
-    }
-  },
-  setup(props) {
-    const {
-      class: classProp,
-      source,
-      columns,
-      url,
-      method,
-      showPaginate,
-      tableName,
-      bordered,
-    } = toRefs(props);
+interface VTTableProps {
+  class?: string
+  source?: any[]
+  columns: VTTableColumn[]
+  url?: string
+  method?: MethodType
+  showPaginate?: boolean
+  showCount?: boolean
+  showSearch?: boolean
+  tableName?: string
+  bordered?: boolean
+  striped?: boolean
+  hovered?: boolean
+}
 
-    const data = reactive({
-      timer: null,
-      displayedData: [] as any[],
-      source: [] as any[],
-      totalPages: 0,
-      paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: null as 'asc' | 'desc' | null } }
-    });
+const props = withDefaults(defineProps<VTTableProps>(), {
+  class: '',
+  source: () => [],
+  url: '',
+  method: 'Default',
+  showPaginate: true,
+  showCount: true,
+  showSearch: true,
+  tableName: '',
+  bordered: false,
+  striped: true,
+  hovered: true
+})
 
-    const sortState = reactive({
-      columnKey: '',
-      sortOrder: null as 'asc' | 'desc' | null
-    });
+const emit = defineEmits<{
+  (e: 'sort', columnKey: string, sortOrder: 'asc' | 'desc' | null): void
+}>()
 
-    const headerColumns = ref(columns.value);
-    const header = headerColumns.value.find(x => x.isMobileHeader)?.propName;
-    const headerName: string = header != null || header != undefined ? header : '';
-    const dropdownOptions = [10, 25, 50];
-    const selectedDropdownOption = ref(dropdownOptions[0]);
-    const searchQuery = ref('');
-    const progress = ref(0);
-    const isBussy = ref(false);
-    const isPending = ref(false);
-    const isLargeScreen = useMediaQuery('(min-width: 768px)');
-    const showAction = ref(false);
+const slots = useSlots()
 
-    onMounted(() => {
-      if (method.value == 'Default') {
-        data.source = source.value;
-        return;
-      }
-      if (method.value == 'Post' || method.value == 'Get') {
-        getData();
-        return;
-      }
-    });
+const data = reactive({
+  timer: null as any,
+  displayedData: [] as any[],
+  source: [] as any[],
+  totalPages: 0,
+  paginate: { page: 1, count: 10, cari: '', order: { field: '', direction: null as 'asc' | 'desc' | null } }
+})
 
-    watch(isBussy, (newValue) => {
-      if (newValue) {
-        startProgress();
-      }
-    });
+const sortState = reactive({
+  columnKey: '',
+  sortOrder: null as 'asc' | 'desc' | null
+})
 
-    watch(isPending, (newValue) => {
-      if (!newValue && progress.value >= 80 && progress.value < 100) {
-        continueProgress();
-      }
-    });
+const headerColumns = ref<VTTableColumn[]>(props.columns)
+const header = headerColumns.value.find(x => x.isMobileHeader)?.propName
+const headerName = header ?? ''
+const dropdownOptions = [10, 25, 50]
+const selectedDropdownOption = ref(dropdownOptions[0])
+const searchQuery = ref('')
+const progress = ref(0)
+const isBussy = ref(false)
+const isPending = ref(false)
+const isLargeScreen = useMediaQuery('(min-width: 768px)')
+const showAction = ref(false)
 
-    const footerData = (data: any) => {
-      let datas = Object.entries(data);
-      return datas.map(x => JSON.parse(JSON.stringify(x[1])));
-    }
-
-    const startProgress = () => {
-      return new Promise<void>((resolve) => {
-        if (progress.value < 80) {
-          const interval = setInterval(() => {
-            if (progress.value < 80) {
-              progress.value += 1;
-            } else {
-              isPending.value = true;
-              clearInterval(interval);
-              resolve();
-            }
-          }, 20);
-        } else if (progress.value >= 80 && progress.value < 100) {
-          resolve();
-        }
-      });
-    };
-
-    const continueProgress = () => {
-      const interval = setInterval(() => {
-        if (progress.value < 100) {
-          progress.value += 1;
-        } else {
-          progress.value = 0;
-          isBussy.value = false;
-          clearInterval(interval);
-        }
-      }, 1);
-    };
-
-
-    const setDataSource = async (datax: any[]) => {
-      data.source = datax;
-    };
-
-    const refresh = async () => {
-      try {
-        isBussy.value = true;
-        await startProgress();
-        if (method.value == 'Default') {
-          data.source = source.value;
-          updateDisplayedData();
-        } else {
-          await getData();
-        }
-      } catch (error) {
-        console.error('Error refreshing data:', error);
-      } finally {
-        isBussy.value = false;
-        continueProgress();
-      }
-
-    };
-
-    const getData = async () => {
-      isBussy.value = true;
-      await startProgress();
-
-      try {
-        let request = {
-          method: method.value.toLowerCase(),
-          mode: 'cors',
-          url: url.value,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'bearer ' + localStorage.getItem('token')
-          }
-        } as any;
-
-        if (method.value === "Post") {
-          if (data.paginate.order.direction === null) {
-            data.paginate.order.direction = 'desc'
-          }
-          request.data = JSON.stringify(data.paginate);
-        }
-        const response = (await axios.request(request))
-        const result = response.data
-        if (method.value === "Post") {
-          const pagination = result as PaginateResponse;
-          data.source = pagination.data;
-          data.totalPages = result.pager.total;
-          updateDisplayedData();
-        } else if (method.value === "Get") {
-          if (result.data == null || result.data == undefined) {
-            data.source = result;
-          } else {
-            data.source = result.data;
-          }
-          data.totalPages = result.data ? Math.ceil(result.data.length / data.paginate.count) : 0;
-          updateDisplayedData();
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        isPending.value = false;
-      }
-    };
-
-    const updateDisplayedData = () => {
-      if (
-        showPaginate.value &&
-        (method.value === "Get" || method.value === "Default")
-      ) {
-        data.totalPages = Math.ceil(data.source.length / data.paginate.count);
-        const startIndex = (data.paginate.page - 1) * data.paginate.count;
-        const endIndex = startIndex + data.paginate.count;
-        data.displayedData = data.source ? data.source.slice(startIndex, endIndex) : [];
-      } else {
-        data.displayedData = data.source;
-      }
-    };
-
-    const onSelectDropdown = (option: number) => {
-      data.paginate.count = option;
-      data.paginate.page = 1;
-      if (method.value === 'Default') {
-        updateDisplayedData();
-      } else if (method.value === 'Get') {
-        getData();
-      }
-    };
-
-    const onSearch = (query: string) => {
-      if (query.length < 3) {
-        if (query.length == 0 && method.value !== 'Default') {
-          data.paginate.cari = ''
-          getData();
-        }
-        data.displayedData = data.source;
-        return;
-      }
-      data.paginate.cari = query;
-      data.paginate.page = 1;
-      if (showPaginate.value && method.value === 'Post') {
-        getData();
-      } else {
-        searchWithoutPaginate(query);
-      }
-    };
-
-    const searchWithoutPaginate = (query: string) => {
-      const filteredData = data.source.filter(item => {
-        return Object.values(item).some(value =>
-          String(value).toLowerCase().includes(query.toLowerCase())
-        );
-      });
-      data.displayedData = filteredData;
-    };
-
-    const onPageChange = (page: number) => {
-      data.paginate.page = page;
-      if (method.value === "Post") {
-        getData();
-      } else if (method.value === "Get" || method.value === "Default") {
-        updateDisplayedData();
-      }
-    };
-
-    const updateHiddenColumns = (columns: VTTableColumn[]) => {
-      headerColumns.value = columns.map((x) => x);
-    };
-
-    const sortedData = computed(() => {
-      // return data.displayedData;
-      if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
-        return data.displayedData;
-      }
-
-      const safeSortOrder = sortState.sortOrder || 'desc';
-
-      return [...data.displayedData].sort((a, b) => {
-        const aValue = a[sortState.columnKey];
-        const bValue = b[sortState.columnKey];
-
-        if (safeSortOrder === 'asc') {
-          return aValue > bValue ? 1 : -1;
-        } else {
-          return aValue < bValue ? 1 : -1;
-        }
-      });
-    });
-
-    const onChangeHiddenColumn = (columns: VTTableColumn[]) => {
-      updateHiddenColumns(columns);
-    };
-
-    const onSort = ({
-      columnKey,
-      sortOrder
-    }: {
-      columnKey: string,
-      sortOrder: 'asc' | 'desc' | null
-    }) => {
-      const safeSortOrder = sortOrder || 'desc';
-
-      sortState.columnKey = columnKey;
-      sortState.sortOrder = sortOrder;
-
-      data.paginate.order.field = columnKey;
-      data.paginate.order.direction = safeSortOrder;
-
-      if (method.value.toLowerCase() === 'post') {
-        getData();
-      } else {
-        // Lakukan pengurutan langsung pada data yang sudah ada
-        data.displayedData = [...data.displayedData].sort((a, b) => {
-          const aValue = a[columnKey];
-          const bValue = b[columnKey];
-
-          if (sortOrder === 'desc') {
-            return aValue < bValue ? 1 : -1;
-          } else {
-            return aValue > bValue ? 1 : -1;
-          }
-        });
-      }
-    };
-
-    provide('sort', onSort);
-    provide('hiddenColumn', { updateHiddenColumns, tableProps: { refresh: updateHiddenColumns, columns: columns.value, tableName: tableName.value } });
-    provide('hiddenColumnx', { tableProps: { bordered: bordered.value, columns: headerColumns.value } });
-
-    return {
-      props,
-      classProp,
-      data,
-      headerColumns,
-      dropdownOptions,
-      selectedDropdownOption,
-      searchQuery,
-      progress,
-      isBussy,
-      isPending,
-      sortedData,
-      onSelectDropdown,
-      onSearch,
-      onPageChange,
-      updateDisplayedData,
-      onSort,
-      updateHiddenColumns,
-      onChangeHiddenColumn,
-      Dropdown,
-      Search,
-      VTAccordion,
-      VTAccordionContent,
-      VTAccordionHeader,
-      VTPagination,
-      Costume,
-      VTHelper,
-      refresh,
-      setDataSource,
-      isLargeScreen,
-      headerName,
-      showAction, footerData
-    };
+onMounted(() => {
+  if (props.method === 'Default') {
+    data.source = props.source
+    return
   }
-};
+  if (props.method === 'Post' || props.method === 'Get') {
+    getData()
+    return
+  }
+})
 
+watch(isBussy, (newValue) => {
+  if (newValue) {
+    startProgress()
+  }
+})
+
+watch(isPending, (newValue) => {
+  if (!newValue && progress.value >= 80 && progress.value < 100) {
+    continueProgress()
+  }
+})
+
+const footerData = (data: any) => {
+  const datas = Object.entries(data)
+  return datas.map(x => JSON.parse(JSON.stringify(x[1])))
+}
+
+const startProgress = () => {
+  return new Promise<void>((resolve) => {
+    if (progress.value < 80) {
+      const interval = setInterval(() => {
+        if (progress.value < 80) {
+          progress.value += 1
+        } else {
+          isPending.value = true
+          clearInterval(interval)
+          resolve()
+        }
+      }, 20)
+    } else if (progress.value >= 80 && progress.value < 100) {
+      resolve()
+    }
+  })
+}
+
+const continueProgress = () => {
+  const interval = setInterval(() => {
+    if (progress.value < 100) {
+      progress.value += 1
+    } else {
+      progress.value = 0
+      isBussy.value = false
+      clearInterval(interval)
+    }
+  }, 1)
+}
+
+const setDataSource = async (datax: any[]) => {
+  data.source = datax
+}
+
+const refresh = async () => {
+  try {
+    isBussy.value = true
+    await startProgress()
+    if (props.method === 'Default') {
+      data.source = props.source
+      updateDisplayedData()
+    } else {
+      await getData()
+    }
+  } catch (error) {
+    console.error('Error refreshing data:', error)
+  } finally {
+    isBussy.value = false
+    continueProgress()
+  }
+}
+
+const getData = async () => {
+  isBussy.value = true
+  await startProgress()
+
+  try {
+    let request = {
+      method: props.method.toLowerCase(),
+      mode: 'cors',
+      url: props.url,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'bearer ' + localStorage.getItem('token')
+      }
+    } as any
+
+    if (props.method === 'Post') {
+      if (data.paginate.order.direction === null) {
+        data.paginate.order.direction = 'desc'
+      }
+      request.data = JSON.stringify(data.paginate)
+    }
+    const response = await axios.request(request)
+    const result = response.data
+    if (props.method === 'Post') {
+      const pagination = result as PaginateResponse
+      data.source = pagination.data
+      data.totalPages = result.pager.total
+      updateDisplayedData()
+    } else if (props.method === 'Get') {
+      if (result.data == null || result.data === undefined) {
+        data.source = result
+      } else {
+        data.source = result.data
+      }
+      data.totalPages = result.data ? Math.ceil(result.data.length / data.paginate.count) : 0
+      updateDisplayedData()
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  } finally {
+    isPending.value = false
+  }
+}
+
+const updateDisplayedData = () => {
+  if (
+    props.showPaginate &&
+    (props.method === 'Get' || props.method === 'Default')
+  ) {
+    data.totalPages = Math.ceil(data.source.length / data.paginate.count)
+    const startIndex = (data.paginate.page - 1) * data.paginate.count
+    const endIndex = startIndex + data.paginate.count
+    data.displayedData = data.source ? data.source.slice(startIndex, endIndex) : []
+  } else {
+    data.displayedData = data.source
+  }
+}
+
+const onSelectDropdown = (option: number) => {
+  data.paginate.count = option
+  data.paginate.page = 1
+  if (props.method === 'Default') {
+    updateDisplayedData()
+  } else if (props.method === 'Get') {
+    getData()
+  }
+}
+
+const onSearch = (query: string) => {
+  if (query.length < 3) {
+    if (query.length === 0 && props.method !== 'Default') {
+      data.paginate.cari = ''
+      getData()
+    }
+    data.displayedData = data.source
+    return
+  }
+  data.paginate.cari = query
+  data.paginate.page = 1
+  if (props.showPaginate && props.method === 'Post') {
+    getData()
+  } else {
+    searchWithoutPaginate(query)
+  }
+}
+
+const searchWithoutPaginate = (query: string) => {
+  const filteredData = data.source.filter((item: any) => {
+    return Object.values(item).some((value: any) =>
+      String(value).toLowerCase().includes(query.toLowerCase())
+    )
+  })
+  data.displayedData = filteredData
+}
+
+const onPageChange = (page: number) => {
+  data.paginate.page = page
+  if (props.method === 'Post') {
+    getData()
+  } else if (props.method === 'Get' || props.method === 'Default') {
+    updateDisplayedData()
+  }
+}
+
+const updateHiddenColumns = (columns: VTTableColumn[]) => {
+  headerColumns.value = columns.map((x) => x)
+}
+
+const sortedData = computed(() => {
+  if (!sortState.columnKey || !sortState.sortOrder || !data.displayedData.length) {
+    return data.displayedData
+  }
+
+  const safeSortOrder = sortState.sortOrder || 'desc'
+
+  return [...data.displayedData].sort((a, b) => {
+    const aValue = a[sortState.columnKey]
+    const bValue = b[sortState.columnKey]
+
+    if (safeSortOrder === 'asc') {
+      return aValue > bValue ? 1 : -1
+    } else {
+      return aValue < bValue ? 1 : -1
+    }
+  })
+})
+
+const onChangeHiddenColumn = (columns: VTTableColumn[]) => {
+  updateHiddenColumns(columns)
+}
+
+const onSort = ({
+  columnKey,
+  sortOrder
+}: {
+  columnKey: string,
+  sortOrder: 'asc' | 'desc' | null
+}) => {
+  const safeSortOrder = sortOrder || 'desc'
+
+  sortState.columnKey = columnKey
+  sortState.sortOrder = sortOrder
+
+  data.paginate.order.field = columnKey
+  data.paginate.order.direction = safeSortOrder
+
+  if (props.method.toLowerCase() === 'post') {
+    getData()
+  } else {
+    data.displayedData = [...data.displayedData].sort((a, b) => {
+      const aValue = a[columnKey]
+      const bValue = b[columnKey]
+
+      if (sortOrder === 'desc') {
+        return aValue < bValue ? 1 : -1
+      } else {
+        return aValue > bValue ? 1 : -1
+      }
+    })
+  }
+}
+
+provide('sort', onSort)
+provide('hiddenColumn', { updateHiddenColumns, tableProps: { refresh: updateHiddenColumns, columns: props.columns, tableName: props.tableName } })
+provide('hiddenColumnx', { tableProps: { bordered: props.bordered, columns: headerColumns.value } })
+
+defineExpose({
+  refresh,
+  setDataSource
+})
 </script>
+
 <style scoped>
 .custom-scrollbar::-webkit-scrollbar {
   height: 8px;
