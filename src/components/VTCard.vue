@@ -8,11 +8,11 @@
     ]"
   >
     <div class="p-5">
-      <div v-if="$slots.rightSide" class="mb-8 flex justify-between">
+      <div class="mb-8 flex justify-between">
         <h1 v-if="title" class="uppercase text-xl font-semibold text-gray-600 dark:text-gray-200">
           {{ title }}
         </h1>
-        <slot name="rightSide" />
+        <slot v-if="$slots.rightSide" name="rightSide" />
       </div>
       <slot />
     </div>
