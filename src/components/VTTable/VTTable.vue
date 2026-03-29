@@ -184,12 +184,8 @@ export default {
       url,
       method,
       showPaginate,
-      showCount,
-      showSearch,
       tableName,
       bordered,
-      striped,
-      hovered
     } = toRefs(props);
 
     const data = reactive({

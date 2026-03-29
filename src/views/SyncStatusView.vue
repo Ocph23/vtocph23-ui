@@ -216,32 +216,7 @@ interface VTSyncStatusProps {
         </pre>
 
         <VTPageTitle :size="'sm'" title="Usage Example" subtitle="Complete Example"></VTPageTitle>
-        <pre class="bg-gray-100 p-3 rounded overflow-x-auto">
-            <code>&lt;template&gt;
-    &lt;VTCard title="Data Sync Status"&gt;
-        &lt;table&gt;
-            &lt;tr v-for="item in items" :key="item.id"&gt;
-                &lt;td&gt;{{ item.name }}&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;VTSyncStatus 
-                        :column="item.synced ? 'sudah sync' : 'belum sync'" 
-                        :date="item.lastSyncDate" 
-                    /&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/VTCard&gt;
-&lt;/template&gt;
-
-&lt;script setup lang="ts"&gt;
-import VTSyncStatus from '@/components/VTSyncStatus.vue';
-
-const items = [
-    { id: 1, name: 'Data 1', synced: true, lastSyncDate: '2024-03-29 10:30:00' },
-    { id: 2, name: 'Data 2', synced: false, lastSyncDate: '-' }
-];
-&lt;/script&gt;</code>
-        </pre>
+        <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code v-text="usageExampleCode"></code></pre>
 
     </MainLayout>
 </template>
@@ -251,6 +226,31 @@ import VTSyncStatus from '@/components/VTSyncStatus.vue';
 import VTCard from '@/components/VTCard.vue';
 import VTPageTitle from '@/components/VTPageTitle.vue';
 import MainLayout from './MainLayout.vue';
+
+const usageExampleCode = `<template>
+    <VTCard title="Data Sync Status">
+        <table>
+            <tr v-for="item in items" :key="item.id">
+                <td>{{ item.name }}</td>
+                <td>
+                    <VTSyncStatus 
+                        :column="item.synced ? 'sudah sync' : 'belum sync'" 
+                        :date="item.lastSyncDate" 
+                    />
+                </td>
+            </tr>
+        </table>
+    </VTCard>
+</template>
+
+<script setup lang="ts">
+import VTSyncStatus from '@/components/VTSyncStatus.vue';
+
+const items = [
+    { id: 1, name: 'Data 1', synced: true, lastSyncDate: '2024-03-29 10:30:00' },
+    { id: 2, name: 'Data 2', synced: false, lastSyncDate: '-' }
+];
+<\/script>`;
 </script>
 
 <style lang="scss" scoped></style>
