@@ -154,7 +154,7 @@ interface VTModalProps {
         </VTModal>
 
         <!-- Size Modal -->
-        <VTModal v-if="showSizeModal" :size="currentSize" @close="showSizeModal = false">
+        <VTModal v-if="showSizeModal" :size="'md'" @close="showSizeModal = false">
             <template #header>
                 <h3 class="text-xl font-semibold">{{ currentSize.toUpperCase() }} Modal</h3>
             </template>
@@ -164,7 +164,7 @@ interface VTModalProps {
         </VTModal>
 
         <!-- Position Modal -->
-        <VTModal v-if="showPositionModal" :position="currentPosition" @close="showPositionModal = false" :size="'md'">
+        <VTModal v-if="showPositionModal" :position="'center'" @close="showPositionModal = false" :size="'md'">
             <template #header>
                 <h3 class="text-xl font-semibold">{{ currentPosition.replace('-', ' ').toUpperCase() }} Modal</h3>
             </template>

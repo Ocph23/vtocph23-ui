@@ -90,7 +90,7 @@ const fetchData = async () => {
 };</code>
         </pre>
         <div class="my-5">
-            <VTButton color="indigo" @click="simulateDataFetch">Simulate Data Fetch</VTButton>
+            <VTButton color="blue" @click="simulateDataFetch">Simulate Data Fetch</VTButton>
         </div>
 
         <VTPageTitle :size="'sm'" title="Multiple Operations" subtitle="Progress for Multiple Sequential Operations"></VTPageTitle>

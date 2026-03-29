@@ -217,8 +217,7 @@ interface VTSyncStatusProps {
 
         <VTPageTitle :size="'sm'" title="Usage Example" subtitle="Complete Example"></VTPageTitle>
         <pre class="bg-gray-100 p-3 rounded overflow-x-auto">
-            <code>
-&lt;template&gt;
+            <code>&lt;template&gt;
     &lt;VTCard title="Data Sync Status"&gt;
         &lt;table&gt;
             &lt;tr v-for="item in items" :key="item.id"&gt;

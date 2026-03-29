@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(move *)",
+      "Bash(npx *)"
+    ]
+  },
+  "$version": 3
+}

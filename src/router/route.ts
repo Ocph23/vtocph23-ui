@@ -38,7 +38,7 @@ const route = [
   {
     path: '/tooltip',
     name: 'tooltip',
-    component: () => import('../views/ToolTipView.vue'),
+    component: () => import('../views/TooltipView.vue'),
   },
   // Card
   {

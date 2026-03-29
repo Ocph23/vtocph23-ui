@@ -33,8 +33,7 @@
 
         <VTPageTitle :size="'sm'" title="With Dynamic Content" subtitle="Wrap Text with Reactive Data"></VTPageTitle>
         <pre class="bg-gray-100 p-3 rounded overflow-x-auto">
-            <code>
-&lt;VTWrapText&gt;{{ longDynamicText }}&lt;/VTWrapText&gt;</code>
+            <code>&lt;VTWrapText&gt;{{ dynamicText }}&lt;/VTWrapText&gt;</code>
         </pre>
         <div class="my-5">
             <div class="border border-gray-300 p-4 rounded">
@@ -81,11 +80,10 @@
 
         <VTPageTitle :size="'sm'" title="Usage Example" subtitle="Complete Example"></VTPageTitle>
         <pre class="bg-gray-100 p-3 rounded overflow-x-auto">
-            <code>
-&lt;template&gt;
+            <code>&lt;template&gt;
     &lt;VTCard title="Article"&gt;
         &lt;VTWrapText&gt;
-            {{ article.content }}
+            {{ dynamicText }}
         &lt;/VTWrapText&gt;
     &lt;/VTCard&gt;
 &lt;/template&gt;
@@ -94,10 +92,7 @@
 import VTWrapText from '@/components/VTWrapText.vue';
 import VTCard from '@/components/VTCard.vue';
 
-const article = {
-    title: 'My Article',
-    content: 'Long article content here...'
-};
+const dynamicText = 'Long article content here...';
 &lt;/script&gt;</code>
         </pre>
 

@@ -166,7 +166,7 @@
         <div class="my-5">
             <VTToolTip :disabled="true">
                 <template #trigger>
-                    <VTButton color="gray">Disabled Tooltip</VTButton>
+                    <VTButton color="alternative">Disabled Tooltip</VTButton>
                 </template>
                 <template #content>This tooltip is disabled</template>
             </VTToolTip>

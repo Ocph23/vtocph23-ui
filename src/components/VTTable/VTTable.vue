@@ -11,7 +11,9 @@
         <Search @search="onSearch" v-if="showSearch" />
       </div>
     </div>
-    <FwbProgress :progress="progress" size="sm" v-if="isBussy" class="mb-[.05rem]" />
+    <div class="mb-4" v-if="isBussy">
+      <FwbProgress :progress="progress" size="sm" class="mb-[.05rem]" />
+    </div>
     <div
       :class="['border-[1.5px] border-gray-400 overflow-x-auto custom-scrollbar', isLargeScreen ? 'rounded-lg' : 'rounded-[.80rem]']">
       <table
@@ -105,6 +107,7 @@ import VTButton from '../VTButton/VTButton.vue'
 import IconEllipsis from '@/icons/IconEllipsis.vue'
 import VTPagination from './VTPagination.vue'
 
+// @ts-ignore - FwbProgress has private types in flowbite-vue
 export default {
   name: 'TableComponent',
   components: {
