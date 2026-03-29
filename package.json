@@ -1,6 +1,6 @@
 {
   "name": "@ocph23/vtocph23",
-  "version": "0.3.27",
+  "version": "0.3.23",
   "main": "./dist/vtocph23.umd.js",
   "module": "./dist/vtocph23.umd.cjs",
   "type": "module",
@@ -37,7 +37,7 @@
     "typecheck": "vue-tsc --noEmit",
     "prepublishOnly": "npm run build:production",
     "release": "npm run build && changeset publish",
-    "deploy": "npm version patch && npm publish"
+    "deploy": "npm version patch && npm publish --access public"
   },
   "peerDependencies": {
     "tailwindcss": "^3",
