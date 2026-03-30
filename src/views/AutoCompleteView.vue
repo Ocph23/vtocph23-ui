@@ -1,6 +1,5 @@
 <template>
     <MainLayout>
-        <VTIconCalendar></VTIconCalendar>
         <VTAutocomplete :multiple="true" label="Autocomplete" :sources="data" v-model="model"></VTAutocomplete>
 
         <pre>
@@ -14,13 +13,11 @@
 import VTAutocomplete from '@/components/VTAutocomplete.vue';
 import MainLayout from './MainLayout.vue';
 import { ref } from 'vue';
-import { CalendarIcon } from '@heroicons/vue/20/solid';
-import { VTIconCalendar } from '..';
 
 const data = [
-    { name: 'Option 1', value: 'option1' },
-    { name: 'Option 2', value: 'option2' },
-    { name: 'Option 3', value: 'option3' },
+    { name: 'Option 1', value: 1 },
+    { name: 'Option 2', value: 2 },
+    { name: 'Option 3', value: 3 },
 ];
 
 

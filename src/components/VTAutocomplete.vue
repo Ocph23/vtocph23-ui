@@ -1,67 +1,37 @@
 <template>
-  <label class="block mb-2 text-sm font-medium" :class="[labelClasses]"
-    >{{ props.label }}<span v-if="validation" class="text-rose-500 text-lg">*</span></label
-  >
+  <label class="block mb-2 text-sm font-medium" :class="[labelClasses]">{{ props.label }}<span v-if="validation"
+      class="text-rose-500 text-lg">*</span></label>
   <div class="relative mb-2" ref="dropdown">
     <div class="relative">
       <!-- Selected items chips for multi-select -->
-      <div v-if="props.multiple && selectedItems.length > 0" class="flex flex-wrap gap-1 p-2 min-h-[42px]">
-        <span
-          v-for="item in selectedItems"
-          :key="item.value"
-          class="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded-md text-sm"
-        >
-          {{ item.name }}
-          <svg
-            @click="removeItem(item)"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 352 512"
-            fill="currentColor"
-            class="w-3 h-3 cursor-pointer hover:text-red-600"
-          >
-            <path
-              d="M242.72 256l100.07-100.07c12.5-12.5 12.5-32.76 0-45.26l-22.63-22.63c-12.5-12.5-32.76-12.5-45.26 0L175.12 188.1 75.05 88.03c-12.5-12.5-32.76-12.5-45.26 0L7.16 110.66c-12.5 12.5-12.5 32.76 0 45.26L107.23 256 7.16 356.07c-12.5 12.5-12.5 32.76 0 45.26l22.63 22.63c12.5 12.5 32.76 12.5 45.26 0L175.12 323.9l100.07 100.07c12.5 12.5 32.76 12.5 45.26 0l22.63-22.63c12.5-12.5 12.5-32.76 0-45.26L242.72 256z"
-            />
-          </svg>
-        </span>
-      </div>
-      <input
-        :class="[inputClasses]"
-        :style="{ 'padding-right': props.multiple && selectedItems.length > 0 ? '3rem' : '3.5rem' }"
-        type="text"
-        v-model="internalQuery"
-        @input="filterList"
-        @focus="onFocus"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="off"
-        spellcheck="false"
-        :placeholder="props.multiple && selectedItems.length > 0 ? '' : props.placeholder"
-        @keyup.esc="closeFocus"
-      />
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        @click="onClickDropdown"
-        fill="currentColor"
-        class="w-3 h-3 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-      >
+
+      <input :class="[inputClasses]"
+        :style="{ 'padding-right': props.multiple && selectedItems.length > 0 ? '3rem' : '3.5rem' }" type="text"
+        v-model="internalQuery" @input="filterList" @focus="onFocus" autocomplete="off" autocorrect="off"
+        autocapitalize="off" spellcheck="false"
+        :placeholder="props.multiple && selectedItems.length > 0 ? '' : props.placeholder" @keyup.esc="closeFocus" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" @click="onClickDropdown" fill="currentColor"
+        class="w-3 h-3 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
         <path
-          d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
-        />
+          d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
       </svg>
-      <svg
-        v-if="internalQuery || (props.multiple && selectedItems.length > 0)"
-        @click="clearSelection"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 352 512"
-        fill="currentColor"
-        class="w-3 h-3 absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-      >
+      <svg v-if="internalQuery || (props.multiple && selectedItems.length > 0)" @click="clearSelection"
+        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" fill="currentColor"
+        class="w-3 h-3 absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer">
         <path
-          d="M242.72 256l100.07-100.07c12.5-12.5 12.5-32.76 0-45.26l-22.63-22.63c-12.5-12.5-32.76-12.5-45.26 0L175.12 188.1 75.05 88.03c-12.5-12.5-32.76-12.5-45.26 0L7.16 110.66c-12.5 12.5-12.5 32.76 0 45.26L107.23 256 7.16 356.07c-12.5 12.5-12.5 32.76 0 45.26l22.63 22.63c12.5 12.5 32.76 12.5 45.26 0L175.12 323.9l100.07 100.07c12.5 12.5 32.76 12.5 45.26 0l22.63-22.63c12.5-12.5 12.5-32.76 0-45.26L242.72 256z"
-        />
+          d="M242.72 256l100.07-100.07c12.5-12.5 12.5-32.76 0-45.26l-22.63-22.63c-12.5-12.5-32.76-12.5-45.26 0L175.12 188.1 75.05 88.03c-12.5-12.5-32.76-12.5-45.26 0L7.16 110.66c-12.5 12.5-12.5 32.76 0 45.26L107.23 256 7.16 356.07c-12.5 12.5-12.5 32.76 0 45.26l22.63 22.63c12.5 12.5 32.76 12.5 45.26 0L175.12 323.9l100.07 100.07c12.5 12.5 32.76 12.5 45.26 0l22.63-22.63c12.5-12.5 12.5-32.76 0-45.26L242.72 256z" />
       </svg>
+    </div>
+    <div v-if="props.multiple && selectedItems.length > 0" class="flex flex-wrap gap-1 p-2 min-h-[42px]">
+      <span v-for="item in selectedItems" :key="item.value"
+        class="inline-flex items-center gap-1 px-2 py-1 bg-green-50 border-green-500 border text-green-800 dark:bg-green-900 dark:text-green-100 rounded-2xl text-sm">
+        {{ item.name }}
+        <svg @click="removeItem(item)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" fill="currentColor"
+          class="w-3 h-3 cursor-pointer hover:text-red-600">
+          <path
+            d="M242.72 256l100.07-100.07c12.5-12.5 12.5-32.76 0-45.26l-22.63-22.63c-12.5-12.5-32.76-12.5-45.26 0L175.12 188.1 75.05 88.03c-12.5-12.5-32.76-12.5-45.26 0L7.16 110.66c-12.5 12.5-12.5 32.76 0 45.26L107.23 256 7.16 356.07c-12.5 12.5-12.5 32.76 0 45.26l22.63 22.63c12.5 12.5 32.76 12.5 45.26 0L175.12 323.9l100.07 100.07c12.5 12.5 32.76 12.5 45.26 0l22.63-22.63c12.5-12.5 12.5-32.76 0-45.26L242.72 256z" />
+        </svg>
+      </span>
     </div>
     <p v-if="props.validation && props.validation.$error">
       <FwbInputErrorMessage :messages="props.validation.$errors" />
@@ -69,29 +39,16 @@
     <p v-if="props.validation && props.errors">
       <slot name="validationMessage" />
     </p>
-    <ul
-      v-if="showOptions && filteredList.length"
-      @keyup.esc="closeFocus"
-      class="absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]"
-    >
-      <li
-        v-for="item in filteredList.slice(0, 10)"
-        :key="item.value"
-        @click="selectItem(item)"
-        class="p-2 block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:text-gray-200 cursor-pointer font-medium timbul"
-      >
+    <ul v-if="showOptions && filteredList.length" @keyup.esc="closeFocus"
+      class="absolute p-2 origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-gray-100 dark:bg-gray-600 ring-1 ring-black ring-opacity-5 z-[1000]">
+      <li v-for="item in filteredList.slice(0, 10)" :key="item.value" @click="selectItem(item)"
+        class="p-2 block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-400 dark:hover:text-gray-200 cursor-pointer font-medium timbul">
         <div class="flex items-center justify-between">
           <span>{{ item.name }}</span>
-          <svg
-            v-if="props.multiple && isItemSelected(item)"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            fill="currentColor"
-            class="w-4 h-4 text-green-600"
-          >
+          <svg v-if="props.multiple && isItemSelected(item)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+            fill="currentColor" class="w-4 h-4 text-green-600">
             <path
-              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
-            />
+              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
           </svg>
         </div>
       </li>
